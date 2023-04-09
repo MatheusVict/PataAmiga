@@ -1,6 +1,6 @@
 
 <h1>Pata Amiga</h1>
-<h2> Nosso aplicativo é voltado para adoção de Pets, você pode doar e também adotar um Pet, de maneira rápida e simples.</h2>
+<h4> Nosso aplicativo é voltado para adoção de Pets, você pode doar e também adotar um Pet, de maneira rápida e simples.</h4>
 
 <h1>Membros</h1>
 <ol>
