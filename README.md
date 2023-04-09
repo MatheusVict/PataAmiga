@@ -5,7 +5,7 @@
 <h1><li>Membros</li></h1>
 <ol>
     <li><strong>Matheus Victor</strong> - Matrícula: 01515370</li>
-    <li><strong>Everton Figueirôa</strong> - Matrícula: 01177129</li>
+    <li> <strong>Everton Figueirôa</strong> - Matrícula: 01177129 </li>
 </ol>
 <h1>
     <li>
