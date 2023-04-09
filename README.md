@@ -63,3 +63,31 @@
 </h1>
 <h4>Requisitos funcionais</h4>
 
+<h1>JSON</h1>
+<h2>EndPoints da API</h2>
+
+```Post```
+
+
+<h4>/User</h4>
+
+
+```ruby
+{
+    "id": Long,
+    "email": String,
+    "name": String,
+    "password": String,
+    "birth": String,
+    "location": String,
+    "profileAvatarUrl": String,
+    "phone": String
+    "socialMidia": {
+        "instagram?": String,
+        "facebook?": String,
+    }
+}
+```
+
+<h4>Return:</h4>
+
