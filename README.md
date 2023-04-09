@@ -1,5 +1,5 @@
 
-<h1>PataFriend</h1>
+<h1>PataAmiga</h1>
 <h2> Nosso aplicativo é voltado para adoção de Pets, você pode doar e também adotar um Pet, de maneira rápida e simples.</h2>
 
 <h1>Membros</h1>
