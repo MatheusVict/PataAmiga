@@ -6,6 +6,7 @@
 <ol>
     <li><strong>Matheus Victor</strong> - Matrícula: 01515370</li>
     <li> <strong>Everton Figueirôa</strong> - Matrícula: 01177129 </li>
+    <li> <strong>Vinicius Rodrigues Barbosa Das Chagas</strong> - Matrícula: 01519574 </li>
 </ol>
 <h1>
     <li>
