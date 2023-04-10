@@ -7,6 +7,7 @@
     <li><strong>Matheus Victor</strong> - Matrícula: 01515370</li>
     <li> <strong>Everton Figueirôa</strong> - Matrícula: 01177129 </li>
     <li> <strong>Vinicius Rodrigues Barbosa Das Chagas</strong> - Matrícula: 01519574 </li>
+    <li><strong>Daniel Ferreira</strong> - Matrícula: 01504933</li>
 </ol>
 <h1>
     <li>
@@ -26,7 +27,7 @@
  <h2>Splash Screen / Tela de Inicial</h2>
 
 ![Splash screen](https://user-images.githubusercontent.com/110360268/230796788-f2f86f81-df93-43ad-819a-5c46e2eddc07.png)
-![Login](https://user-images.githubusercontent.com/110360268/230796904-b636fa93-ec2e-4018-818f-dd78130c6da8.png)
+![Login](https://user-images.githubusercontent.com/110125979/231011350-12821bc3-b14c-4eed-825c-0a3981404d99.png)
 
 <h2> Tela de Login </h2>
 
