@@ -8,6 +8,7 @@
     <li> <strong>Everton Figueirôa</strong> - Matrícula: 01177129 </li>
     <li> <strong>Vinicius Rodrigues Barbosa Das Chagas</strong> - Matrícula: 01519574 </li>
     <li><strong>Daniel Ferreira</strong> - Matrícula: 01504933</li>
+    <li><strong>Vicente Alfredo Ferreira</strong> - Matrícula: 01540471</li>
 </ol>
 <h1>
     <li>
