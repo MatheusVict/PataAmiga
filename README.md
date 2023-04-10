@@ -66,10 +66,103 @@
 <h1>JSON</h1>
 <h2>EndPoints da API</h2>
 
+<h3>Login</h3>
+
 ```Post```
 
 
-<h4>/User</h4>
+<h4>/user/login</h4>
+<strong>Body:</strong>
+
+```ruby
+{
+    "email": String,
+    "password": String,
+}
+```
+
+<h4>
+    Return:
+</h4>
+
+```status code:``` 200 ```ok```
+
+```
+{
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ"
+}
+```
+
+<h3>CreateUser</h3>
+
+```Post```
+
+
+<h4>/user</h4>
+<strong>Body:</strong>
+
+```ruby
+{
+    "id": Long,
+    "email": String,
+    "name": String,
+    "password": String,
+    "birth": String,
+    "location": String,
+    "profileAvatarUrl": String,
+    "phone": String,
+    "socialMidia?": {
+        "instagram?": String,
+        "facebook?": String,
+    }
+}
+```
+
+<h4>
+    Return:
+</h4>
+
+```status code:``` 201 ```created```
+
+
+<h3>getOneUser</h3>
+
+```get```
+
+
+<h4>/user/{idUser}</h4>
+
+
+<h4>
+    Return:
+</h4>
+
+
+```ruby
+{
+    "id": Long,
+    "email": String,
+    "name": String,
+    "birth": String,
+    "location": String,
+    "profileAvatarUrl": String,
+    "phone": String,
+    "socialMidia?": {
+        "instagram?": String,
+        "facebook?": String,
+    }
+}
+```
+
+```status code:``` 200 ```OK```
+
+
+<h3>updateUser</h3>
+
+```patch```
+
+<h4>/user/{idUser}</h4>
+<strong>Body:</strong>
 
 
 ```ruby
@@ -81,13 +174,16 @@
     "birth": String,
     "location": String,
     "profileAvatarUrl": String,
-    "phone": String
-    "socialMidia": {
+    "phone": String,
+    "socialMidia?": {
         "instagram?": String,
         "facebook?": String,
     }
 }
 ```
 
-<h4>Return:</h4>
+<h4>
+    Return:
+</h4>
 
+```status code:``` 200 ```OK```
