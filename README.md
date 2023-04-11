@@ -50,7 +50,7 @@
 <img height="500em" src="https://user-images.githubusercontent.com/110360268/230796914-961c90e2-a794-49ab-be20-c751ebcf3de4.png"/>
 </div>
 
-<h2 align="center"> Tela de Cadastro </h2>
+<h2 align="center"> Telas de Cadastro </h2>
 
 <div align="center">
 <img height="500em" src="https://user-images.githubusercontent.com/110360268/230796936-23effc62-40d8-4821-9421-5535bce4011f.png"/>
@@ -61,29 +61,39 @@
 
 <div align="center">
 <img height="500em" src="https://user-images.githubusercontent.com/110360268/230796921-e5cc867f-c303-40c4-adb3-9ae6152d5c34.png"/>
+<p>Filtro de animais:</p>
+<img height="400em" src="https://user-images.githubusercontent.com/110360268/230796975-239850e8-f55c-4b30-af8d-f115c44a8327.png"/>
 </div>
 
-<h2 align="center"> Perfil de outro usuário </h2>
-<div align="center">
-<img height="500em" src="https://user-images.githubusercontent.com/124841543/231034804-1a6fdb96-09dd-42f7-802f-991fe3bee89c.png"/>
-</div>
-
-<h2 align="center"> Tela do Perfil do Pet </h2>
+<h2 align="center"> Tela do Perfil de Pet </h2>
 
 <div align="center">
 <img height="1000em" src="https://user-images.githubusercontent.com/110360268/230796985-a42275ac-a115-4c96-8812-93425a31ead6.png"/>
-</div>
-
-<h2 align="center"> Filtro </h2>
-
-<div align="center">
-<img height="500em" src="https://user-images.githubusercontent.com/110360268/230796975-239850e8-f55c-4b30-af8d-f115c44a8327.png"/>
+<p>Como adotar um pet:</p>
+<img height="250em" src="https://user-images.githubusercontent.com/110125979/231047402-2cf28127-ef89-4cd1-b39c-7f49f48b793e.png"/>
 </div>
 
 <h2 align="center"> Tela para adicionar um Pet para adoção </h2>
 
 <div align="center">
 <img height="1000em" src="https://user-images.githubusercontent.com/110360268/230796980-c09d1af2-dddf-4ecc-8f5a-19319cfe402c.png"/>
+<p>Mensagem de confirmação:</p>
+<img height="70em" src="https://user-images.githubusercontent.com/110125979/231047998-5649955b-9f04-4222-9924-89f74784c2eb.png"/>
+</div>
+
+<h2 align="center"> Tela de Perfil do Usuário </h2>
+
+<div align="center">
+<img height="500em" src="https://user-images.githubusercontent.com/110125979/231048408-27c1bc3f-1fc6-4fed-8f7d-6e4417014a8c.png"/>
+<img height="500em" src="https://user-images.githubusercontent.com/110125979/231048423-1526bbe0-7272-490a-b850-47db3a174423.png"/>
+<p>Confirmação de Sign Out:</p>
+<img height="100em" src="https://user-images.githubusercontent.com/110125979/231048603-3699ed47-19ec-42ef-87b0-28002f199c5b.png"/>
+</div>
+
+<h2 align="center"> Perfil de outro usuário </h2>
+
+<div align="center">
+<img height="500em" src="https://user-images.githubusercontent.com/124841543/231034804-1a6fdb96-09dd-42f7-802f-991fe3bee89c.png"/>
 </div>
 
 <h2 align="center"> Tela para edição do Perfil do Usuário </h2>
