@@ -239,9 +239,6 @@ Descrição: Gerentes e funcionários podem monitorar o desempenho da equipe de 
 
 Se o sistema não possuir informações suficientes para gerar um painel de visualização, o sistema deve exibir uma mensagem informando sobre a falta de dados e sugerir ações para que os usuários possam atualizar as informações faltantes.
 
-Daivid Leal
- — 
-Ontem às 18:34
 Caso de Uso 10: Atribuir Controle Financeiro
 Descrição: Gerentes e administradores podem verificar custos e despesas relacionados ao projeto, previamente definindo um orçamento e acompanhando as despesas finais.
 
