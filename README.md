@@ -284,13 +284,14 @@ Se o gerente/administrador cometer algum erro durante a atribuição de controle
 
 ```status code:``` 200 ```ok```
 
-```
+```ruby
 {
     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ"
 }
 ```
 
-<h3>CreateUser</h3>
+<h3>CreateOneUser</h3>
+<h4>Método responsável por criar um usuário no banco</h4>
 
 ```Post```
 
@@ -300,18 +301,31 @@ Se o gerente/administrador cometer algum erro durante a atribuição de controle
 
 ```ruby
 {
-    "id": Long,
     "email": String,
     "name": String,
     "password": String,
     "birth": String,
     "location": String,
-    "profileAvatarUrl": String,
     "phone": String,
-    "socialMidia?": {
-        "instagram?": String,
-        "facebook?": String,
-    }
+    "instagram": String,
+    "facebook": String,
+    "whatsapp": String
+}
+```
+
+**Os campos instagram, facebook e whatsapp são opcionais. Ex.:**
+
+```ruby
+{
+    "email": String,
+    "name": String,
+    "password": String,
+    "birth": String,
+    "location": String,
+    "phone": String,
+    "instagram": String,
+    "facebook": String,
+    "whatsapp": String
 }
 ```
 
@@ -323,6 +337,7 @@ Se o gerente/administrador cometer algum erro durante a atribuição de controle
 
 
 <h3>getOneUser</h3>
+<h4>Método responsável por listar um usuário no banco com base no ID</h4>
 
 ```get```
 
@@ -337,17 +352,18 @@ Se o gerente/administrador cometer algum erro durante a atribuição de controle
 
 ```ruby
 {
-    "id": Long,
+    "id": Int,
     "email": String,
     "name": String,
+    "password": String,
     "birth": String,
     "location": String,
     "profileAvatarUrl": String,
+    "banner": String,
     "phone": String,
-    "socialMidia?": {
-        "instagram?": String,
-        "facebook?": String,
-    },
+    "instagram": String,
+    "facebook": String,
+    "whatsapp": String,
     "postsPets": []
 }
 ```
@@ -356,6 +372,7 @@ Se o gerente/administrador cometer algum erro durante a atribuição de controle
 
 
 <h3>updateUser</h3>
+<h4>Método responsável por atualizar um usuário no banco</h4>
 
 ```patch```
 
@@ -365,18 +382,17 @@ Se o gerente/administrador cometer algum erro durante a atribuição de controle
 
 ```ruby
 {
-    "id": Long,
     "email": String,
     "name": String,
     "password": String,
     "birth": String,
     "location": String,
     "profileAvatarUrl": String,
+    "banner": String,
     "phone": String,
-    "socialMidia?": {
-        "instagram?": String,
-        "facebook?": String,
-    }
+    "instagram": String,
+    "facebook": String,
+    "whatsapp": String
 }
 ```
 
@@ -386,33 +402,69 @@ Se o gerente/administrador cometer algum erro durante a atribuição de controle
 
 ```status code:``` 200 ```OK```
 
+<h2><strong>Images EndPoints</strong></h2>
 
-<h2><strong>postPet's EndPoint</strong></h2>
+<h3>addImageForUser</h3>
+<h4>Método responsável por definir a imagem de perfil e o banner do usuário</h4>
 
-
-<h3>createdPost</h3>
+**OBS:** é obrigatorio enviar ao menos um atributo. Após esse método ser executado o objeto usuário vai ser atualizado com a url da foto
 
 ```post```
 
-<h4>/post</h4>
+<h4>/userImages</h4>
 <strong>Body:</strong>
-
 
 ```ruby
 {
-    "id": Long,
+    "profileAvatarUrl": File,
+    "banner": File
+}
+```
+
+<h4>
+    Return:
+</h4>
+
+```status code:``` 200 ```ok```
+
+
+<h3>addImageForUser</h3>
+<h4>Método responsável por buscar a imagem de perfil e/ou banner do usuário</h4>
+
+**Ao ser acessado exibi as imagens que o usuário possui**
+
+```get```
+
+<h4>/userImages/?profilepic={idPicProfile}&banner={idBannerProfile}</h4>
+
+<h4>
+    Return:
+</h4>
+
+```status code:``` 200 ```ok```
+
+<h2><strong>postPet's EndPoint</strong></h2>
+
+<h3>createdPost</h3>
+<h4>Método responsável por criar um post de adoção</h4>
+
+```post```
+
+<h4>/postsPets</h4>
+<strong>Body:</strong>
+
+```ruby
+{
     "specie": String,
     "name": String,
     "race": String,
     "sex": String,
     "age": String,
-    "vitalInfos?": {
-        "isVaccinated": Boolean,
-        "isCastrated": Boolean,
-        "isPedigree": Boolean,
-        "especialCares": Boolean,
-        "isDewormed": Boolean
-    },
+    "isVaccinated": Boolean,
+    "isCastrated": Boolean,
+    "isPedigree": Boolean,
+    "especialCares": Boolean,
+    "isDewormed": Boolean,
     "size": String,
     "weight": String,
     "About": String,
@@ -428,11 +480,12 @@ Se o gerente/administrador cometer algum erro durante a atribuição de controle
 ```status code:``` 201 ```created```
 
 
-<h3>getOneForId</h3>
+<h3>getOnePostForId</h3>
+<h4>Método responsável por listar um post com base no seu ID</h4>
 
 ```get```
 
-<h4>/post/{postId}</h4>
+<h4>/postsPets/{postId}</h4>
 <strong>Body:</strong>
 
 <h4>
@@ -442,19 +495,17 @@ Se o gerente/administrador cometer algum erro durante a atribuição de controle
 
 ```ruby
 {
-    "id": Long,
+    "id": Int,
     "specie": String,
     "name": String,
     "race": String,
     "sex": String,
     "age": String,
-    "vitalInfos?": {
-        "isVaccinated": Boolean,
-        "isCastrated": Boolean,
-        "isPedigree": Boolean,
-        "especialCares": Boolean,
-        "isDewormed": Boolean
-    },
+    "isVaccinated": Boolean,
+    "isCastrated": Boolean,
+    "isPedigree": Boolean,
+    "especialCares": Boolean,
+    "isDewormed": Boolean,
     "size": String,
     "weight": String,
     "About": String,
@@ -466,12 +517,12 @@ Se o gerente/administrador cometer algum erro durante a atribuição de controle
 ```status code:``` 200 ```ok```
 
 
-<h3>getAll</h3>
+<h3>getAllPosts</h3>
+<h4>Método responsável por listar todos os posts</h4>
 
 ```get```
 
-<h4>/post</h4>
-<strong>Body:</strong>
+<h4>/postsPets</h4>
 
 <h4>
     Return:
@@ -487,13 +538,11 @@ Se o gerente/administrador cometer algum erro durante a atribuição de controle
         "race": String,
         "sex": String,
         "age": String,
-        "vitalInfos?": {
-            "isVaccinated": Boolean,
-            "isCastrated": Boolean,
-            "isPedigree": Boolean,
-            "especialCares": Boolean,
-            "isDewormed": Boolean
-        },
+        "isVaccinated": Boolean,
+        "isCastrated": Boolean,
+        "isPedigree": Boolean,
+        "especialCares": Boolean,
+        "isDewormed": Boolean,
         "size": String,
         "weight": String,
         "About": String,
@@ -507,13 +556,11 @@ Se o gerente/administrador cometer algum erro durante a atribuição de controle
         "race": String,
         "sex": String,
         "age": String,
-        "vitalInfos?": {
-            "isVaccinated": Boolean,
-            "isCastrated": Boolean,
-            "isPedigree": Boolean,
-            "especialCares": Boolean,
-            "isDewormed": Boolean
-        },
+        "isVaccinated": Boolean,
+        "isCastrated": Boolean,
+        "isPedigree": Boolean,
+        "especialCares": Boolean,
+        "isDewormed": Boolean,
         "size": String,
         "weight": String,
         "About": String,
@@ -528,31 +575,30 @@ Se o gerente/administrador cometer algum erro durante a atribuição de controle
 
 
 <h3>updatePost</h3>
+<h4>Método responsável por atualizar os posts no banco</h4>
 
 ```patch```
 
-<h4>/post/{postId}</h4>
+<h4>/postsPets/{postId}</h4>
 <strong>Body:</strong>
 
 
 ```ruby
 {
-    "id": Long,
     "specie": String,
     "name": String,
     "race": String,
     "sex": String,
     "age": String,
-    "vitalInfos?": {
-        "isVaccinated": Boolean,
-        "isCastrated": Boolean,
-        "isPedigree": Boolean,
-        "especialCares": Boolean,
-        "isDewormed": Boolean
-    },
+    "isVaccinated": Boolean,
+    "isCastrated": Boolean,
+    "isPedigree": Boolean,
+    "especialCares": Boolean,
+    "isDewormed": Boolean,
     "size": String,
     "weight": String,
     "About": String,
+    "OwnerId": String,
     "isAdopted": Boolean
 }
 ```
@@ -564,10 +610,11 @@ Se o gerente/administrador cometer algum erro durante a atribuição de controle
 ```status code:``` 200 ```ok```
 
 <h3>deletePost</h3>
+<h4>Método responsável por apagar um post no banco</h4>
 
 ```delete```
 
-<h4>/post/{postId}</h4>
+<h4>/postsPets/{postId}</h4>
 <strong>Body:</strong>
 
 <h4>
