@@ -109,7 +109,11 @@
 </h1>
 <h4>Requisitos funcionais</h4>
 
-<h1>JSON</h1>
+<h1>
+    <li>
+        JSON
+    </li>
+</h1>
 <h2>EndPoints da API</h2>
 <h3><strong>User's EndPoint</strong></h3>
 
