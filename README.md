@@ -109,6 +109,156 @@
 </h1>
 <h4>Requisitos funcionais</h4>
 
+Caso de Uso 1: Cadastro de Gerente
+Descrição: Um administrador pode adicionar um novo gerente ao sistema. O administrador deve fornecer informações básicas, como nome, e-mail e senha, para criar uma nova conta de usuário. Além disso, o administrador deve ser capaz de inserir informações adicionais do perfil do Gerente, tais como salário, equipe responsável e projeto.
+
+Fluxo Principal:
+
+O administrador acessa o sistema e seleciona a funcionalidade de Cadastro de Gerente.
+O sistema exibe o formulário de registro.
+O administrador preenche as informações básicas do gerente (nome, e-mail, senha) e detalhes adicionais (salário, equipe, projeto).
+O sistema salva as informações e exibe uma mensagem de confirmação.
+
+Fluxo Alternativo:
+
+Se o administrador cometer algum erro durante o preenchimento do formulário, o sistema deve exibir uma mensagem de erro e permitir que o administrador corrija as informações incorretas.
+
+------------------------------------- 
+Caso de Uso 2: Cadastro de Funcionário
+Descrição: Um Gerente pode adicionar um novo funcionário ao sistema, incluindo informações como nome, e-mail, cargo e salário.
+
+Fluxo Principal:
+
+O gerente acessa o sistema e seleciona a funcionalidade de Cadastro de Funcionário.
+O sistema exibe o formulário de registro.
+O gerente preenche as informações básicas do funcionário, incluindo nome, e-mail, cargo e salário.
+O gerente inclui detalhes adicionais, como a equipe e o projeto a que o funcionário está associado.
+O sistema valida as informações inseridas pelo gerente e salva as informações do novo funcionário.
+O sistema exibe uma mensagem de confirmação para o gerente.
+
+Fluxo Alternativo:
+
+Se o gerente cometer algum erro durante o preenchimento do formulário, o sistema deve exibir uma mensagem de erro indicando qual campo contém informações incorretas. O gerente pode então corrigir as informações incorretas antes de submeter o formulário novamente.
+------------------------------------- 
+Caso de Uso 3: Alocar Tarefa
+Descrição: Um gerente pode alocar uma tarefa para um funcionário existente no sistema, definindo prioridades, prazos e monitorando o progresso da tarefa ao longo do tempo.
+
+Fluxo Principal:
+• O gerente acessa o sistema e seleciona a funcionalidade de Alocar Tarefa.
+• O sistema exibe uma lista de funcionários existentes com suas respectivas informações de contato.
+• O gerente seleciona o funcionário alocado para a tarefa e pode visualizar o histórico de tarefas atribuídas a esse funcionário.
+• O sistema exibe o formulário de criação de tarefa, incluindo campos para descrição, prazo, prioridade e anexos.
+• O gerente preenche as informações necessárias e salva a tarefa.
+• O sistema adiciona a tarefa ao perfil do funcionário selecionado, atualiza a lista de tarefas pendentes e envia uma notificação para o funcionário designado.
+• O gerente pode monitorar o progresso da tarefa e fazer alterações se necessário.
+
+Fluxo Alternativo:
+
+Se o gerente cometer algum erro durante o preenchimento do formulário, o sistema deve exibir uma mensagem de erro e permitir que o gerente corrija as informações incorretas antes de salvar a tarefa.
+------------------------------------- 
+Caso de Uso 4: Concluir Tarefa
+Descrição: Um funcionário pode marcar uma tarefa atribuída como concluída após finalizar suas atividades, atualizando o registro de progresso da tarefa e adicionando notas extras e anexos.
+
+Fluxo Principal:
+• O funcionário acessa o sistema e seleciona a tarefa a ser concluída na sua lista de tarefas pendentes.
+• O sistema exibe a página de detalhes da tarefa, incluindo informações como descrição, prazo, prioridade e anexos.
+• O funcionário marca a tarefa como concluída e adiciona quaisquer notas ou anexos adicionais relevantes.
+• O sistema atualiza o registro da tarefa e exibe uma mensagem de confirmação.
+• O sistema também envia uma notificação para o gerente responsável pela tarefa informando que ela foi concluída.
+
+Fluxo Alternativo:
+
+Se o funcionário cometer algum erro durante a conclusão da tarefa, o sistema deve exibir uma mensagem de erro e permitir que o funcionário corrija as informações incorretas antes de marcar a tarefa como concluída. Além disso, o sistema deve notificar o gerente responsável pela tarefa sobre o erro ocorrido.
+------------------------------------- 
+Caso de Uso 5: Listar Tarefas
+Descrição: Um funcionário ou gerente pode listar todas as tarefas alocadas a eles, filtrando por projeto, equipe ou funcionário. A lista deve fornecer informações relevantes, como as tarefas ativas e concluídas, a data de vencimento e o status de progresso.
+
+Fluxo Principal:
+• O funcionário/gerente acessa o sistema e seleciona a funcionalidade Listar Tarefas.
+• O sistema exibe a lista de tarefas, permitindo que o usuário filtre por projeto, equipe ou funcionário.
+• O sistema apresenta as informações sobre as tarefas, como o título da tarefa, a descrição, a data de vencimento, a prioridade e o status de progresso.
+• O usuário pode clicar em uma tarefa para visualizar mais detalhes, como as notas e anexos associados, e atualizar o status de progresso.
+
+Fluxo Alternativo:
+
+Se o sistema não encontrar nenhuma tarefa correspondente aos filtros utilizados, deve exibir uma mensagem de informação.
+Se houver um grande número de tarefas, o sistema deve permitir que o usuário filtre a lista por status de progresso, prioridade ou data de vencimento para facilitar a visualização e gerenciamento das tarefas.
+------------------------------------- 
+Caso de Uso 6: Atualizar Tarefa
+Descrição: Um gerente ou funcionário pode atualizar as informações de uma tarefa existente, incluindo a descrição, prazo, prioridade e outros detalhes relacionados à tarefa.
+
+Fluxo Principal:
+• O gerente/funcionário acessa o sistema e seleciona a funcionalidade de Listar Tarefas.
+• O sistema exibe a lista de tarefas e o usuário seleciona a tarefa a ser atualizada.
+• O sistema exibe a página de detalhes da tarefa, permitindo que o usuário visualize todas as informações relacionadas à tarefa.
+• O gerente/funcionário edita as informações necessárias e salva as alterações.
+• O sistema atualiza o registro da tarefa e exibe uma mensagem de confirmação.
+
+Fluxo Alternativo:
+
+Se o usuário cometer algum erro durante a edição da tarefa, o sistema deve exibir uma mensagem de erro e permitir que o usuário corrija as informações incorretas.
+------------------------------------- 
+Caso de Uso 7: Adicionar Comentário na Tarefa
+Descrição: Um funcionário ou gerente pode adicionar comentários em uma tarefa específica, fornecendo informações extras e esclarecimentos para a equipe de projetos.
+
+Fluxo Principal:
+• O funcionário/gerente acessa o sistema e seleciona a tarefa desejada.
+• O sistema exibe a página de detalhes da tarefa.
+• O funcionário/gerente adiciona um comentário na seção de comentários e salva as alterações.
+• O sistema salva o comentário e atualiza a página da tarefa exibindo a mensagem de confirmação.
+
+Fluxo Alternativo:
+
+Se o funcionário/gerente cometer algum erro durante a adição do comentário, o sistema deve exibir uma mensagem de erro e permitir que o usuário corrija as informações incorretas.
+Se um outro usuário adicionar um comentário na mesma tarefa enquanto o funcionário/gerente estiver adicionando um comentário, o sistema deve notificar o usuário e permitir que ele visualize o novo comentário antes de salvar seu próprio comentário.
+------------------------------------- 
+Caso de uso 8: Anexar Arquivos na Tarefa
+Descrição: Um funcionário ou gerente pode fazer upload de anexos a uma tarefa específica, fornecendo documentações, gráficos e arquivos de acompanhamento.
+
+Fluxo Principal:
+• O funcionário/gerente acessa o sistema e seleciona a tarefa desejada.
+• O sistema exibe a página de detalhes da tarefa.
+• O funcionário/gerente escolhe um ou vários arquivos para fazer upload e salva as alterações.
+• O sistema valida os arquivos escolhidos e exibe uma mensagem de confirmação ao usuário.
+• O sistema salva o(s) anexo(s) e atualiza a página da tarefa exibindo a mensagem de confirmação.
+
+Fluxo Alternativo:
+
+Se o funcionário/gerente cometer algum erro durante o upload do(s) arquivo(s), o sistema deve exibir uma mensagem de erro informando o usuário do problema e permitir que o mesmo corrija as informações incorretas ou escolha um(s) arquivo(s) válido(s).
+------------------------------------- 
+Caso de Uso 9: Monitorar Desempenho de Tarefa
+Descrição: Gerentes e funcionários podem monitorar o desempenho da equipe de projetos, observando a evolução do progresso das tarefas e o cumprimento das metas previamente definidas.
+
+Fluxo Principal:
+• O gerente/funcionário acessa o sistema e seleciona a funcionalidade Monitorar Desempenho de Tarefa.
+• O sistema exibe um painel de visualização com o progresso das tarefas, incluindo gráficos e tabelas com informações atualizadas em tempo real.
+• O gerente/funcionário pode filtrar as informações por projeto, departamento ou responsável, e ver as informações de tarefas específicas, como prazo de entrega, status atual e nível de prioridade.
+• O sistema envia alertas por e-mail ou mensagem no sistema caso haja atrasos ou problemas com alguma tarefa.
+
+Fluxo Alternativo:
+
+Se o sistema não possuir informações suficientes para gerar um painel de visualização, o sistema deve exibir uma mensagem informando sobre a falta de dados e sugerir ações para que os usuários possam atualizar as informações faltantes.
+------------------------------------- 
+Daivid Leal
+ — 
+Ontem às 18:34
+Caso de Uso 10: Atribuir Controle Financeiro
+Descrição: Gerentes e administradores podem verificar custos e despesas relacionados ao projeto, previamente definindo um orçamento e acompanhando as despesas finais.
+
+Fluxo Principal:
+• O gerente/administrador acessa o sistema e seleciona a funcionalidade de Atribuir Controle Financeiro.
+• O sistema exibe o formulário de orçamento do projeto.
+• O gerente/administrador insere o valor do orçamento inicial e detalhes adicionais sobre os custos do projeto, incluindo as fontes de financiamento e o cronograma de pagamentos.
+• O sistema armazena as informações do orçamento e exibe o total de despesas para o projeto, permitindo que o gerente/administrador monitore os custos.
+• O gerente/administrador pode adicionar novas despesas ao sistema, fornecendo informações detalhadas sobre cada item, incluindo o nome, descrição, data e valor.
+• O sistema atualiza o total de despesas e exibe alertas quando os gastos estiverem muito altos ou ultrapassando o orçamento definido.
+• O gerente/administrador pode exportar os dados financeiros para uma planilha ou documento de texto, facilitando a análise das informações.
+• O sistema exibe uma mensagem de confirmação para o gerente/administrador.
+
+Fluxo Alternativo:
+
+Se o gerente/administrador cometer algum erro durante a atribuição de controle financeiro, o sistema deve exibir uma mensagem de erro e permitir que o usuário corrija as informações incorretas. Além disso, o sistema deve fornecer informações claras sobre como corrigir o erro e prevenir erros futuros.
+
 <h1>
     <li>
         JSON
