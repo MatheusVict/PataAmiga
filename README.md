@@ -63,6 +63,11 @@
 <img height="500em" src="https://user-images.githubusercontent.com/110360268/230796921-e5cc867f-c303-40c4-adb3-9ae6152d5c34.png"/>
 </div>
 
+<h2 align="center"> Perfil de outro usuário </h2>
+<div align="center">
+<img height="500em" src="https://user-images.githubusercontent.com/124841543/231034804-1a6fdb96-09dd-42f7-802f-991fe3bee89c.png"/>
+</div>
+
 <h2 align="center"> Tela do Perfil do Pet </h2>
 
 <div align="center">
