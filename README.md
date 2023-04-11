@@ -268,7 +268,7 @@
         "isDewormed": Boolean
     },
     "size": String,
-    "weigth": String,
+    "weight": String,
     "About": String,
     "OwnerId": String,
     "isAdopted": Boolean
@@ -310,7 +310,7 @@
         "isDewormed": Boolean
     },
     "size": String,
-    "weigth": String,
+    "weight": String,
     "About": String,
     "OwnerId": String,
     "isAdopted": Boolean
@@ -349,7 +349,7 @@
             "isDewormed": Boolean
         },
         "size": String,
-        "weigth": String,
+        "weight": String,
         "About": String,
         "OwnerId": String,
         "isAdopted": Boolean
@@ -369,7 +369,7 @@
             "isDewormed": Boolean
         },
         "size": String,
-        "weigth": String,
+        "weight": String,
         "About": String,
         "OwnerId": String,
         "isAdopted": Boolean
@@ -405,7 +405,7 @@
         "isDewormed": Boolean
     },
     "size": String,
-    "weigth": String,
+    "weight": String,
     "About": String,
     "isAdopted": Boolean
 }
