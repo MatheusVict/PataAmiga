@@ -407,11 +407,12 @@ Se o gerente/administrador cometer algum erro durante a atribuição de controle
 <h3>addImageForUser</h3>
 <h4>Método responsável por definir a imagem de perfil e o banner do usuário</h4>
 
-**OBS:** é obrigatorio enviar ao menos um atributo. Após esse método ser executado o objeto usuário vai ser atualizado com a url da foto
+**OBS:** é obrigatorio enviar ao menos um atributo. Após esse método ser executado o objeto usuário vai ser atualizado com a url da foto.
+O método concatena o id do usuário e a extensão da imagem
 
 ```post```
 
-<h4>/userImages</h4>
+<h4>/userImages/{idUser}</h4>
 <strong>Body:</strong>
 
 ```ruby
