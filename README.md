@@ -17,7 +17,9 @@
 </h1>
 
 <div align="center">
-<img src="https://user-images.githubusercontent.com/103688000/230797530-6a6b8f8e-ffc8-4d51-b574-df38fa23bcd1.png"/>
+
+![image](https://user-images.githubusercontent.com/103688000/231453932-c11a80d1-4bfe-44ed-b179-e25931c2a9c0.png)
+
 </div>
     
 <h1>
@@ -27,7 +29,9 @@
 </h1>
 
 <div align="center">
-<img src="https://user-images.githubusercontent.com/103688000/230797836-92af65aa-b379-44d9-a904-c02d6f17bdf7.png"/>
+
+![image](https://user-images.githubusercontent.com/103688000/231453932-c11a80d1-4bfe-44ed-b179-e25931c2a9c0.png)
+
 </div>
     
 <h1><li>Imagens do Projeto - Figma</li></h1>
