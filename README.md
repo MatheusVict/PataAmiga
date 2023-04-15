@@ -310,6 +310,8 @@ Se o gerente/administrador cometer algum erro durante a atribuição de controle
     "password": String,
     "birth": String,
     "location": String,
+    "profileAvatarUrl": String,
+    "banner": String,
     "phone": String,
     "instagram": String,
     "facebook": String,
@@ -326,6 +328,8 @@ Se o gerente/administrador cometer algum erro durante a atribuição de controle
     "password": String,
     "birth": String,
     "location": String,
+    "profileAvatarUrl": String,
+    "banner": String,
     "phone": String,
     "instagram": String,
     "facebook": String,
@@ -406,47 +410,6 @@ Se o gerente/administrador cometer algum erro durante a atribuição de controle
 
 ```status code:``` 200 ```OK```
 
-<h2><strong>Images EndPoints</strong></h2>
-
-<h3>addImageForUser</h3>
-<h4>Método responsável por definir a imagem de perfil e o banner do usuário</h4>
-
-**OBS:** é obrigatorio enviar ao menos um atributo. Após esse método ser executado o objeto usuário vai ser atualizado com a url da foto.
-O método concatena o id do usuário e a extensão da imagem
-
-```post```
-
-<h4>/userImages/{idUser}</h4>
-<strong>Body:</strong>
-
-```ruby
-{
-    "profileAvatarUrl": File,
-    "banner": File
-}
-```
-
-<h4>
-    Return:
-</h4>
-
-```status code:``` 200 ```ok```
-
-
-<h3>addImageForUser</h3>
-<h4>Método responsável por buscar a imagem de perfil e/ou banner do usuário</h4>
-
-**Ao ser acessado exibi as imagens que o usuário possui**
-
-```get```
-
-<h4>/userImages/?profilepic={idPicProfile}&banner={idBannerProfile}</h4>
-
-<h4>
-    Return:
-</h4>
-
-```status code:``` 200 ```ok```
 
 <h2><strong>postPet's EndPoint</strong></h2>
 
