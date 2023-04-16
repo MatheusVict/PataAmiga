@@ -161,7 +161,7 @@ Um usuário deve ser capaz de favoritar um animal do feed no sistema, adicionand
 
 <h4>Fluxo Principal:</h4>
 <ul>
-    <li>O usuário acessa o sistema e seleciona o coração no poste do animal.</li>
+    <li>O usuário acessa o sistema e seleciona o coração no post do animal.</li>
     <li>O sistema troca a cor do coração de branco para vermelho e adiciona o animal na lista do usuário.</li>
     <li>O usuário deve ter acesso a abas de favoritos onde vai está listado todos os animais já favoritos.</li>
     <li>O usuário deve ter acesso a desfavoritar se o mesmo desejar, assim retirando o animal da aba favoritos.</li>
@@ -184,13 +184,11 @@ escolhido. O sistema deve permitir ordenar os animais filtrados por mais recente
     </li>
     <li>O sistema apresenta os animais que correspondem aos critérios escolhidos no filtro.</li>
     <li>O usuário pode clicar em um animal para visualizar mais detalhes, como nome, espécie, raça, sexo, idade, peso,
-        se é
-        castrado, se é vacinado, se é vermifugado, sé precisa de cuidado especiais e descrição.</li>
+        se é castrado, se é vacinado, se é vermifugado, sé precisa de cuidado especiais e descrição.</li>
 </ul>
 <h4>Fluxo Alternativo:</h4>
 Se o sistema não encontrar nenhum animal correspondente aos filtros utilizados, deve exibir uma mensagem de
-informação.
-Se houver um grande número de animais, o sistema deve exibir os animais em modo cascata com limite por página de 20
+informação. Se houver um grande número de animais, o sistema deve exibir os animais em modo cascata com limite por página de 20
 animais.
 
 <h3> Caso de Uso 5: Listar animais no feed </h3>
@@ -206,9 +204,7 @@ Após estar autenticado e entrar no aplicativo, o usuário verá uma lista com t
 </ul>
 <h4>Fluxo Alternativo:</h4>
 Se o usuário não tiver conexão com a internet ou, houver alguma falha no servidor, o sistema deve notificá-lo sobre
-o
-ocorrido, igualmente caso não haja nenhum animal disponível para adoção.
-
+o ocorrido, igualmente caso não haja nenhum animal disponível para adoção.
 
 <h3> Caso de Uso 6: Exibir cada Post de animal(individualmente) </h3>
 
@@ -236,8 +232,7 @@ animal
     <li>O sistema exibe a página de detalhes do animal.</li>
     <li>O usuário vai clicar no botão de adotar!</li>
     <li>O sistema vai abrir uma caixa de mensagem com as opções de e-mail, telefone, whatsapp, instagram e facebook.
-        Com
-        informações adicionais dentro das opções contendo os dados de cada canal do doador.</li>
+        Com informações adicionais dentro das opções contendo os dados de cada canal do doador.</li>
 </ul>
 <h4>Fluxo Alternativo:</h4>
 Se o usuário não conseguir acessar o botão adotar o sistema deve apresentar uma mensagem de erro com o motivo. Ex.:
@@ -257,7 +252,7 @@ Um usuário pode realizar a atualização de informações do post
     </li>
 </ul>
 <h4>Fluxo Alternativo:</h4>
-Se o usuário colocar informações inválidas no post o sistema deve informá-lo o'que está errado.
+Se o usuário colocar informações inválidas no post o sistema deve informá-lo o que está errado.
 
 
 <h3> Caso de Uso 9: O post pode ser apagado pelo dono </h3>
@@ -320,24 +315,23 @@ Um usuário pode acessar seu perfil e ver todos os seus posts
 
 <h4>Fluxo Alternativo:</h4>
 Se o usuário não possuir nenhum post deve ser exibido uma mensagem de que não há posts e um botão que redireciona
-para a
-página de criação de posts.
+para a página de criação de posts.
 
 
 <h3> Caso de Uso 13: O usuário sair do app </h3>
 
 <h4>Descrição:</h4>
-Um usuário pode fechar o app pelo próprio aplicativo
+Um usuário pode fechar o aplicativo pelo próprio aplicativo
 
 <h4>Fluxo Principal:</h4>
 <ul>
-    <li>O aperta voltar duas vezes no menu inicial.</li>
-    <li>O sistema exibe uma caixa de mensagem perguntando se o usuário quer sair do app.</li>
-    <li>A clicar em sair o app fecha corretamente.</li>
+    <li>Ao aperta voltar duas vezes no menu inicial.</li>
+    <li>O sistema exibe uma caixa de mensagem perguntando se o usuário quer sair do aplicativo.</li>
+    <li>Ao clicar em sair o aplicativo fecha corretamente.</li>
 </ul>
 <h4>Fluxo Alternativo:</h4>
 
-Se o usuário escolher não fechar o app ficará aberto.
+Se o usuário escolher não fechar o aplicativo ficará aberto.
 
 <h1>
     <li>
