@@ -452,7 +452,8 @@ Se o usuário escolher não fechar o app ficará aberto.
     "instagram": String,
     "facebook": String,
     "whatsapp": String,
-    "postsPets": []
+    "postsPets": [],
+    "likedPets": []
 }
 ```
 
@@ -480,7 +481,9 @@ Se o usuário escolher não fechar o app ficará aberto.
     "phone": String,
     "instagram": String,
     "facebook": String,
-    "whatsapp": String
+    "whatsapp": String,
+    "postsPets": [],
+    "likedPets": []
 }
 ```
 
@@ -670,3 +673,16 @@ Se o usuário escolher não fechar o app ficará aberto.
 </h4>
 
 ```status code:``` 204 ```No Content```
+
+<h3>toLikePost</h3>
+<h4>Método responsável por adicionar os post aos curtidos</h4>
+
+```post```
+
+<h4>/likedPost/{postId}/{userId}</h4>
+
+<h4>
+    Return:
+</h4>
+
+```status code:``` 200```OK`
