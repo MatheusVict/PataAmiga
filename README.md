@@ -88,8 +88,8 @@
 <h2 align="center"> Tela de Perfil do Usuário </h2>
 
 <div align="center">
-<img height="500em" src="https://user-images.githubusercontent.com/110125979/231048408-27c1bc3f-1fc6-4fed-8f7d-6e4417014a8c.png"/>
-<img height="500em" src="https://user-images.githubusercontent.com/110125979/231048423-1526bbe0-7272-490a-b850-47db3a174423.png"/>
+<img height="500em" src="https://user-images.githubusercontent.com/124841543/232339435-a9c66294-f776-4c96-9ba4-be770c56b124.png"/>
+<img height="500em" src="https://user-images.githubusercontent.com/124841543/232339476-f61ed082-46bb-4a6c-a21b-830ace26ada9.png"/>
 <p>Confirmação de Sign Out:</p>
 <img height="100em" src="https://user-images.githubusercontent.com/110125979/231048603-3699ed47-19ec-42ef-87b0-28002f199c5b.png"/>
 </div>
