@@ -339,6 +339,9 @@ Se o usuário escolher não fechar o aplicativo ficará aberto.
     </li>
 </h1>
 <h2>EndPoints da API</h2>
+
+**OBS:** Todas as rotas possuiem o prefixo ```/api```
+
 <h3><strong>User's EndPoint</strong></h3>
 
 <h3>Login</h3>
