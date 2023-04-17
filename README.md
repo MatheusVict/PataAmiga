@@ -663,7 +663,6 @@ Se o usuário escolher não fechar o aplicativo ficará aberto.
 ```delete```
 
 <h4>/postsPets/{postId}</h4>
-<strong>Body:</strong>
 
 <h4>
     Return:
