@@ -405,9 +405,9 @@ Se o usuário escolher não fechar o aplicativo ficará aberto.
     "profileAvatarUrl": String,
     "banner": String,
     "phone": String,
-    "instagram": String,
-    "facebook": String,
-    "whatsapp": String
+    "instagram": null,
+    "facebook": null,
+    "whatsapp": null
 }
 ```
 
@@ -679,4 +679,4 @@ Se o usuário escolher não fechar o aplicativo ficará aberto.
     Return:
 </h4>
 
-```status code:``` 200```OK`
+```status code:``` 200 ```OK```
