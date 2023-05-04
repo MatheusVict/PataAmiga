@@ -8,4 +8,5 @@
     <string name="radioInput">Lembrar-se de mim</string>
     <string name="forgetPassword">ESQUECEU SUA SENHA?</string>
     <string name="descriptionImg">app background?</string>
+    <string name="inputEmailError">Preencha o campo</string>
 </resources>
