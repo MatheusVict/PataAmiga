@@ -11,7 +11,7 @@
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="150dp"
         android:src="@drawable/application_name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -19,27 +19,28 @@
 
     <EditText
         android:id="@+id/editTextTextPersonName"
-        android:layout_width="wrap_content"
+        android:layout_width="250dp"
         android:layout_height="50dp"
-        android:textColor="@color/black"
-        android:layout_marginTop="150dp"
-        android:ems="10"
-        android:textAlignment="center"
-        android:hint="@string/emailInnput"
-        android:inputType="textPersonName"
+        android:layout_marginTop="100dp"
+        android:padding="12dp"
         android:background="@drawable/edittext_bg"
+        android:ems="10"
+        android:hint="@string/emailInput"
+        android:inputType="textPersonName"
+        android:textAlignment="center"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <EditText
         android:id="@+id/editTextTextPassword"
-        android:layout_width="wrap_content"
+        android:layout_width="250dp"
         android:layout_height="50dp"
         android:layout_marginTop="10dp"
         android:background="@drawable/edittext_bg"
         android:ems="10"
-        android:hint="@string/passwordInnput"
+        android:hint="@string/passwordInput"
         android:inputType="textPassword"
         android:textAlignment="center"
         android:textColor="@color/black"
@@ -53,19 +54,33 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:textColor="@color/white"
-        android:text="@string/radioInnput"
+        android:text="@string/radioInput"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextTextPassword" />
 
     <Button
         android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="150dp"
+        android:layout_height="64dp"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/button_rounded"
+        android:fontFamily="@font/bungee"
+        android:textColor="@color/yellow"
         android:text="@string/enter"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/radioButton" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/forgetPassword"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

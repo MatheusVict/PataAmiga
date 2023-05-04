@@ -3,9 +3,9 @@
     <string name="register">CADASTRE-SE</string>
     <string name="enter">ENTRAR</string>
     <string name="ask_account">JÁ POSSUI UMA CONTA?</string>
-    <string name="emailInnput">E-mail</string>
-    <string name="passwordInnput">Senha</string>
-    <string name="radioInnput">Lembrar-se de mim</string>
+    <string name="emailInput">E-mail</string>
+    <string name="passwordInput">Senha</string>
+    <string name="radioInput">Lembrar-se de mim</string>
     <string name="forgetPassword">ESQUECEU SUA SENHA?</string>
     <string name="descriptionImg">app background?</string>
 </resources>
