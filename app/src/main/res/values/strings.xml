@@ -1,3 +1,12 @@
 <resources>
-    <string name="app_name">pawFriend</string>
+    <string name="app_name">Pata amiga</string>
+    <string name="register">CADASTRE-SE</string>
+    <string name="enter">ENTRAR</string>
+    <string name="ask_account">JÁ POSSUI UMA CONTA?</string>
+    <string name="emailInput">E-mail</string>
+    <string name="passwordInput">Senha</string>
+    <string name="radioInput">Lembrar-se de mim</string>
+    <string name="forgetPassword">ESQUECEU SUA SENHA?</string>
+    <string name="descriptionImg">app background?</string>
+    <string name="inputEmailError">Preencha o campo</string>
 </resources>
