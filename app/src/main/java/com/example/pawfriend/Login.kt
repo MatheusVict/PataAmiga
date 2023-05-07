@@ -52,4 +52,4 @@ class Login : AppCompatActivity() {
         finish()
     }
 }
-//Toast.makeText(this, "Por favor, preencha todos os campos", Toast.LENGTH_SHORT).show()
+// Toast.makeText(this, "Por favor, preencha todos os campos", Toast.LENGTH_SHORT).show()
