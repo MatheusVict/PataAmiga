@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/menu_home"
+        android:enabled="true"
+        android:icon="@drawable/home_icon"
+        android:title="@string/home_icon_title" />
+
+    <item
+        android:id="@+id/menu_create_post"
+        android:enabled="true"
+        android:icon="@drawable/create_post_icon"
+        android:title="@string/create_post_icon_title" />
+
+    <item
+        android:id="@+id/menu_profile"
+        android:enabled="true"
+        android:icon="@drawable/profile_pic"
+        android:title="@string/profile_icon_title" />
+</menu>
