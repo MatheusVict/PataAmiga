@@ -12,6 +12,10 @@
     <string name="home_icon_title">Home</string>
     <string name="profile_icon_title">Criar post</string>
     <string name="create_post_icon_title">perfil</string>
+    <string name="register_one_button">CONTINUAR</string>
+    <string name="register_one_password">Crie uma senha</string>
+    <string name="register_one_password_confirm">Verifique a senha</string>
+    <string name="register_one_password_name">Seu nome completo</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -6,10 +6,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 
-class Register : AppCompatActivity() {
+class RegisterOrLogin : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_register)
+        setContentView(R.layout.activity_register_or_login)
 
         supportActionBar?.hide()
         window.statusBarColor = Color.parseColor("#0CBFDE")
@@ -18,6 +18,13 @@ class Register : AppCompatActivity() {
 
         loginButton.setOnClickListener {
             val intent = Intent(this, Login::class.java)
+            startActivity(intent)
+        }
+
+        val registerButton = findViewById<Button>(R.id.register_button)
+
+        registerButton.setOnClickListener {
+            val intent = Intent(this, RegisterOne::class.java)
             startActivity(intent)
         }
     }
