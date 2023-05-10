@@ -8,7 +8,9 @@
     <string name="radioInput">Lembrar-se de mim</string>
     <string name="forgetPassword">ESQUECEU SUA SENHA?</string>
     <string name="descriptionImg">app background?</string>
-    <string name="inputEmailError">Preencha o campo</string>
+    <string name="inputEmptyError">Preencha o campo</string>
+    <string name="inputPasswordError">As senhas não conferem</string>
+    <string name="toastErrorInputs">Preencha todos os campos corretamente</string>
     <string name="home_icon_title">Home</string>
     <string name="profile_icon_title">Criar post</string>
     <string name="create_post_icon_title">perfil</string>
