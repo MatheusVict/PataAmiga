@@ -4,6 +4,132 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/register_two_background"
     tools:context=".RegisterTwo">
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="120dp"
+        android:src="@drawable/application_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="87dp"
+        android:text="@string/registerTwoTextView"
+        android:textColor="@color/white"
+        android:inputType="phone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+
+    <EditText
+        android:id="@+id/phoneNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/edittext_bg"
+        android:hint="@string/registerTwoTextPhoneInput"
+        android:textColorHint="@color/black"
+        android:autofillHints="name"
+        android:drawableStart="@drawable/phone_icon"
+        android:drawablePadding="10dp"
+        android:textColor="@color/black"
+        android:inputType="phone"
+        android:ems="10"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+    <EditText
+        android:id="@+id/whatsappInput"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_marginTop="11dp"
+        android:background="@drawable/edittext_bg"
+        android:hint="@string/registerTwoTextWhatsappInput"
+        android:textColorHint="@color/black"
+        android:autofillHints="name"
+        android:drawableStart="@drawable/whatsapp_icon"
+        android:textColor="@color/black"
+        android:drawablePadding="10dp"
+        android:ems="10"
+        android:inputType="phone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/phoneNumber" />
+
+    <EditText
+        android:id="@+id/instagramInput"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_marginTop="11dp"
+        android:background="@drawable/edittext_bg"
+        android:textColor="@color/black"
+        android:hint="@string/registerTwoTextInstagramInput"
+        android:textColorHint="@color/black"
+        android:autofillHints="name"
+        android:drawableStart="@drawable/instgram_icon"
+        android:drawablePadding="10dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/whatsappInput" />
+
+    <EditText
+        android:id="@+id/editTextTextPersonName4"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_marginTop="11dp"
+        android:background="@drawable/edittext_bg"
+        android:hint="@string/registerTwoTextFaceBookInput"
+        android:textColorHint="@color/black"
+        android:autofillHints="name"
+        android:drawableStart="@drawable/facebook_icon"
+        android:drawablePadding="10dp"
+        android:textColor="@color/black"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/instagramInput" />
+
+    <EditText
+        android:id="@+id/facebookInput"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_marginTop="11dp"
+        android:background="@drawable/edittext_bg"
+        android:hint="endereço"
+        android:textColorHint="@color/black"
+        android:autofillHints="name"
+        android:drawableStart="@drawable/baseline_location_on_24"
+        android:drawablePadding="10dp"
+        android:textColor="@color/black"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName4" />
+
+    <Button
+        android:id="@+id/registerTwoButton"
+        android:layout_width="150dp"
+        android:layout_height="64dp"
+        android:fontFamily="@font/bungee"
+        android:text="@string/registerTwoButton"
+        android:textColor="@color/yellow"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/facebookInput" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

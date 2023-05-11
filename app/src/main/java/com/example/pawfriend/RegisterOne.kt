@@ -7,72 +7,81 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import com.example.pawfriend.databinding.ActivityHomeBinding
+import com.example.pawfriend.databinding.ActivityRegisterOneBinding
+import java.text.SimpleDateFormat
+import java.util.Date
+
 
 class RegisterOne : AppCompatActivity() {
+
+    private lateinit var binding: ActivityRegisterOneBinding
+    private lateinit var dateFormatter: SimpleDateFormat
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_register_one)
+        binding = ActivityRegisterOneBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         // ActionBar settings
         supportActionBar?.hide()
         window.statusBarColor = Color.parseColor("#0CBFDE")
 
-        // Getting XML in variables
-        val emailInput = findViewById<EditText>(R.id.registerEmail)
-        val password = findViewById<EditText>(R.id.passwordRegister)
-        val confirmPassword = findViewById<EditText>(R.id.confirmPassword)
-        val name = findViewById<EditText>(R.id.registerName)
-        val birthDate = findViewById<EditText>(R.id.birthDate)
-        val buttonLogin = findViewById<Button>(R.id.registerButtonContinue)
+        dateFormatter = SimpleDateFormat("dd/MM/yyyy")
+        val currentDate = Date()
+        binding.birthDate.setText(dateFormatter.format(currentDate))
+
+
         var errors = 0
 
         // Inputs validations
-        buttonLogin.setOnClickListener {
-            if (emailInput.text.toString().isEmpty()) {
-                emailInput.error = getString(R.string.inputEmptyError)
-                errors += 1
+        binding.registerButtonContinue.setOnClickListener {
+            if (binding.registerEmail.text.toString().isEmpty()) {
+                binding.registerEmail.error = getString(R.string.inputEmptyError)
+                errors ++
             } else {
-                emailInput.error = null
-                errors -= 1
+                binding.registerEmail.error = null
+                errors --
             }
-            if (name.text.toString().isEmpty()) {
-                name.error = getString(R.string.inputEmptyError)
-                errors += 1
+            if (binding.registerName.text.toString().isEmpty()) {
+                binding.registerName.error = getString(R.string.inputEmptyError)
+                errors ++
             } else {
-                name.error = null
-                errors -= 1
+                binding.registerName.error = null
+                errors --
             }
-            if (password.text.toString().isEmpty()) {
-                password.error = getString(R.string.inputEmptyError)
-                errors += 1
+            if (binding.passwordRegister.text.toString().isEmpty()) {
+                binding.passwordRegister.error = getString(R.string.inputEmptyError)
+                errors ++
             } else {
-                password.error = null
-                if (confirmPassword.text.toString() != password.text.toString()) {
-                    confirmPassword.error = getString(R.string.inputPasswordError)
-                    errors += 1
-                } else {
-                    errors -= 1
-                }
+                binding.passwordRegister.error = null
+                if (binding.confirmPassword.text.toString() != binding.passwordRegister.text.toString()) {
+                    binding.confirmPassword.error = getString(R.string.inputPasswordError)
+                    errors ++
+
+                } else errors --
+
             }
-            if (birthDate.text.toString().isEmpty()) {
-                birthDate.error = getString(R.string.inputEmptyError)
-                errors += 1
+            if (binding.birthDate.text.toString().isEmpty()) {
+                binding.birthDate.error = getString(R.string.inputEmptyError)
+                errors ++
             } else {
-                // TODO: minimun age validate
-                birthDate.error = null
-                errors -= 1
+                // TODO: age validation
+                binding.birthDate.error = null
+                errors --
             }
-            // TODO: connection and API validation 
+            // TODO: connection and API validation
             if (errors > 0) {
                 val text = getString(R.string.toastErrorInputs)
-                val duration = Toast.LENGTH_SHORT
-                val toast = Toast.makeText(applicationContext, text, duration)
-                toast.show()
+                Toast.makeText(applicationContext, text, Toast.LENGTH_SHORT).show()
             } else {
                 val intent = Intent(this, RegisterTwo::class.java)
+                intent.putExtra("emailUser", binding.registerEmail.text.toString())
+                intent.putExtra("passwordUser", binding.passwordRegister.text.toString())
+                intent.putExtra("nameUser", binding.registerName.text.toString())
+                intent.putExtra("birthUser", binding.birthDate.text.toString())
                 startActivity(intent)
             }
         }
-
     }
+
 }
