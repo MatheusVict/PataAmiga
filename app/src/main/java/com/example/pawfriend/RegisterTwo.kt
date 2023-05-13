@@ -28,10 +28,6 @@ class RegisterTwo : AppCompatActivity() {
 
         // TODO: add number regexx
 
-        /*fun isValidPhoneNumber(phoneNumber: String): Boolean {
-            val regex = "^\\(\\d{2}\\)\\s\\d{4}-\\d{4}\$".toRegex()
-            return regex.matches(phoneNumber)
-        }*/
 
         binding.registerTwoButton.setOnClickListener {
             if (binding.phoneNumber.text.toString().isNotEmpty() && binding.phoneNumber.text.toString().length == 11) {
@@ -51,12 +47,11 @@ class RegisterTwo : AppCompatActivity() {
                 erros ++
             }
             if(erros > 0) {
-                Toast.makeText(applicationContext, "preencja", Toast.LENGTH_LONG)
+                Toast.makeText(applicationContext, "preencja", Toast.LENGTH_LONG).show()
             } // TODO: API connection 
         }
 
 
     }
-
 
 }

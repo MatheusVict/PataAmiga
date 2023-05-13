@@ -82,7 +82,7 @@
         android:textAlignment="center"
         android:autofillHints="name"
         android:ems="10"
-        android:hint="@string/register_one_password_name"
+        android:hint="@string/register_one_name_input"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -99,22 +99,25 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/registerName" />
 
-    <EditText
+    <com.santalu.maskara.widget.MaskEditText
         android:id="@+id/birthDate"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:layout_marginTop="5dp"
         android:background="@drawable/edittext_bg"
         android:ems="10"
-        android:hint="DD/MM/AAAA*"
-        android:maxLength="10"
+        android:hint="@string/register_one_birth_input"
         android:inputType="number"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textColorHint="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:mask="__/__/____"
+        app:maskCharacter="_"
+        app:maskStyle="completable"
+        />
 
     <Button
         android:id="@+id/registerButtonContinue"

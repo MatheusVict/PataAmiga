@@ -107,7 +107,7 @@
         android:layout_height="50dp"
         android:layout_marginTop="11dp"
         android:background="@drawable/edittext_bg"
-        android:hint="endereço"
+        android:hint="endereço*"
         android:textColorHint="@color/black"
         android:autofillHints="name"
         android:drawableStart="@drawable/baseline_location_on_24"
