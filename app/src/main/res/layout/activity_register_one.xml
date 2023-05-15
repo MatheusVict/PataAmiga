@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/register_one_background"
+    tools:context=".RegisterOne">
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="106dp"
+        android:src="@drawable/application_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/descriptionImg"
+        />
+
+    <EditText
+        android:id="@+id/registerEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="55dp"
+        android:layout_marginTop="148dp"
+        android:background="@drawable/edittext_bg"
+        android:textColorHint="@color/black"
+        android:textColor="@color/black"
+        android:textAlignment="center"
+        android:autofillHints="emailAddress"
+        android:ems="10"
+        android:hint="@string/emailInput"
+        android:inputType="textEmailAddress"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+
+    <EditText
+        android:id="@+id/passwordRegister"
+        android:layout_width="wrap_content"
+        android:layout_height="55dp"
+        android:background="@drawable/edittext_bg"
+        android:textColorHint="@color/black"
+        android:layout_marginTop="11dp"
+        android:autofillHints="password"
+        android:ems="10"
+        android:textColor="@color/black"
+        android:textAlignment="center"
+        android:hint="@string/register_one_password"
+        android:inputType="textPassword"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/registerEmail" />
+
+    <EditText
+        android:id="@+id/confirmPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="55dp"
+        android:background="@drawable/edittext_bg"
+        android:textColorHint="@color/black"
+        android:layout_marginTop="11dp"
+        android:textColor="@color/black"
+        android:textAlignment="center"
+        android:autofillHints="password"
+        android:ems="10"
+        android:hint="@string/register_one_password_confirm"
+        android:inputType="textPassword"
+        android:selectAllOnFocus="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/passwordRegister" />
+
+    <EditText
+        android:id="@+id/registerName"
+        android:layout_width="wrap_content"
+        android:layout_height="55dp"
+        android:background="@drawable/edittext_bg"
+        android:textColorHint="@color/black"
+        android:layout_marginTop="11dp"
+        android:textColor="@color/black"
+        android:textAlignment="center"
+        android:autofillHints="name"
+        android:ems="10"
+        android:hint="@string/register_one_name_input"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/confirmPassword" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="Data de nascimento"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/registerName" />
+
+    <com.santalu.maskara.widget.MaskEditText
+        android:id="@+id/birthDate"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/edittext_bg"
+        android:ems="10"
+        android:hint="@string/register_one_birth_input"
+        android:inputType="number"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textColorHint="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:mask="__/__/____"
+        app:maskCharacter="_"
+        app:maskStyle="completable"
+        />
+
+    <Button
+        android:id="@+id/registerButtonContinue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/register_one_button"
+        android:background="@drawable/button_rounded"
+        android:fontFamily="@font/bungee"
+        android:textColor="@color/yellow"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/birthDate" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
