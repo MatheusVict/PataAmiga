@@ -11,6 +11,7 @@
     <string name="register_one_password_especial_wrong">A senha precisa ter pelo menos 1 caracter especial</string>
     <string name="register_one_name_length_wrong">O nome precisa ter ao menos 3 letras</string>
     <string name="register_one_birth_wrong">Preencha a data corretamente</string>
+    <string name="register_two_location_length">O endereço precisa ter pelo menos 5 caracteres</string>
 
     <!-- Buttons text -->
     <string name="register">CADASTRE-SE</string>

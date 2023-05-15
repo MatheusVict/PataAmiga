@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView3"
+    android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="87dp"
@@ -27,9 +27,10 @@
         android:inputType="phone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView3"
+        />
 
-    <EditText
+    <com.santalu.maskara.widget.MaskEditText
         android:id="@+id/phoneNumber"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
@@ -45,9 +46,13 @@
         android:ems="10"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        app:layout_constraintTop_toBottomOf="@+id/textView3"
+        app:mask="(__) _____-____"
+        app:maskCharacter="_"
+        app:maskStyle="completable"
+        />
 
-    <EditText
+    <com.santalu.maskara.widget.MaskEditText
         android:id="@+id/whatsappInput"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
@@ -63,7 +68,11 @@
         android:inputType="phone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/phoneNumber" />
+        app:layout_constraintTop_toBottomOf="@+id/phoneNumber"
+        app:mask="(__) _____-____"
+        app:maskCharacter="_"
+        app:maskStyle="completable"
+        />
 
     <EditText
         android:id="@+id/instagramInput"
@@ -84,7 +93,7 @@
         app:layout_constraintTop_toBottomOf="@+id/whatsappInput" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName4"
+        android:id="@+id/facebookInput"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:layout_marginTop="11dp"
@@ -102,7 +111,7 @@
         app:layout_constraintTop_toBottomOf="@+id/instagramInput" />
 
     <EditText
-        android:id="@+id/facebookInput"
+        android:id="@+id/locationInput"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:layout_marginTop="11dp"
@@ -117,7 +126,7 @@
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName4" />
+        app:layout_constraintTop_toBottomOf="@+id/facebookInput" />
 
     <Button
         android:id="@+id/registerTwoButton"
@@ -129,7 +138,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/facebookInput" />
+        app:layout_constraintTop_toBottomOf="@+id/locationInput" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
