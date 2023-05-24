@@ -3,12 +3,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/blue"
+    android:orientation="vertical"
+    android:background="@color/white"
     tools:context=".fragments.HomeFragment">
 
     <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:background="@drawable/top_menu_rounded"
+        android:gravity="center_horizontal"
+
+        />
+
+    <ImageView
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:text="Home" />
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/application_name"
+
+     />
+
 </FrameLayout>
