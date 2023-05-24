@@ -12,13 +12,19 @@
         android:theme="@style/Theme.PawFriend"
         tools:targetApi="31">
         <activity
+            android:name=".RegisterTwo"
+            android:exported="false" />
+        <activity
+            android:name=".RegisterOne"
+            android:exported="false" />
+        <activity
             android:name=".testActi"
             android:exported="false" />
         <activity
             android:name=".Login"
             android:exported="false" />
         <activity
-            android:name=".Register"
+            android:name=".RegisterOrLogin"
             android:exported="false" />
         <activity
             android:name=".Home"
