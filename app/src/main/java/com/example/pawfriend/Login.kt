@@ -1,5 +1,6 @@
 package com.example.pawfriend
 
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
@@ -22,7 +23,7 @@ class Login : AppCompatActivity() {
         supportActionBar?.hide()
         window.statusBarColor = Color.parseColor("#0CBFDE")
         emailFocusListener()
-        validPassword()
+        passwordFocusListener()
 
         binding.buttonLoginScreen.setOnClickListener { submitForm() }
     }
@@ -31,10 +32,18 @@ class Login : AppCompatActivity() {
         binding.emailInput.error = validEmail()
 
         val validEmail = binding.emailInput.error == null
+        val validPassword = binding.passwordInput.error == null
 
         val toastMessage: String = getString(R.string.toast_error_inputs)
 
-        if (validEmail) {
+        if (validEmail && validPassword) {
+            if (binding.radioPassword.isChecked) {
+                val sharedPreferences = this.getSharedPreferences("login_credentials", Context.MODE_PRIVATE)
+                val editor = sharedPreferences.edit()
+                editor.putString("email", binding.emailInput.text.toString())
+                editor.putString("password", binding.passwordInput.text.toString())
+                editor.apply()
+            }
             // TODO: Login API and validation
             val intent = Intent(this, Home::class.java)
             startActivity(intent)
