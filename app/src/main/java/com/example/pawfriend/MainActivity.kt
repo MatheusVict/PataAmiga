@@ -35,7 +35,6 @@ class MainActivity : AppCompatActivity() {
         val sharedPreferences = this.getSharedPreferences("login_credentials", Context.MODE_PRIVATE)
         val emailSaved: String? = sharedPreferences.getString("email", null)
         val passwordSaved: String? = sharedPreferences.getString("password", null)
-        Log.i("MYSHERED", "email: $emailSaved, pwd: $passwordSaved")
 
 
         // TODO: try connect
