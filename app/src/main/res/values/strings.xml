@@ -20,8 +20,8 @@
     <string name="registerTwoButton">Finalizar</string>
     <string name="register_one_button">CONTINUAR</string>
     <string name="home_icon_title">Home</string>
-    <string name="profile_icon_title">Criar post</string>
-    <string name="create_post_icon_title">perfil</string>
+    <string name="profile_icon_title">perfil</string>
+    <string name="create_post_icon_title">Criar post</string>
 
     <!-- TextViews -->
     <string name="ask_account">JÁ POSSUI UMA CONTA?</string>
