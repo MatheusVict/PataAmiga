@@ -25,7 +25,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/blue"
-        app:labelVisibilityMode="unlabeled"
+        app:labelVisibilityMode="selected"
         style="@style/Widget.App.BottomNavigationView"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
