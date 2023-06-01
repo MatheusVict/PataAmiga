@@ -51,4 +51,9 @@ dependencies {
 
     //Maskara - https://github.com/santalu/maskara
     implementation 'com.github.santalu:maskara:1.0.0'
+
+    // Retrofit - https://square.github.io/retrofit/
+    implementation 'com.google.code.gson:gson:2.8.9'
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
 }

@@ -1,0 +1,26 @@
+package com.example.pawfriend.apiJsons
+
+data class User (
+
+    val name: String = "",
+
+    val email: String = "",
+
+    var password: String = "",
+
+    val birth: String = "",
+
+    val location: String = "",
+
+    val profilePic: String = "",
+
+    val banner: String = "",
+
+    val phone: String = "",
+
+    val instagram: String? = "",
+
+    val facebook: String? = "",
+
+    val whatsapp: String? = "",
+    )
