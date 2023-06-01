@@ -90,7 +90,7 @@ class RegisterTwo : AppCompatActivity() {
 
 
     private fun createUser(user: User, callback: (Boolean) -> Unit) {
-        val retrofitClient = Service.getRetrofitInstance("http://192.168.0.107:8080")
+        val retrofitClient = Service.getRetrofitInstance("http://192.168.0.107:8080", context = this)
         val endpoint = retrofitClient.create(Endpoint::class.java)
 
         endpoint.createUser(user).enqueue(object : Callback<User> {

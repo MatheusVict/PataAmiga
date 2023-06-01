@@ -16,7 +16,7 @@
         tools:layout="@layout/fragment_create_post" />
     <fragment
         android:id="@+id/menu_profile"
-        android:name="com.example.pawfriend.fragments.profile"
+        android:name="com.example.pawfriend.fragments.ProfileFragments"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
 </navigation>

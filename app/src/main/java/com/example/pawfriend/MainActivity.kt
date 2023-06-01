@@ -68,7 +68,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun login(user: UserLogin, callback: (Boolean) -> Unit) {
-        val retrofitClient = Service.getRetrofitInstance("http://192.168.0.107:8080")
+        val retrofitClient = Service.getRetrofitInstance("http://192.168.0.107:8080", context = this)
         val endpoint = retrofitClient.create(Endpoint::class.java)
 
         endpoint.login(user).enqueue(object : Callback<Any> {

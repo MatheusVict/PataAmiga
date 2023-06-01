@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/white"
-    tools:context=".fragments.profile">
+    tools:context=".fragments.ProfileFragments">
 
     <TextView
         android:id="@+id/textView2"
@@ -18,6 +17,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
+        android:id="@+id/imageView8"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:src="@drawable/application_name"
@@ -26,5 +26,117 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/textView2" />
 
+    <ImageView
+        android:id="@+id/userBanner"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:scaleType="fitXY"
+        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        tools:layout_editor_absoluteX="-16dp"
+        tools:src="@tools:sample/backgrounds/scenic" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/userProfilePicCard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+
+        android:layout_marginTop="150dp"
+        app:cardCornerRadius="50dp"
+        app:layout_constraintBottom_toBottomOf="@+id/userBanner"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2">
+
+        <ImageView
+            android:id="@+id/userProfilePic"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/ic_launcher_background" />
+
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/userName"
+        android:layout_width="250dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="20dp"
+        android:text="userName"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="25sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.365"
+        app:layout_constraintStart_toEndOf="@+id/userProfilePicCard"
+        app:layout_constraintTop_toBottomOf="@+id/userBanner" />
+
+    <TextView
+        android:id="@+id/userLocation"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:textColor="@color/black"
+        android:text="Recife, Pernambuco"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/userProfilePicCard"
+        app:layout_constraintTop_toBottomOf="@+id/userName" />
+
+    <ImageView
+        android:id="@+id/lineBottom"
+        android:layout_width="150dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="70dp"
+        android:background="?actionBarDivider"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/userLocation" />
+
+    <ImageView
+        android:id="@+id/editButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/edit_icon"
+        app:layout_constraintBottom_toTopOf="@+id/lineBottom"
+        app:layout_constraintStart_toStartOf="@+id/userLocation"
+        app:layout_constraintTop_toBottomOf="@+id/userLocation" />
+
+    <ImageView
+        android:id="@+id/logoutButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="100dp"
+        android:src="@drawable/logout_icon"
+        app:layout_constraintBottom_toTopOf="@+id/lineBottom"
+        app:layout_constraintEnd_toEndOf="@+id/userLocation"
+        app:layout_constraintStart_toEndOf="@+id/editButton"
+        app:layout_constraintTop_toBottomOf="@+id/userLocation" />
+
+    <Button
+        android:id="@+id/yourPetsButton"
+        style="@style/BlueRoundButton"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/rounded_button_profile"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="@string/your_pets_button"
+        android:fontFamily="@font/bungee"
+        android:drawableLeft="@drawable/paw_icon"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lineBottom" />
+
+    <TextView
+        android:id="@+id/yourPetsTextViews"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/bungee"
+        android:textSize="12sp"
+        android:text="SEUS PETS"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/yourPetsButton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
