@@ -14,6 +14,8 @@ import com.example.pawfriend.NetworkUtils.Service
 import com.example.pawfriend.apiJsons.User
 import com.example.pawfriend.apiJsons.UserLogin
 import com.example.pawfriend.databinding.ActivityMainBinding
+import com.google.gson.Gson
+import com.google.gson.JsonObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -21,6 +23,7 @@ import retrofit2.Response
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private var isUserValid: Boolean = false
+    private var UserToken: String = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -33,8 +36,6 @@ class MainActivity : AppCompatActivity() {
         val emailSaved: String? = sharedPreferences.getString("email", null)
         val passwordSaved: String? = sharedPreferences.getString("password", null)
 
-
-        // TODO: try connect
         Handler(Looper.getMainLooper()).postDelayed({
             emailSaved?.let {email ->
                 passwordSaved?.let {password ->
@@ -45,6 +46,9 @@ class MainActivity : AppCompatActivity() {
                     login(user) {isUserValid ->
                         Log.i("APITESTE", "email: $emailSaved e pass: $passwordSaved")
                         if(isUserValid){
+                            val editor = sharedPreferences.edit()
+                            editor.putString("token", UserToken)
+                            editor.apply()
                             val intent = Intent(this, Home::class.java)
                             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
                             startActivity(intent)
@@ -57,8 +61,6 @@ class MainActivity : AppCompatActivity() {
                         }
 
                     }
-
-
                 }
             } ?: startActivity(Intent(this, RegisterOrLogin::class.java))
 
@@ -73,9 +75,15 @@ class MainActivity : AppCompatActivity() {
             override fun onResponse(call: Call<Any>, response: Response<Any>) {
                 if (response.isSuccessful) {
                     isUserValid = true
+                    val gson = Gson()
+                    val json = gson.toJson(response.body())
+                    val jsonObject = gson.fromJson(json, JsonObject::class.java)
+                    val message = jsonObject.get("message").asString
+                    UserToken = message
                     Log.i(
                         "APITESTE",
-                        "response: ${response.body()}"
+                        "response: ${response.body()}" +
+                                "and $message"
                     )
                     callback(isUserValid)
 
