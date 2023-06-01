@@ -12,9 +12,9 @@ data class User (
 
     val location: String = "",
 
-    val profilePic: String = "",
+    var profilePic: String? = "",
 
-    val banner: String = "",
+    val banner: String? = "",
 
     val phone: String = "",
 
