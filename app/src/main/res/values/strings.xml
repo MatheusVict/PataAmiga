@@ -13,6 +13,15 @@
     <string name="register_one_birth_wrong">Preencha a data corretamente</string>
     <string name="register_two_location_length">O endereço precisa ter pelo menos 5 caracteres</string>
 
+    <string name="email_already_exists">O email informado já está cadastrado</string>
+    <string name="login_invalid">Credenciais invalidas</string>
+    <string name="connection_error">Houve um erro  tente novamente mais tarde</string>
+
+
+    <!--Success -->
+
+    <string name="user_created">Registrado com sucesso</string>
+
     <!-- Buttons text -->
     <string name="register">CADASTRE-SE</string>
     <string name="enter">ENTRAR</string>

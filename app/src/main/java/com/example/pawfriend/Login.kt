@@ -99,17 +99,17 @@ class Login : AppCompatActivity() {
 
                 } else {
                     isUserValid = false
+                    toastLoginMessage = getString(R.string.login_invalid)
                     Log.i("APITESTE", "response com erro da api: ${response}")
                     callback(false)
-                    toastLoginMessage = "credenciais invalidas"
                 }
             }
 
             override fun onFailure(call: Call<Any>, t: Throwable) {
                 isUserValid = false
+                toastLoginMessage = getString(R.string.connection_error)
                 Log.i("APITESTE", "Erro: $t e call: ${call}")
                 callback(false)
-                toastLoginMessage = "falha ao logar"
             }
         })
     }

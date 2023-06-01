@@ -4,16 +4,11 @@ import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.Editable
 import android.util.Log
-import android.util.Patterns
 import android.widget.Toast
 import com.example.pawfriend.NetworkUtils.Service
 import com.example.pawfriend.apiJsons.User
-import com.example.pawfriend.apiJsons.UserLogin
-import com.example.pawfriend.databinding.ActivityRegisterOneBinding
 import com.example.pawfriend.databinding.ActivityRegisterTwoBinding
-import com.example.pawfriend.fragments.profile
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -101,15 +96,15 @@ class RegisterTwo : AppCompatActivity() {
         endpoint.createUser(user).enqueue(object : Callback<User> {
             override fun onResponse(call: Call<User>, response: Response<User>) {
                 if (response.isSuccessful) {
+                    toastRegisterMessage = getString(R.string.user_created)
                     isUserValid = true
-                    toastRegisterMessage = "foiiiii"
                     Log.i("APITESTE", "response de criação ${response.body()}")
                     callback(isUserValid)
 
                 } else {
                     isUserValid = false
+                    if (response.code() == 400) toastRegisterMessage = getString(R.string.email_already_exists)
                     Log.i("APITESTE", "response de erro api ${response}")
-                    toastRegisterMessage = "erro na api"
                     callback(false)
                 }
 
@@ -118,7 +113,7 @@ class RegisterTwo : AppCompatActivity() {
             override fun onFailure(call: Call<User>, t: Throwable) {
                 isUserValid = false
                 Log.i("APITESTE", "response de erro conexão ${t} e $call")
-                toastRegisterMessage = "erro de conexão"
+                toastRegisterMessage = getString(R.string.connection_error)
 
                 callback(false)
             }
