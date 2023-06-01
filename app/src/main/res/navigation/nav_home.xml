@@ -18,5 +18,18 @@
         android:id="@+id/menu_profile"
         android:name="com.example.pawfriend.fragments.ProfileFragments"
         android:label="fragment_profile"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_menu_profile_to_editProfileFragments"
+            app:destination="@id/editProfileFragments" />
+    </fragment>
+    <fragment
+        android:id="@+id/editProfileFragments"
+        android:name="com.example.pawfriend.EditProfileFragments"
+        android:label="fragment_edit_profile_fragments"
+        tools:layout="@layout/fragment_edit_profile_fragments" >
+        <action
+            android:id="@+id/action_editProfileFragments_to_menu_profile"
+            app:destination="@id/menu_profile" />
+    </fragment>
 </navigation>
