@@ -31,11 +31,19 @@
     <string name="home_icon_title">Home</string>
     <string name="profile_icon_title">perfil</string>
     <string name="create_post_icon_title">Criar post</string>
+    <string name="change_photo">ALTERAR</string>
+    <string name="remove_photo">REMOVER</string>
+    <string name="save_changes">ATUALIZAR</string>
 
     <!-- TextViews -->
     <string name="ask_account">JÁ POSSUI UMA CONTA?</string>
     <string name="registerTwoTextView">Meios de contato com você</string>
     <string name="pets_list_title">pets para adoção</string>
+    <string name="edit_profile_title">EDITAR PERFIL</string>
+    <string name="your_pic_title">SUA FOTO</string>
+    <string name="your_banner_title">SEU BANNER</string>
+    <string name="your_name_text_View">Nome</string>
+    <string name="your_location_text_View">Localização</string>
 
     <!-- AltImages -->
     <string name="backGround">app background</string>
@@ -53,6 +61,12 @@
     <string name="register_one_password_confirm">Verifique a senha*</string>
     <string name="register_one_name_input">Seu nome completo*</string>
     <string name="register_one_birth_input">DD/MM/AAAA*</string>
+    <string name="edit_user_name">Edite o seu nome</string>
+    <string name="edit_user_location">Edite sua localização</string>
+    <string name="edit_user_phone">Edite seu telefone</string>
+    <string name="edit_user_whatsapp">Edite seu Whatsapp</string>
+    <string name="edit_user_instagram">Edite seu Instagram</string>
+    <string name="edit_user_facebook">Edite seu Facebook</string>
 
     <!-- Assets -->
     <string name="app_name">Pata amiga</string>
