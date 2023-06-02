@@ -15,6 +15,7 @@ import android.widget.Toast
 import com.example.pawfriend.NetworkUtils.Service
 import com.example.pawfriend.apiJsons.UserLogin
 import com.example.pawfriend.databinding.ActivityLoginBinding
+import com.example.pawfriend.global.AppGlobals
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import retrofit2.Call
@@ -78,7 +79,7 @@ class Login : AppCompatActivity() {
 
 
     private fun login(user: UserLogin, callback: (Boolean) -> Unit) {
-        val retrofitClient = Service.getRetrofitInstance("http://192.168.0.107:8080", context = this)
+        val retrofitClient = Service.getRetrofitInstance(AppGlobals.apiUrl, context = this)
         val endpoint = retrofitClient.create(Endpoint::class.java)
 
         endpoint.login(user).enqueue(object : Callback<Any> {

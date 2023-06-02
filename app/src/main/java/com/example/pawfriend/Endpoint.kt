@@ -2,11 +2,13 @@ package com.example.pawfriend
 
 import com.example.pawfriend.apiJsons.User
 import com.example.pawfriend.apiJsons.UserLogin
+import com.example.pawfriend.apiJsons.UserUpdate
 import com.google.gson.JsonObject
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.PUT
 
 interface Endpoint {
     @POST("/api/user")
@@ -17,4 +19,7 @@ interface Endpoint {
 
     @GET("/api/user/byself")
     fun getUserProfile(): Call<User>
+
+    @PUT("/api/user")
+    fun updateUserProfile(@Body user: UserUpdate): Call<User>
 }

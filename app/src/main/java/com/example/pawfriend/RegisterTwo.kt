@@ -9,6 +9,7 @@ import android.widget.Toast
 import com.example.pawfriend.NetworkUtils.Service
 import com.example.pawfriend.apiJsons.User
 import com.example.pawfriend.databinding.ActivityRegisterTwoBinding
+import com.example.pawfriend.global.AppGlobals
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -58,8 +59,6 @@ class RegisterTwo : AppCompatActivity() {
             val instagram = binding.instagramInput.text.toString()
             val facebook = binding.facebookInput.text.toString()
             val whatsapp = binding.whatsappInput.unMasked
-            val profilePic = "fasj"
-            val banner = "afsjid"
 
             val user = User(
                 name = name,
@@ -70,9 +69,7 @@ class RegisterTwo : AppCompatActivity() {
                 phone = phone,
                 instagram = instagram,
                 facebook = facebook,
-                whatsapp = whatsapp,
-                profilePic = profilePic,
-                banner = banner
+                whatsapp = whatsapp
             )
             Log.i("APITESTE", "antes de enviar $user")
 
@@ -90,7 +87,7 @@ class RegisterTwo : AppCompatActivity() {
 
 
     private fun createUser(user: User, callback: (Boolean) -> Unit) {
-        val retrofitClient = Service.getRetrofitInstance("http://192.168.0.107:8080", context = this)
+        val retrofitClient = Service.getRetrofitInstance(AppGlobals.apiUrl, context = this)
         val endpoint = retrofitClient.create(Endpoint::class.java)
 
         endpoint.createUser(user).enqueue(object : Callback<User> {

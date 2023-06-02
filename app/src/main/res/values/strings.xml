@@ -68,6 +68,9 @@
     <string name="edit_user_instagram">Edite seu Instagram</string>
     <string name="edit_user_facebook">Edite seu Facebook</string>
 
+
+    <!-- Toast -->
+    <string name="verify_your_connection">verifique sua Conexão com a internet</string>
     <!-- Assets -->
     <string name="app_name">Pata amiga</string>
 

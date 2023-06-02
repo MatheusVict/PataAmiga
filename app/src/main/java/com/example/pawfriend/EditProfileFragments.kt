@@ -2,6 +2,8 @@ package com.example.pawfriend
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -10,8 +12,17 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.navigation.fragment.findNavController
+import com.example.pawfriend.NetworkUtils.Service
+import com.example.pawfriend.NetworkUtils.isNetworkAvailable
+import com.example.pawfriend.apiJsons.User
+import com.example.pawfriend.apiJsons.UserUpdate
 import com.example.pawfriend.databinding.FragmentEditProfileFragmentsBinding
+import com.example.pawfriend.global.AppGlobals
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.io.IOException
 import java.util.Base64
 
@@ -21,8 +32,8 @@ class EditProfileFragments : Fragment() {
     private val binding: FragmentEditProfileFragmentsBinding get() = _binding!!
 
      companion object UserImage {
-        private const val REQUEST_IMAGE_PICK = 1
-        private const val REQUEST_SECOND_IMAGE_PICK = 1
+        private var REQUEST_IMAGE_PICK: Any = 1
+        private var REQUEST_SECOND_IMAGE_PICK: Any = 1
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,14 +46,48 @@ class EditProfileFragments : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentEditProfileFragmentsBinding.inflate(inflater, container, false)
+
+        if (isNetworkAvailable(requireContext())) {
+            getUserInstance()
+        } else {
+            Toast.makeText(requireContext(), "Sem conexão com a internt", Toast.LENGTH_SHORT).show()
+            val intent = Intent(requireContext(), Login::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+            startActivity(intent)
+        }
+
         binding.returnButton.setOnClickListener {
             findNavController().navigate(R.id.action_editProfileFragments_to_menu_profile)
         }
         binding.changePicButton.setOnClickListener {
-            openGallery(REQUEST_IMAGE_PICK)
+            openGallery(REQUEST_IMAGE_PICK.toString().toInt())
         }
         binding.changeBannerButton.setOnClickListener {
-            openGallery(REQUEST_SECOND_IMAGE_PICK)
+            openGallery(REQUEST_SECOND_IMAGE_PICK.toString().toInt())
+        }
+        binding.removeBannerButton.setOnClickListener {
+            REQUEST_SECOND_IMAGE_PICK = ""
+            binding.userBannerPic.setImageResource(R.drawable.logo)
+            Toast.makeText(requireContext(), "foto de banner removida", Toast.LENGTH_SHORT).show()
+        }
+        binding.removePicButton.setOnClickListener {
+            REQUEST_IMAGE_PICK = ""
+            binding.userProfilePic.setImageResource(R.drawable.logo)
+            Toast.makeText(requireContext(), "foto de perfil removida", Toast.LENGTH_SHORT).show()
+        }
+        binding.saveChangesButton.setOnClickListener {
+            val user = UserUpdate(
+                name = binding.userNameInput.text.toString(),
+                phone = binding.userPhoneInput.text.toString(),
+                location = binding.userLocation.text.toString(),
+                whatsapp = binding.userWhatsappInput.text.toString(),
+                instagram = binding.userInstagramInput.text.toString(),
+                facebook = binding.userFacebookInput.text.toString(),
+                banner = REQUEST_SECOND_IMAGE_PICK.toString(),
+                profilePic = REQUEST_IMAGE_PICK.toString()
+            )
+
+            updateUserProfile(user)
         }
         return binding.root
 
@@ -63,15 +108,25 @@ class EditProfileFragments : Fragment() {
                     val inputStream = requireActivity().contentResolver.openInputStream(it)
                     val imageBytes = inputStream?.readBytes()
                     val base64Image = imageBytes?.let { bytesToBase64(it) }
-                    if (requestCode == REQUEST_IMAGE_PICK) {
-                        Log.i("APITESTE", " imagem do perfil ${base64Image}")
-                    } else if (requestCode == REQUEST_SECOND_IMAGE_PICK) {
-                        Log.i("APITESTE", " imagem do banner ${base64Image}")
-                    } else {
-                        Log.i("APITESTE", " imagem do do erro ${base64Image}")
+                    when (requestCode) {
+                        REQUEST_IMAGE_PICK -> {
+                            Log.i("APITESTE", " imagem do perfil ${base64Image}")
+                            binding.userProfilePic.setImageURI(it)
+                            REQUEST_IMAGE_PICK = base64Image.toString()
+                        }
+                        REQUEST_SECOND_IMAGE_PICK -> {
+                            Log.i("APITESTE", " imagem do banner ${base64Image}")
+                            binding.userBannerPic.setImageURI(it)
+                            REQUEST_SECOND_IMAGE_PICK = base64Image.toString()
+                        }
+                        else -> {
+                            Toast.makeText(requireContext(), "selecione uma imagem", Toast.LENGTH_SHORT).show()
+
+                            Log.i("APITESTE", " imagem do do erro ${base64Image}")
+                        }
                     }
                 } catch (e: IOException) {
-
+                    Toast.makeText(requireContext(), "Erro ao buscar a foto", Toast.LENGTH_SHORT).show()
                 }
             }
         }
@@ -82,13 +137,87 @@ class EditProfileFragments : Fragment() {
         return base64.replace("\n", "")
     }
 
-    /*companion object  {
+    private fun decodeBase64ToBitMap(base64Code: String?): Bitmap {
+        val imageBytes = android.util.Base64.decode(base64Code, android.util.Base64.DEFAULT)
 
-        fun newInstance(param1: String, param2: String) =
-            EditProfileFragments().apply {
-                arguments = Bundle().apply {
+        return BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
+    }
 
+
+    private fun getUserInstance() {
+        val retrofitClient = Service.getRetrofitInstance(AppGlobals.apiUrl, context = activity?.applicationContext!!)
+        val endpoint = retrofitClient.create(Endpoint::class.java)
+
+        endpoint.getUserProfile().enqueue(object: Callback<User> {
+
+            override fun onResponse(call: Call<User>, response: Response<User>) {
+                if (response.isSuccessful) {
+                    Log.i("APITESTE", "user: ${response.body()}")
+                    val user: UserUpdate? = response.body()?.let {
+                        UserUpdate(
+                            name = it.name,
+                            location = it.location,
+                            profilePic = it.profilePic,
+                            banner = it.banner,
+                            phone = it.phone,
+                            whatsapp = it.whatsapp,
+                            instagram = it.instagram,
+                            facebook = it.facebook
+                        )
+                    }
+                    binding.userNameInput.setText(user?.name)
+                    binding.userLocation.setText(user?.location)
+                    binding.userPhoneInput.setText(user?.phone)
+                    binding.userWhatsappInput.setText(user?.whatsapp)
+                    binding.userInstagramInput.setText(user?.instagram)
+                    binding.userFacebookInput.setText(user?.facebook)
+                    user?.banner.let {
+                        if (it.toString().isNotEmpty()) {
+                            binding.userBannerPic.setImageBitmap(decodeBase64ToBitMap(it))
+                        }
+                    }
+                    user?.profilePic.let {
+                        if (it.toString().isNotEmpty()) {
+                            binding.userProfilePic.setImageBitmap(decodeBase64ToBitMap(it))
+                        }
+                    }
+
+                } else {
+                    Toast.makeText(requireContext(), "Erro inesperado tente logar novamente", Toast.LENGTH_SHORT).show()
+                    val intent = Intent(requireContext(), Login::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                    startActivity(intent)
                 }
             }
-    }*/
+
+            override fun onFailure(call: Call<User>, t: Throwable) {
+                Log.i("APITESTE", "error: $t")
+                Toast.makeText(requireContext(), "Erro inesperado tente logar novamente", Toast.LENGTH_SHORT).show()
+                val intent = Intent(requireContext(), Login::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                startActivity(intent)
+
+            }
+        })
+    }
+
+    private fun updateUserProfile(user: UserUpdate) {
+        val retrofitClient = Service.getRetrofitInstance(AppGlobals.apiUrl, context = activity?.applicationContext!!)
+        val endpoint = retrofitClient.create(Endpoint::class.java)
+
+        endpoint.updateUserProfile(user).enqueue(object: Callback<User>{
+            override fun onResponse(call: Call<User>, response: Response<User>) {
+                if (response.isSuccessful) {
+                    Log.i("APITESTE", "user atualizado ${response.body()}")
+                } else Log.i("APITESTE", "erro da API ${response}")
+
+            }
+
+            override fun onFailure(call: Call<User>, t: Throwable) {
+                Log.i("APITESTE", "erro $t")
+
+            }
+        })
+    }
+
 }

@@ -14,6 +14,7 @@ import com.example.pawfriend.NetworkUtils.Service
 import com.example.pawfriend.apiJsons.User
 import com.example.pawfriend.apiJsons.UserLogin
 import com.example.pawfriend.databinding.ActivityMainBinding
+import com.example.pawfriend.global.AppGlobals
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import retrofit2.Call
@@ -37,38 +38,42 @@ class MainActivity : AppCompatActivity() {
         val passwordSaved: String? = sharedPreferences.getString("password", null)
 
         Handler(Looper.getMainLooper()).postDelayed({
-            emailSaved?.let {email ->
-                passwordSaved?.let {password ->
+            emailSaved?.let { email ->
+                passwordSaved?.let { password ->
                     val user = UserLogin(
                         email = email,
                         password = password
                     )
-                    login(user) {isUserValid ->
+                    login(user) { isUserValid ->
                         Log.i("APITESTE", "email: $emailSaved e pass: $passwordSaved")
-                        if(isUserValid){
+                        if (isUserValid) {
                             val editor = sharedPreferences.edit()
                             editor.putString("token", UserToken)
                             editor.apply()
                             val intent = Intent(this, Home::class.java)
-                            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                            intent.flags =
+                                Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
                             startActivity(intent)
 
                         } else {
                             Toast.makeText(this, "Erro ao logar", Toast.LENGTH_SHORT).show()
                             val intent = Intent(this, RegisterOrLogin::class.java)
                             startActivity(intent)
-
+                            finish()
                         }
 
                     }
                 }
-            } ?: startActivity(Intent(this, RegisterOrLogin::class.java))
-
+            } ?: run {
+                val intent = Intent(this, RegisterOrLogin::class.java)
+                startActivity(intent)
+                finish()
+            }
         }, 7000)
     }
 
     private fun login(user: UserLogin, callback: (Boolean) -> Unit) {
-        val retrofitClient = Service.getRetrofitInstance("http://192.168.0.107:8080", context = this)
+        val retrofitClient = Service.getRetrofitInstance(AppGlobals.apiUrl, context = this)
         val endpoint = retrofitClient.create(Endpoint::class.java)
 
         endpoint.login(user).enqueue(object : Callback<Any> {
