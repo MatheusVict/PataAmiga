@@ -11,6 +11,7 @@ import android.os.Looper
 import android.util.Log
 import android.widget.Toast
 import com.example.pawfriend.NetworkUtils.Service
+import com.example.pawfriend.NetworkUtils.isNetworkAvailable
 import com.example.pawfriend.apiJsons.User
 import com.example.pawfriend.apiJsons.UserLogin
 import com.example.pawfriend.databinding.ActivityMainBinding
@@ -40,29 +41,33 @@ class MainActivity : AppCompatActivity() {
         Handler(Looper.getMainLooper()).postDelayed({
             emailSaved?.let { email ->
                 passwordSaved?.let { password ->
-                    val user = UserLogin(
-                        email = email,
-                        password = password
-                    )
-                    login(user) { isUserValid ->
-                        Log.i("APITESTE", "email: $emailSaved e pass: $passwordSaved")
-                        if (isUserValid) {
-                            val editor = sharedPreferences.edit()
-                            editor.putString("token", UserToken)
-                            editor.apply()
-                            val intent = Intent(this, Home::class.java)
-                            intent.flags =
-                                Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-                            startActivity(intent)
+                   if (isNetworkAvailable(this)) {
+                       val user = UserLogin(
+                           email = email,
+                           password = password
+                       )
+                       login(user) { isUserValid ->
+                           Log.i("APITESTE", "email: $emailSaved e pass: $passwordSaved")
+                           if (isUserValid) {
+                               val editor = sharedPreferences.edit()
+                               editor.putString("token", UserToken)
+                               editor.apply()
+                               val intent = Intent(this, Home::class.java)
+                               intent.flags =
+                                   Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                               startActivity(intent)
 
-                        } else {
-                            Toast.makeText(this, "Erro ao logar", Toast.LENGTH_SHORT).show()
-                            val intent = Intent(this, RegisterOrLogin::class.java)
-                            startActivity(intent)
-                            finish()
-                        }
+                           } else {
+                               Toast.makeText(this, "Erro ao logar", Toast.LENGTH_SHORT).show()
+                               val intent = Intent(this, RegisterOrLogin::class.java)
+                               startActivity(intent)
+                               finish()
+                           }
 
-                    }
+                       }
+                   } else {
+                       Toast.makeText(this, "Sem Conexão com a internet", Toast.LENGTH_SHORT).show()
+                   }
                 }
             } ?: run {
                 val intent = Intent(this, RegisterOrLogin::class.java)
