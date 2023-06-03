@@ -13,12 +13,11 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
-import com.example.pawfriend.EditProfileFragments
-import com.example.pawfriend.Endpoint
-import com.example.pawfriend.Login
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.pawfriend.*
 import com.example.pawfriend.NetworkUtils.Service
 import com.example.pawfriend.NetworkUtils.isNetworkAvailable
-import com.example.pawfriend.R
+import com.example.pawfriend.apiJsons.ListPostsPets
 import com.example.pawfriend.apiJsons.User
 import com.example.pawfriend.databinding.FragmentProfileBinding
 import com.example.pawfriend.global.AppGlobals
@@ -44,61 +43,79 @@ class ProfileFragments : Fragment() {
         if (isNetworkAvailable(requireContext())) {
 
             getUserInstance()
+            getAllUserPosts()
             binding.editButton.setOnClickListener {
-                /*val editProfileFragments = EditProfileFragments()
-                val bundle = Bundle()
-                bundle.putString("userName", binding.userName.text.toString())
-                bundle.putString("userLocation", binding.userName.text.toString())*/
                 findNavController().navigate(R.id.action_menu_profile_to_editProfileFragments)
             }
         } else {
-            Toast.makeText(requireContext(), getString(R.string.verify_your_connection), Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                requireContext(),
+                getString(R.string.verify_your_connection),
+                Toast.LENGTH_SHORT
+            ).show()
         }
 
         return binding.root
     }
 
+    private fun intiRecyclerView(postPetsList: List<ListPostsPets>) {
+        binding.postRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+        binding.postRecyclerView.setHasFixedSize(true)
+        binding.postRecyclerView.adapter = PostPetsAdapter(postPetsList) { id ->
+            Toast.makeText(requireContext(), "$id", Toast.LENGTH_SHORT).show()
+        }
+    }
+
     private fun getUserInstance() {
-        val retrofitClient = Service.getRetrofitInstance(AppGlobals.apiUrl, context = activity?.applicationContext!!)
+        val retrofitClient =
+            Service.getRetrofitInstance(AppGlobals.apiUrl, context = activity?.applicationContext!!)
         val endpoint = retrofitClient.create(Endpoint::class.java)
 
-        endpoint.getUserProfile().enqueue(object: Callback<User>{
+        endpoint.getUserProfile().enqueue(object : Callback<User> {
 
             override fun onResponse(call: Call<User>, response: Response<User>) {
-               if (response.isSuccessful) {
-                   Log.i("APITESTE", "user: ${response.body()}")
-                   val user: User? = response.body()?.let {
-                       User(
-                           name = it.name,
-                           location = it.location,
-                           profilePic = it.profilePic,
-                           banner = it.banner
-                       )
-                   }
-                   binding.userName.text = user?.name
-                   binding.userLocation.text = user?.location
-                  user?.banner.let {
-                      if (it.toString().isNotEmpty()) {
-                          binding.userBanner.setImageBitmap(decodeBase64ToBitMap(it))
-                      }
-                  }
-                   user?.profilePic.let {
-                       if (it.toString().isNotEmpty()) {
-                           binding.userProfilePic.setImageBitmap(decodeBase64ToBitMap(it))
-                       }
-                   }
+                if (response.isSuccessful) {
+                    Log.i("APITESTE", "user: ${response.body()}")
+                    val user: User? = response.body()?.let {
+                        User(
+                            name = it.name,
+                            location = it.location,
+                            profilePic = it.profilePic,
+                            banner = it.banner
+                        )
+                    }
+                    binding.userName.text = user?.name
+                    binding.userLocation.text = user?.location
+                    user?.banner.let {
+                        if (it.toString().isNotEmpty()) {
+                            binding.userBanner.setImageBitmap(decodeBase64ToBitMap(it))
+                        }
+                    }
+                    user?.profilePic.let {
+                        if (it.toString().isNotEmpty()) {
+                            binding.userProfilePic.setImageBitmap(decodeBase64ToBitMap(it))
+                        }
+                    }
 
-               } else {
-                   Toast.makeText(requireContext(), "Erro inesperado tente logar novamente", Toast.LENGTH_SHORT).show()
-                   val intent = Intent(requireContext(), Login::class.java)
-                   intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-                   startActivity(intent)
-               }
+                } else {
+                    Toast.makeText(
+                        requireContext(),
+                        "Erro inesperado tente logar novamente",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    val intent = Intent(requireContext(), Login::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                    startActivity(intent)
+                }
             }
 
             override fun onFailure(call: Call<User>, t: Throwable) {
                 Log.i("APITESTE", "error: $t")
-                Toast.makeText(requireContext(), "Erro inesperado tente logar novamente", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    requireContext(),
+                    "Erro inesperado tente logar novamente",
+                    Toast.LENGTH_SHORT
+                ).show()
                 val intent = Intent(requireContext(), Login::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
                 startActivity(intent)
@@ -106,10 +123,39 @@ class ProfileFragments : Fragment() {
         })
     }
 
+    private fun getAllUserPosts() {
+        val retrofitClient =
+            Service.getRetrofitInstance(AppGlobals.apiUrl, context = activity?.applicationContext!!)
+        val endpoint = retrofitClient.create(Endpoint::class.java)
+
+        endpoint.getAllPostsFromUser().enqueue(object : Callback<List<ListPostsPets>> {
+            override fun onResponse(
+                call: Call<List<ListPostsPets>>,
+                response: Response<List<ListPostsPets>>
+            ) {
+                if (response.isSuccessful) {
+                    Log.i("APITESTE", "post: ${response.body()}")
+                    response.body()?.let {
+                        if (it.isNotEmpty()) {
+                            Log.i("APITESTE", "post: ${response.body()}")
+                            intiRecyclerView(it)
+                        }
+                    }
+                } else Log.i("APITESTE", "erro na api: ${response}")
+
+            }
+
+            override fun onFailure(call: Call<List<ListPostsPets>>, t: Throwable) {
+                Log.i("APITESTE", "erro: ${t}")
+
+            }
+        })
+    }
+
     private fun decodeBase64ToBitMap(base64Code: String?): Bitmap {
         val imageBytes = Base64.decode(base64Code, Base64.DEFAULT)
 
-       return BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
+        return BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
     }
 
     companion object {

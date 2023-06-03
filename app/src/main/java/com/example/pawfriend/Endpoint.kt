@@ -1,5 +1,6 @@
 package com.example.pawfriend
 
+import com.example.pawfriend.apiJsons.ListPostsPets
 import com.example.pawfriend.apiJsons.User
 import com.example.pawfriend.apiJsons.UserLogin
 import com.example.pawfriend.apiJsons.UserUpdate
@@ -22,4 +23,10 @@ interface Endpoint {
 
     @PUT("/api/user")
     fun updateUserProfile(@Body user: UserUpdate): Call<User>
+
+    @GET("/api/postsPets")
+    fun getAllPosts(): Call<List<ListPostsPets>>
+
+    @GET("/api/postsPets/users")
+    fun getAllPostsFromUser(): Call<List<ListPostsPets>>
 }
