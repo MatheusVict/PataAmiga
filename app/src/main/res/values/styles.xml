@@ -4,4 +4,7 @@
         <item name="android:background">@color/blue</item>
         <item name="android:textColor">#FFFFFF</item>
     </style>
+    <style name="SpinnerTextStyle">
+        <item name="android:textColor">#FF000000</item>
+    </style>
 </resources>

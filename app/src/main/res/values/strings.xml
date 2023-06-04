@@ -12,7 +12,12 @@
     <string name="register_one_name_length_wrong">O nome precisa ter ao menos 3 letras</string>
     <string name="register_one_birth_wrong">Preencha a data corretamente</string>
     <string name="register_two_location_length">O endereço precisa ter pelo menos 5 caracteres</string>
+    <string name="create_post_name_small">O nome do pet precisa ter pelo menos 3 letras</string>
+    <string name="create_post_years_empty">Se a idade dele for menor que 1 ano coloque 0</string>
+    <string name="create_post_mouths_empty">Se não souber os meses coloque o aproximado</string>
+    <string name="create_post_radios_empty">Selecione todos os marcadores</string>
 
+    <!--Toast-->
     <string name="email_already_exists">O email informado já está cadastrado</string>
     <string name="login_invalid">Credenciais invalidas</string>
     <string name="connection_error">Houve um erro  tente novamente mais tarde</string>
@@ -78,4 +83,11 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="search_for_pet">Busque por um pet</string>
     <string name="your_pets_button">SEUS PETS</string>
+
+    <string-array name="species_array">
+        <item>Selecione a espécie do animal</item>
+        <item>Gato</item>
+        <item>Cachorro</item>
+        <item>Coelho</item>
+    </string-array>
 </resources>

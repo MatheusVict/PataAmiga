@@ -1,30 +1,491 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/white"
-    tools:context=".fragments.CreatePost">
+    android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/textView2"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="54dp"
-        android:background="@drawable/top_menu_rounded"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:src="@drawable/application_name"
-        app:layout_constraintBottom_toBottomOf="@+id/textView2"
-        app:layout_constraintEnd_toEndOf="@+id/textView2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textView2" />
+        android:orientation="vertical"
+        tools:context=".fragments.CreatePost">
+
+        <TextView
+            android:id="@+id/nameTextView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="23dp"
+            android:text="Nome"
+            app:layout_constraintEnd_toEndOf="@+id/selectImage"
+            app:layout_constraintStart_toStartOf="@+id/selectImage"
+            app:layout_constraintTop_toBottomOf="@+id/selectImage" />
+
+        <EditText
+            android:id="@+id/namePostInput2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="19dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="19dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/nameTextView" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="851dp"
+            android:background="@drawable/top_menu_rounded"
+            app:layout_constraintBottom_toTopOf="@+id/textView13"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageView6"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/application_name"
+            app:layout_constraintBottom_toBottomOf="@+id/textView2"
+            app:layout_constraintEnd_toEndOf="@+id/textView2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textView2" />
+
+        <TextView
+            android:id="@+id/selectImage"
+            android:layout_width="match_parent"
+            android:layout_height="281dp"
+            android:layout_marginStart="19dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="19dp"
+            android:background="@color/gray"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:fontFamily="@font/bungee"
+            android:text="cadastrar novo pet"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/button4"
+            android:layout_width="51dp"
+            android:layout_height="37dp"
+            android:background="@color/white"
+            android:src="@drawable/add_image_icon"
+            app:layout_constraintBottom_toBottomOf="@+id/selectImage"
+            app:layout_constraintEnd_toEndOf="@+id/selectImage"
+            app:layout_constraintStart_toStartOf="@+id/selectImage"
+            app:layout_constraintTop_toTopOf="@+id/selectImage" />
+
+        <TextView
+            android:id="@+id/addPetTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Adicione uma foto do animal"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="@+id/selectImage"
+            app:layout_constraintEnd_toEndOf="@+id/button4"
+            app:layout_constraintStart_toStartOf="@+id/button4"
+            app:layout_constraintTop_toBottomOf="@+id/button4" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <ImageView
+            android:id="@+id/selectImageButton"
+            android:layout_width="match_parent"
+            android:layout_height="281dp"
+            android:layout_marginStart="19dp"
+            android:layout_marginTop="16dp"
+            android:scaleType="fitXY"
+            android:layout_marginEnd="19dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+        <TextView
+            android:id="@+id/nameTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="23dp"
+            android:text="Nome"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="@+id/selectImage"
+            app:layout_constraintStart_toStartOf="@+id/selectImage"
+            app:layout_constraintTop_toBottomOf="@+id/selectImage" />
+
+        <EditText
+            android:id="@+id/namePostInput"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginStart="19dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="19dp"
+            android:ems="10"
+            android:hint="Nome do animal"
+            android:background="@drawable/edittext_bg"
+            android:inputType="textPersonName"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/nameTextView" />
+
+        <TextView
+            android:id="@+id/textView10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Espécie"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="@+id/namePostInput2"
+            app:layout_constraintStart_toStartOf="@+id/namePostInput2"
+            app:layout_constraintTop_toBottomOf="@+id/namePostInput2" />
+
+        <Spinner
+            android:id="@+id/speciePostInput"
+            style="@style/SpinnerTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginStart="19dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="19dp"
+            android:background="@color/white"
+            android:entries="@array/species_array"
+            android:inputType="textAutoComplete"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView10" />
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Raça"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="@+id/speciePostInput"
+            app:layout_constraintStart_toStartOf="@+id/speciePostInput"
+            app:layout_constraintTop_toBottomOf="@+id/speciePostInput" />
+
+        <Spinner
+            android:id="@+id/selectRaceInput"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginStart="19dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="19dp"
+            android:background="@color/white"
+            android:inputType="textAutoComplete"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView8" />
+
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Localização"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="@+id/selectRaceInput"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/selectRaceInput" />
+
+        <EditText
+            android:id="@+id/locationPostInput"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginStart="19dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="19dp"
+            android:ems="10"
+            android:hint="Informe a localizaço do animal"
+            android:background="@drawable/edittext_bg"
+            android:inputType="textPersonName"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView9" />
+
+        <TextView
+            android:id="@+id/textView11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Sexo"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="@+id/locationPostInput"
+            app:layout_constraintStart_toStartOf="@+id/locationPostInput"
+            app:layout_constraintTop_toBottomOf="@+id/locationPostInput" />
+
+        <RadioGroup
+            android:id="@+id/sexChoice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="@+id/textView11"
+            app:layout_constraintStart_toStartOf="@+id/textView11"
+            app:layout_constraintTop_toBottomOf="@+id/locationPostInput">
+
+            <RadioButton
+                android:id="@+id/female"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Fêmea"
+                android:textColor="@color/black" />
+
+            <RadioButton
+                android:id="@+id/male"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="macho"
+                android:textColor="@color/black" />
+
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/textView13"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="779dp"
+            android:textAlignment="center"
+            android:text="Idade"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/sexChoice"
+            app:layout_constraintStart_toStartOf="@+id/sexChoice"
+            app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+        <EditText
+            android:id="@+id/yearAgePostInput"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="45dp"
+            android:layout_marginTop="19dp"
+            android:background="@drawable/edittext_bg"
+            android:ems="10"
+            android:textAlignment="center"
+            android:hint="anos"
+            android:inputType="number"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textView13" />
+
+        <EditText
+            android:id="@+id/mounthsAgePostInput"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="19dp"
+            android:layout_marginEnd="45dp"
+            android:ems="10"
+            android:background="@drawable/edittext_bg"
+            android:hint="meses"
+            android:inputType="number"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textView13" />
+
+        <TextView
+            android:id="@+id/textView14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="60dp"
+            android:textColor="@color/black"
+            android:text="Porte"
+            app:layout_constraintEnd_toStartOf="@+id/mounthsAgePostInput"
+            app:layout_constraintStart_toEndOf="@+id/yearAgePostInput"
+            app:layout_constraintTop_toTopOf="@+id/mounthsAgePostInput" />
+
+        <RadioGroup
+            android:id="@+id/portPostChoise"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="@+id/textView14"
+            app:layout_constraintStart_toStartOf="@+id/textView14"
+            app:layout_constraintTop_toBottomOf="@+id/textView14">
+
+            <RadioButton
+                android:id="@+id/small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="1dp"
+                android:padding="11dp"
+                android:background="@drawable/edittext_bg"
+                android:text="pequeno"
+                android:textColor="@color/black" />
+
+            <RadioButton
+                android:id="@+id/middle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="1dp"
+                android:padding="11dp"
+                android:background="@drawable/edittext_bg"
+                android:text="medio"
+                android:textColor="@color/black" />
+
+            <RadioButton
+                android:id="@+id/big"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="1dp"
+                android:background="@drawable/edittext_bg"
+                android:padding="11dp"
+                android:text="grande"
+                android:textColor="@color/black" />
+        </RadioGroup>
+
+        <ImageView
+            android:id="@+id/imageView9"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginStart="140dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="140dp"
+            android:background="?actionBarDivider"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/portPostChoise" />
+
+        <CheckBox
+            android:id="@+id/isCastratedCheckBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="19dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/edittext_bg"
+            android:layout_marginEnd="19dp"
+            android:text="Castrado"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView9" />
+
+        <CheckBox
+            android:id="@+id/isVaccinatedCheckBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="19dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="19dp"
+            android:text="Vacinado"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:background="@drawable/edittext_bg"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/isCastratedCheckBox" />
+
+        <CheckBox
+            android:id="@+id/isDewormedChekBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="19dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="19dp"
+            android:background="@drawable/edittext_bg"
+            android:text="Vermifungado"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/isVaccinatedCheckBox" />
+
+        <CheckBox
+            android:id="@+id/isPedigreeCheckBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edittext_bg"
+            android:layout_marginStart="19dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="19dp"
+            android:text="Pedigree"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/isDewormedChekBox" />
+
+        <CheckBox
+            android:id="@+id/isEspecialNeedsChekBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="19dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="19dp"
+            android:text="Cuidados especiais"
+            android:textColor="@color/black"
+            android:background="@drawable/edittext_bg"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/isPedigreeCheckBox" />
+
+        <TextView
+            android:id="@+id/aboutTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Sobre"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/isEspecialNeedsChekBox" />
+
+        <EditText
+            android:id="@+id/aboutPostInput"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:layout_marginStart="19dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="19dp"
+            android:ems="10"
+            android:gravity="top"
+            android:background="@drawable/edittext_bg"
+            android:hint="Fale um pouco mais sobre seu pet"
+            android:imeOptions="actionDone"
+            android:inputType="textMultiLine"
+            android:minLines="1"
+            android:scrollbars="vertical"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/aboutTextView" />
+
+        <Button
+            android:id="@+id/createPostButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="11dp"
+            android:layout_marginBottom="22dp"
+            android:background="@drawable/rounded_button_profile"
+            android:fontFamily="@font/bungee"
+            android:text="PRONTO"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/aboutPostInput" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>
