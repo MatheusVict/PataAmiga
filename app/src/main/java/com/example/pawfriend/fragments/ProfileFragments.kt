@@ -9,6 +9,7 @@ import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.Navigation
@@ -46,6 +47,9 @@ class ProfileFragments : Fragment() {
             getAllUserPosts()
             binding.editButton.setOnClickListener {
                 findNavController().navigate(R.id.action_menu_profile_to_editProfileFragments)
+            }
+            binding.createPostInsteadOfButton.setOnClickListener {
+                findNavController().navigate(R.id.action_menu_profile_to_menu_create_post)
             }
         } else {
             Toast.makeText(
@@ -135,6 +139,16 @@ class ProfileFragments : Fragment() {
             ) {
                 if (response.isSuccessful) {
                     Log.i("APITESTE", "post: ${response.body()}")
+                    if (response.body()?.count() == 0) {
+                        binding.postRecyclerView.visibility = GONE
+                        binding.createPostInsteadOfButton.visibility = View.VISIBLE
+                        binding.textViewInsteadOf.visibility = View.VISIBLE
+                    } else {
+                        binding.postRecyclerView.visibility = View.VISIBLE
+                        binding.createPostInsteadOfButton.visibility = GONE
+                        binding.textViewInsteadOf.visibility = View.GONE
+
+                    }
                     response.body()?.let {
                         if (it.isNotEmpty()) {
                             Log.i("APITESTE", "post: ${response.body()}")

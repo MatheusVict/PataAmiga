@@ -90,7 +90,7 @@
             android:layout_width="150dp"
             android:layout_height="1dp"
             android:layout_marginTop="70dp"
-            android:background="?actionBarDivider"
+            android:background="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/userLocation" />
@@ -137,22 +137,54 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:fontFamily="@font/bungee"
-            android:textColor="@color/black"
             android:text="SEUS PETS"
+            android:textColor="@color/black"
             android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/yourPetsButton" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/postRecyclerView"
+        <LinearLayout
+            android:id="@+id/container"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:layout_marginTop="12dp"
+            android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/yourPetsTextViews" />
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@+id/yourPetsTextViews">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/postRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="12dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/yourPetsTextViews"
+                android:visibility="gone"
+                />
+
+            <TextView
+
+                android:id="@+id/textViewInsteadOf"
+                android:layout_width="wrap_content"
+                android:layout_marginTop="30dp"
+                android:textColor="@color/black"
+                android:fontFamily="@font/bungee"
+                android:layout_height="wrap_content"
+                android:text="Você ainda não possui nenhum post"
+                android:visibility="gone" />
+            <Button
+                android:id="@+id/createPostInsteadOfButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rounded_button_profile"
+                android:text="Cria post"
+                android:visibility="gone" />
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>
