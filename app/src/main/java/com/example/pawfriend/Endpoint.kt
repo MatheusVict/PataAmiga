@@ -7,6 +7,7 @@ import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.PUT
+import retrofit2.http.Path
 
 interface Endpoint {
     @POST("/api/user")
@@ -29,4 +30,7 @@ interface Endpoint {
 
     @POST("/api/postsPets")
     fun createPostPets(@Body postPets: CreatePostPets): Call<CreatePostPets>
+
+    @GET("/api/postsPets/{id}")
+    fun getOnePostForId(@Path(value = "id") id: Long): Call<GetOnePost>
 }

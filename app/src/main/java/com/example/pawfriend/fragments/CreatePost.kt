@@ -155,11 +155,11 @@ class CreatePost : Fragment() {
                     binding.sexChoice.findViewById<RadioButton>(binding.sexChoice.checkedRadioButtonId).text.toString()
                 val selectedPort =
                     binding.portPostChoise.findViewById<RadioButton>(binding.portPostChoise.checkedRadioButtonId).text.toString()
-                val post: CreatePostPets = CreatePostPets(
+                val post = CreatePostPets(
                     name = binding.namePostInput.text.toString(),
-                    postPic = profileImageBase64!!,
+                    postPic = profileImageBase64.toString(),
                     race = selectedRace!!,
-                    specie = selectedSpecie!!,
+                    specie = selectedSpecie.toString(),
                     sex = selectedSex,
                     age = "${binding.yearAgePostInput.text.toString()} anos ${binding.mounthsAgePostInput.text.toString()} meses",
                     size = selectedPort,
@@ -173,6 +173,8 @@ class CreatePost : Fragment() {
                     isDewormed = binding.isDewormedChekBox.isChecked,
                     isEspecialNeeds = binding.isEspecialNeedsChekBox.isChecked,
                 )
+                Log.i("APITESTE", "selecionado ${selectedSpecie.toString()}")
+                Log.i("APITESTE", "location ${binding.locationPostInput.text.toString()}")
                 if (isNetworkAvailable(requireContext())) {
                     createPost(post)
                 } else {
