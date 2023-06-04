@@ -83,11 +83,42 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="search_for_pet">Busque por um pet</string>
     <string name="your_pets_button">SEUS PETS</string>
-
+    <!--arrays-->
     <string-array name="species_array">
         <item>Selecione a espécie do animal</item>
         <item>Gato</item>
         <item>Cachorro</item>
         <item>Coelho</item>
+    </string-array>
+    <string-array name="cats_races_array">
+        <item>vira-lata</item>
+        <item>Persa</item>
+        <item>Siamese</item>
+        <item>Maine Coon</item>
+        <item>Sphynx</item>
+        <item>Bengal</item>
+        <item>Ragdoll</item>
+    </string-array>
+
+    <string-array name="dog_races_array">
+        <item>vira-lata</item>
+        <item>Labrador</item>
+        <item>Bulldog</item>
+        <item>Golden Retriever</item>
+        <item>Pastor alemão</item>
+        <item>Beagle</item>
+        <item>Rotivalei</item>
+    </string-array>
+
+    <string-array name="bunny_races_array">
+        <item>vira-lata</item>
+        <item>Mini Rex</item>
+        <item>Lionhead</item>
+        <item>Holland</item>
+        <item>Holland</item>
+        <item>Flemish</item>
+        <item>Netherland</item>
+        <item>Angorá</item>
+
     </string-array>
 </resources>

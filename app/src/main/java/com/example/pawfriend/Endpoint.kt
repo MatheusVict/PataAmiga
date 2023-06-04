@@ -1,9 +1,6 @@
 package com.example.pawfriend
 
-import com.example.pawfriend.apiJsons.ListPostsPets
-import com.example.pawfriend.apiJsons.User
-import com.example.pawfriend.apiJsons.UserLogin
-import com.example.pawfriend.apiJsons.UserUpdate
+import com.example.pawfriend.apiJsons.*
 import com.google.gson.JsonObject
 import retrofit2.Call
 import retrofit2.http.Body
@@ -29,4 +26,7 @@ interface Endpoint {
 
     @GET("/api/postsPets/users")
     fun getAllPostsFromUser(): Call<List<ListPostsPets>>
+
+    @POST("/api/postsPets")
+    fun createPostPets(@Body postPets: CreatePostPets): Call<CreatePostPets>
 }

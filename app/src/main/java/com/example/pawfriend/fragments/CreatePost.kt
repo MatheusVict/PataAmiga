@@ -15,9 +15,17 @@ import android.widget.Spinner
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.pawfriend.EditProfileFragments
+import com.example.pawfriend.Endpoint
+import com.example.pawfriend.NetworkUtils.Service
+import com.example.pawfriend.NetworkUtils.isNetworkAvailable
 import com.example.pawfriend.R
+import com.example.pawfriend.apiJsons.CreatePostPets
 import com.example.pawfriend.databinding.FragmentCreatePostBinding
+import com.example.pawfriend.global.AppGlobals
 import com.google.android.material.chip.Chip
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.io.IOException
 
 class CreatePost : Fragment() {
@@ -27,6 +35,7 @@ class CreatePost : Fragment() {
     private lateinit var raceSpinner: Spinner
 
     private var selectedRace: String? = null
+    private var selectedSpecie: String? = null
 
     private var profileImageBase64: String? = null
     private val REQUEST_IMAGE_PICK = 1
@@ -65,47 +74,50 @@ class CreatePost : Fragment() {
                 override fun onItemSelected(
                     parent: AdapterView<*>?,
                     view: View?,
-                    positon: Int,
+                    position: Int,
                     id: Long
                 ) {
-                    val selectedItem = specieArray[positon]
-
+                    val selectedItem = specieArray[position]
+                    selectedSpecie = selectedItem
 
                     val filteredRaces = getFilteredRaces(selectedItem)
 
-                    if (positon != 0) {
+                    if (position != 0) {
                         Log.i("APITESTE", "specie $selectedItem")
-                    }
-
-
+                    } else selectedSpecie = null
 
                     val raceAdapter = ArrayAdapter(
                         requireContext(),
                         android.R.layout.simple_spinner_item,
                         filteredRaces
                     )
-                    raceSpinner.adapter = raceAdapter
+                    binding.selectRaceInput.adapter = raceAdapter
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {
-
-                }
-
-            }
-        /*binding.selectRaceInput.onItemSelectedListener = object: AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                selectedRace = getFilteredRaces()[position]
-                val race = selectedRace
-                if (race != null) {
-                    Log.i("APITESTE", "raca $race")
-
+                    // TODO:
                 }
             }
 
-            override fun onNothingSelected(p0: AdapterView<*>?) {
-                TODO("Not yet implemented")
+        binding.selectRaceInput.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
+                    selectedRace = binding.selectRaceInput.selectedItem.toString()
+                    val race = selectedRace
+                    if (race != null) {
+                        Log.i("APITESTE", "raca $race")
+                    }
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+                    // TODO:
+                }
             }
-        }*/
 
         binding.sexChoice.setOnCheckedChangeListener { radioGroup, chekedId ->
             val selectdRadioButton: RadioButton = radioGroup.findViewById(chekedId)
@@ -135,18 +147,40 @@ class CreatePost : Fragment() {
         val validMouths = binding.mounthsAgePostInput.error == null
         val validAbout = binding.aboutPostInput.error == null
 
-        if (validName && validLocation && validYears && validMouths && validAbout) {
+        if (validName && validLocation && validYears && validMouths && validAbout && selectedSpecie != null && profileImageBase64 != null) {
             if (binding.sexChoice.checkedRadioButtonId != -1 && binding.portPostChoise.checkedRadioButtonId != -1) {
                 val selectedSex =
                     binding.sexChoice.findViewById<RadioButton>(binding.sexChoice.checkedRadioButtonId).text.toString()
                 val selectedPort =
                     binding.portPostChoise.findViewById<RadioButton>(binding.portPostChoise.checkedRadioButtonId).text.toString()
+                val post: CreatePostPets = CreatePostPets(
+                    name = binding.namePostInput.text.toString(),
+                    postPic = profileImageBase64!!,
+                    race = selectedRace!!,
+                    specie = selectedSpecie!!,
+                    sex = selectedSex,
+                    age = "${binding.yearAgePostInput.text.toString()} anos ${binding.mounthsAgePostInput.text.toString()} meses",
+                    size = selectedPort,
+                    weight = selectedPort,
+                    about = binding.aboutPostInput.text.toString(),
+                    petLocation = binding.locationPostInput.text.toString(),
+                    isAdopted = false,
+                    isCastrated = binding.isCastratedCheckBox.isChecked,
+                    isVaccinated = binding.isVaccinatedCheckBox.isChecked,
+                    isPedigree = binding.isPedigreeCheckBox.isChecked,
+                    isDewormed = binding.isDewormedChekBox.isChecked,
+                    isEspecialNeeds = binding.isEspecialNeedsChekBox.isChecked,
+                )
+                if (isNetworkAvailable(requireContext())) {
+                    createPost(post)
+                } else {
+                    Toast.makeText(
+                        requireContext(),
+                        "Você não está conectado a rede",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
 
-                Toast.makeText(
-                    requireContext(),
-                    "tudo passou $selectedPort e $selectedSex",
-                    Toast.LENGTH_SHORT
-                ).show()
             } else Toast.makeText(
                 requireContext(),
                 getString(R.string.create_post_radios_empty),
@@ -157,6 +191,41 @@ class CreatePost : Fragment() {
             getString(R.string.toast_error_inputs),
             Toast.LENGTH_SHORT
         ).show()
+    }
+
+    private fun createPost(post: CreatePostPets) {
+        val retrofitClient =
+            Service.getRetrofitInstance(AppGlobals.apiUrl, context = activity?.applicationContext!!)
+        val endpoint = retrofitClient.create(Endpoint::class.java)
+
+        endpoint.createPostPets(post).enqueue(object: Callback<CreatePostPets>{
+            override fun onResponse(
+                call: Call<CreatePostPets>,
+                response: Response<CreatePostPets>
+            ) {
+                if (response.isSuccessful) {
+                    Log.i("APITESTE", "criado ${response.body()}")
+                    Toast.makeText(
+                        requireContext(),
+                        "Post criado!!",
+                        Toast.LENGTH_SHORT
+                    ).show()
+
+                } else  if (response.code() == 409) {
+                    Toast.makeText(
+                        requireContext(),
+                        "A imagem é muito grande selecione outra",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    Log.i("APITESTE", "erro na api $response")
+                }
+
+            }
+
+            override fun onFailure(call: Call<CreatePostPets>, t: Throwable) {
+                Log.i("APITESTE", "erro $t")
+            }
+        })
     }
 
     private fun bytesToBase64(imageBytes: ByteArray): String {
@@ -179,8 +248,8 @@ class CreatePost : Fragment() {
                     val inputStream = requireActivity().contentResolver.openInputStream(it)
                     val imageBytes = inputStream?.readBytes()
                     val base64Image = imageBytes?.let { bytesToBase64(it) }
-                            binding.selectImageButton.setImageURI(it)
-                            profileImageBase64 = base64Image
+                    binding.selectImageButton.setImageURI(it)
+                    profileImageBase64 = base64Image
                 } catch (e: IOException) {
                     Toast.makeText(requireContext(), "Error loading image", Toast.LENGTH_SHORT)
                         .show()
@@ -191,37 +260,17 @@ class CreatePost : Fragment() {
     }
 
     private fun getFilteredRaces(specie: String): Array<String> {
-        return when (specie) {
-            "Gato" -> arrayOf(
-                "vira-lata",
-                "Persa",
-                "Siamese",
-                "Maine Coon",
-                "Sphynx",
-                "Bengal",
-                "Ragdoll"
-            )
-            "Cachorro" -> arrayOf(
-                "vira-lata",
-                "Labrador",
-                "Bulldog",
-                "Golden Retriever",
-                "Pastor alemão",
-                "Beagle",
-                "Rotivalei"
-            )
-            "Coelho" -> arrayOf(
-                "vira-lata",
-                "Mini Rex",
-                "Lionhead",
-                "Holland",
-                "Flemish",
-                "Netherland",
-                "Angorá"
-            )
-            else -> emptyArray()
-        }
+        val speciesList = listOf(
+            Species("Gato", resources.getStringArray(R.array.cats_races_array)),
+            Species("Cachorro", resources.getStringArray(R.array.dog_races_array)),
+            Species("Coelho", resources.getStringArray(R.array.bunny_races_array))
+        )
+
+        val selectedSpecies = speciesList.find { it.name == specie }
+        return selectedSpecies?.races ?: emptyArray()
     }
+
+    data class Species(val name: String, val races: Array<String>)
 
     private fun petNameFocusListener() {
         binding.namePostInput.setOnFocusChangeListener { _, focused ->
@@ -296,7 +345,7 @@ class CreatePost : Fragment() {
 
     private fun validAbout(): String? {
         if (binding.aboutPostInput.text.toString().isEmpty()) {
-            return getString(R.string.create_post_years_empty)
+            return getString(R.string.inputEmptyError)
         }
         return null
     }

@@ -31,7 +31,7 @@ class PostPetsAdapter(
         holder.binding.postSex.text = postSelect.sex
         holder.binding.postSpecie.text = postSelect.specie
         postSelect.postPic.let {
-           Log.i("APITESTE", "dentro do adapter: ${postSelect.postPic.toString()}")
+           holder.binding.postPic.setImageBitmap(decodeBase64ToBitMap(it))
         }
 
         holder.itemView.setOnClickListener { idPostSelect(postSelect.id) }
