@@ -54,6 +54,8 @@ class CreatePost : Fragment() {
     ): View {
         _binding = FragmentCreatePostBinding.inflate(inflater, container, false)
 
+        Log.i("APITESTE", "dados de outro frag ${arguments?.getString("message", null)}")
+
         petNameFocusListener()
         locationFocusListener()
         yearsAgeFocusListener()

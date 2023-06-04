@@ -59,7 +59,10 @@ class HomeFragment : Fragment() {
         binding.postRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.postRecyclerView.setHasFixedSize(true)
         binding.postRecyclerView.adapter = PostPetsAdapter(postPetsList) { id ->
-            Toast.makeText(requireContext(), "$id", Toast.LENGTH_SHORT).show()
+            val bundle = Bundle().apply {
+                putString("idPost", id.toString())
+            }
+            findNavController().navigate(R.id.action_menu_home_to_viewPostFragment, bundle)
         }
     }
 

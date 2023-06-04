@@ -12,6 +12,9 @@
         <action
             android:id="@+id/action_menu_home_to_menu_create_post"
             app:destination="@id/menu_create_post" />
+        <action
+            android:id="@+id/action_menu_home_to_viewPostFragment"
+            app:destination="@id/viewPostFragment" />
     </fragment>
     <fragment
         android:id="@+id/menu_create_post"
@@ -29,6 +32,9 @@
         <action
             android:id="@+id/action_menu_profile_to_menu_create_post"
             app:destination="@id/menu_create_post" />
+        <action
+            android:id="@+id/action_menu_profile_to_viewPostFragment"
+            app:destination="@id/viewPostFragment" />
     </fragment>
     <fragment
         android:id="@+id/editProfileFragments"
@@ -39,4 +45,9 @@
             android:id="@+id/action_editProfileFragments_to_menu_profile"
             app:destination="@id/menu_profile" />
     </fragment>
+    <fragment
+        android:id="@+id/viewPostFragment"
+        android:name="com.example.pawfriend.ViewPostFragment"
+        android:label="fragment_view_post"
+        tools:layout="@layout/fragment_view_post" />
 </navigation>
