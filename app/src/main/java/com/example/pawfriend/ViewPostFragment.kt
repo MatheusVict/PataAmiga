@@ -11,6 +11,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import com.example.pawfriend.NetworkUtils.Service
 import com.example.pawfriend.NetworkUtils.isNetworkAvailable
 import com.example.pawfriend.apiJsons.GetOnePost
@@ -26,6 +27,7 @@ class ViewPostFragment : Fragment() {
     private var _binding: FragmentViewPostBinding? = null
     private val binding: FragmentViewPostBinding get() = _binding!!
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -37,9 +39,27 @@ class ViewPostFragment : Fragment() {
         _binding = FragmentViewPostBinding.inflate(inflater, container, false)
 
         val idPost = arguments?.getString("idPost").toString().toLong()
+        val postType = arguments?.getString("postType")
+
+        if (postType == "ownerPost") {
+            binding.postOwnerTextView.visibility = View.GONE
+            binding.userPostPic.visibility = View.GONE
+            binding.userNamePostView.visibility = View.GONE
+            binding.buttonAdoppetButton.visibility = View.GONE
+            binding.editPostViewButton.visibility = View.VISIBLE
+        }
 
         if (isNetworkAvailable(requireContext())) {
             getPostInstance(idPost)
+
+            binding.editPostViewButton.setOnClickListener {
+                idPost?.let {
+                    val bundle = Bundle().apply {
+                        putString("idPost", idPost.toString())
+                    }
+                    findNavController().navigate(R.id.action_viewPostFragment_to_menu_create_post, bundle)
+                }
+            }
 
             binding.buttonAdoppetButton.setOnClickListener {
                val alert = AlertDialog.Builder(requireContext())
@@ -83,7 +103,6 @@ class ViewPostFragment : Fragment() {
                             specie = it.specie,
                         )
                     }
-
                     Log.i("APITESTE", "location ${post?.petLocation} e specie ${post?.specie}")
 
                     binding.postPetName.text = post?.name

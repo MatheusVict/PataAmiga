@@ -31,6 +31,7 @@ class ProfileFragments : Fragment() {
     private var _binding: FragmentProfileBinding? = null
     private val binding: FragmentProfileBinding get() = _binding!!
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -57,6 +58,10 @@ class ProfileFragments : Fragment() {
                 getString(R.string.verify_your_connection),
                 Toast.LENGTH_SHORT
             ).show()
+            val intent = Intent(requireContext(), Login::class.java)
+            intent.flags =
+                Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+            startActivity(intent)
         }
 
         return binding.root
@@ -66,7 +71,11 @@ class ProfileFragments : Fragment() {
         binding.postRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.postRecyclerView.setHasFixedSize(true)
         binding.postRecyclerView.adapter = PostPetsAdapter(postPetsList) { id ->
-            Toast.makeText(requireContext(), "$id", Toast.LENGTH_SHORT).show()
+            val bundle = Bundle().apply {
+                putString("idPost", id.toString())
+                putString("postType", "ownerPost")
+            }
+            findNavController().navigate(R.id.action_menu_profile_to_viewPostFragment, bundle)
         }
     }
 
@@ -88,6 +97,7 @@ class ProfileFragments : Fragment() {
                             banner = it.banner
                         )
                     }
+
                     binding.userName.text = user?.name
                     binding.userLocation.text = user?.location
                     user?.banner.let {
@@ -172,14 +182,4 @@ class ProfileFragments : Fragment() {
         return BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
     }
 
-    companion object {
-
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            ProfileFragments().apply {
-                arguments = Bundle().apply {
-
-                }
-            }
-    }
 }

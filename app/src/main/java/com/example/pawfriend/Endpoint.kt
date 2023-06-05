@@ -33,4 +33,6 @@ interface Endpoint {
 
     @GET("/api/postsPets/{id}")
     fun getOnePostForId(@Path(value = "id") id: Long): Call<GetOnePost>
+    @PUT("/api/postsPets/{id}")
+    fun updatePostPetsForId(@Path(value = "id") id: Long, @Body postPets: CreatePostPets): Call<CreatePostPets>
 }

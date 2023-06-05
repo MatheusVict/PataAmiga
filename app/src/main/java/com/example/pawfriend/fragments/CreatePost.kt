@@ -2,8 +2,11 @@ package com.example.pawfriend.fragments
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Base64
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -16,10 +19,12 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.pawfriend.EditProfileFragments
 import com.example.pawfriend.Endpoint
+import com.example.pawfriend.Login
 import com.example.pawfriend.NetworkUtils.Service
 import com.example.pawfriend.NetworkUtils.isNetworkAvailable
 import com.example.pawfriend.R
 import com.example.pawfriend.apiJsons.CreatePostPets
+import com.example.pawfriend.apiJsons.GetOnePost
 import com.example.pawfriend.databinding.FragmentCreatePostBinding
 import com.example.pawfriend.global.AppGlobals
 import com.google.android.material.chip.Chip
@@ -55,6 +60,25 @@ class CreatePost : Fragment() {
         _binding = FragmentCreatePostBinding.inflate(inflater, container, false)
 
         Log.i("APITESTE", "dados de outro frag ${arguments?.getString("message", null)}")
+
+        val idPost = arguments?.getString("idPost")
+
+        if (isNetworkAvailable(requireContext())) {
+            idPost?.let {
+                binding.createPostButton.text = "atualizar"
+                getPostInstance(it.toLong())
+                binding.createPostButton.setOnClickListener {
+
+                }
+            }
+        } else {
+            Toast.makeText(
+                requireContext(),
+                "Verifique sua conexão com a internet",
+                Toast.LENGTH_SHORT
+            ).show()
+
+        }
 
         petNameFocusListener()
         locationFocusListener()
@@ -130,7 +154,23 @@ class CreatePost : Fragment() {
             openGallery(REQUEST_IMAGE_PICK)
         }
 
-        binding.createPostButton.setOnClickListener { submitForm() }
+        binding.createPostButton.setOnClickListener {
+            if (isNetworkAvailable(requireContext())) {
+                submitForm()
+            } else {
+                Toast.makeText(
+                    requireContext(),
+                    getString(R.string.verify_your_connection),
+                    Toast.LENGTH_SHORT
+                ).show()
+                val intent = Intent(requireContext(), Login::class.java)
+                intent.flags =
+                    Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                startActivity(intent)
+            }
+
+
+        }
 
         return binding.root
 
@@ -230,6 +270,104 @@ class CreatePost : Fragment() {
                 Log.i("APITESTE", "erro $t")
             }
         })
+    }
+
+    private fun getPostInstance(idPost: Long) {
+        val retrofitClient =
+            Service.getRetrofitInstance(AppGlobals.apiUrl, context = activity?.applicationContext!!)
+        val endpoint = retrofitClient.create(Endpoint::class.java)
+
+        endpoint.getOnePostForId(idPost).enqueue(object: Callback<GetOnePost> {
+            override fun onResponse(call: Call<GetOnePost>, response: Response<GetOnePost>) {
+                if (response.isSuccessful) {
+                    val post: GetOnePost? = response.body()?.let {
+                        GetOnePost(
+                            id = it.id,
+                            postPic = it.postPic,
+                            name = it.name,
+                            race = it.race,
+                            sex = it.sex,
+                            age = it.age,
+                            size = it.size,
+                            weight = it.weight,
+                            about = it.about,
+                            petLocation = it.petLocation,
+                            isAdopted = it.isAdopted,
+                            isCastrated = it.isCastrated,
+                            isVaccinated = it.isVaccinated,
+                            isPedigree = it.isPedigree,
+                            isDewormed = it.isDewormed,
+                            isEspecialNeeds = it.isEspecialNeeds,
+                            userId = it.userId,
+                            userPic = it.userPic,
+                            userName = it.userName,
+                            specie = it.specie,
+                        )
+                    }
+                    binding.namePostInput.setText(post?.name)
+
+                    val getSpeciesArrays = resources.getStringArray(R.array.species_array)
+                    val getSpecieIndex = getSpeciesArrays.indexOf(post?.specie)
+                    binding.speciePostInput.setSelection(getSpecieIndex)
+
+                    /*val racesFiltereds = getFilteredRaces(post?.specie.toString())
+                    val getIndexofRace = racesFiltereds.indexOf(post?.race)
+                    binding.selectRaceInput.setSelection(getIndexofRace)*/
+
+                    binding.locationPostInput.setText(post?.petLocation)
+
+                    for (i in 0 until binding.sexChoice.childCount) {
+                        val sexChoiseSelected = binding.sexChoice.getChildAt(i) as RadioButton
+                        val sexValue = sexChoiseSelected.text.toString()
+
+                        if(sexValue == post?.sex) {
+                            sexChoiseSelected.isChecked = true
+                            break
+                        }
+                    }
+
+                    val age = post?.age?.split(" ")
+                    val years = age?.get(0)
+                    val mouths = age?.get(2)
+                    binding.yearAgePostInput.setText(years)
+                    binding.mounthsAgePostInput.setText(mouths)
+
+                    for (i in 0 until binding.portPostChoise.childCount) {
+                        val portChoiseSelected = binding.portPostChoise.getChildAt(i) as RadioButton
+                        val portValue = portChoiseSelected.text.toString()
+
+                        if (portValue == post?.weight) {
+                            portChoiseSelected.isChecked = true
+                            break
+                        }
+                    }
+
+                    binding.isCastratedCheckBox.isChecked = post!!.isCastrated
+                    binding.isVaccinatedCheckBox.isChecked = post.isVaccinated
+                    binding.isDewormedChekBox.isChecked = post.isDewormed
+                    binding.isPedigreeCheckBox.isChecked = post.isPedigree
+                    binding.isEspecialNeedsChekBox.isChecked = post.isEspecialNeeds
+                    binding.aboutPostInput.setText(post.about)
+                    Log.i("APITESTE", "location ${post?.petLocation} e specie ${post?.specie}")
+
+                    post?.postPic.let {
+                        if (it.toString().isNotEmpty()) {
+                            binding.selectImageButton.setImageBitmap(decodeBase64ToBitMap(it))
+                        }
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<GetOnePost>, t: Throwable) {
+                TODO("Not yet implemented")
+            }
+        })
+    }
+
+    private fun decodeBase64ToBitMap(base64Code: String?): Bitmap {
+        val imageBytes = Base64.decode(base64Code, Base64.DEFAULT)
+
+        return BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
     }
 
     private fun bytesToBase64(imageBytes: ByteArray): String {

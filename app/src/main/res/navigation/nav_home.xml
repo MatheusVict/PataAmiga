@@ -49,5 +49,9 @@
         android:id="@+id/viewPostFragment"
         android:name="com.example.pawfriend.ViewPostFragment"
         android:label="fragment_view_post"
-        tools:layout="@layout/fragment_view_post" />
+        tools:layout="@layout/fragment_view_post" >
+        <action
+            android:id="@+id/action_viewPostFragment_to_menu_create_post"
+            app:destination="@id/menu_create_post" />
+    </fragment>
 </navigation>
