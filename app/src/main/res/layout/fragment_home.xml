@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="match_parent">
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     tools:context=".fragments.HomeFragment">
 
     <TextView
@@ -66,7 +71,7 @@
     <LinearLayout
         android:id="@+id/listPostContainer"
         android:layout_width="match_parent"
-        android:layout_height="476dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -92,11 +97,11 @@
             android:visibility="gone">
 
             <ImageView
-                android:id="@+id/imageView10"
+                android:id="@+id/icon_problem"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_marginTop="55dp"
-                android:src="@drawable/logo_splash"
+                android:src="@drawable/withou_connection_icon"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -107,12 +112,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:fontFamily="@font/bungee"
-                android:text="Parece que não há nenhum post ainda.\n crie o seu"
+                android:text="@string/none_post_home"
                 android:textAlignment="center"
                 android:textColor="@color/black"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView10" />
+                app:layout_constraintTop_toBottomOf="@+id/icon_problem" />
 
             <Button
                 android:id="@+id/createPostButton"
@@ -120,7 +125,7 @@
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/paw_icon"
                 android:fontFamily="@font/bungee"
-                android:text="Crie um post"
+                android:text="@string/create_post_instead_of"
                 android:textColor="@color/yellow"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -133,3 +138,5 @@
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>

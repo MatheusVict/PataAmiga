@@ -20,7 +20,17 @@
     <!--Toast-->
     <string name="email_already_exists">O email informado já está cadastrado</string>
     <string name="login_invalid">Credenciais invalidas</string>
-    <string name="connection_error">Houve um erro  tente novamente mais tarde</string>
+    <string name="connection_error">Houve um erro verifique sua conexão ou tente novamente mais tarde</string>
+
+    <!--Dialogs-->
+    <string name="dialog_connection_error_title">Acho que o gato pode ter derrubado\n o wifi</string>
+    <string name="dialog_connection_error_message">Verifique se você está conectado a alguma rede.\n Clique no botão e veja suas conexões</string>
+    <string name="dialog_connection_error_button">Verifiquar conexão</string>
+
+    <string name="dialog_error_request_title">Parece que o cachorro comeu\n o fio do servidor</string>
+    <string name="dialog_error_request_message">Houve um erro inesperado no servido, tente novamente</string>
+    <string name="dialog_error_request_button">Tentar Novamente</string>
+
 
 
     <!--Success -->
@@ -39,6 +49,8 @@
     <string name="change_photo">ALTERAR</string>
     <string name="remove_photo">REMOVER</string>
     <string name="save_changes">ATUALIZAR</string>
+    <string name="create_post_instead_of">Crie um post</string>
+    <string name="create_post_button">PRONTO</string>
 
     <!-- TextViews -->
     <string name="ask_account">JÁ POSSUI UMA CONTA?</string>
@@ -49,6 +61,15 @@
     <string name="your_banner_title">SEU BANNER</string>
     <string name="your_name_text_View">Nome</string>
     <string name="your_location_text_View">Localização</string>
+    <string name="none_post_home">Parece que não há nenhum post ainda.\n crie o seu</string>
+    <string name="create_post_input_name_label">Nome</string>
+    <string name="create_post_input_specie_label">Espécie</string>
+    <string name="create_post_title">cadastrar novo pet</string>
+    <string name="create_post_add_pic">Adicione uma foto do animal</string>
+    <string name="create_post_race_label">Raça</string>
+    <string name="create_post_location_label">Localização</string>
+    <string name="create_post_sex_label">Sexo</string>
+
 
     <!-- AltImages -->
     <string name="backGround">app background</string>
@@ -72,6 +93,21 @@
     <string name="edit_user_whatsapp">Edite seu Whatsapp</string>
     <string name="edit_user_instagram">Edite seu Instagram</string>
     <string name="edit_user_facebook">Edite seu Facebook</string>
+    <string name="create_post_name_pet">Nome do animal</string>
+    <string name="create_post_location_pet">Informe a localizaço do animal</string>
+    <string name="create_post_female_radio">Fêmea</string>
+    <string name="create_post_male_radio">macho</string>
+    <string name="create_post_years">Anos</string>
+    <string name="create_post_mouths">Meses</string>
+    <string name="create_radio_port_small">Pequeno</string>
+    <string name="create_radio_port_medium">Médio</string>
+    <string name="create_radio_port_big">grande</string>
+    <string name="create_post_is_castrated">Castrado</string>
+    <string name="create_post_is_Vaccinated">Vacinado</string>
+    <string name="create_post_is_dewormed">Vermifungado</string>
+    <string name="create_post_is_pedigree">Pedigree</string>
+    <string name="create_post_is_especial_need">Cuidados especiais</string>
+    <string name="create_post_about">Fale um pouco mais sobre seu pet</string>
 
 
     <!-- Toast -->
@@ -79,10 +115,18 @@
     <!-- Assets -->
     <string name="app_name">Pata amiga</string>
 
+    <!--Connection throwable-->
+
+    <string name="without_connection">Parece que você não possui conexão com a internt</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="search_for_pet">Busque por um pet</string>
     <string name="your_pets_button">SEUS PETS</string>
+    <string name="create_post_age_label">Idade</string>
+    <string name="create_post_port_label">Porte</string>
+
+
     <!--arrays-->
     <string-array name="species_array">
         <item>Selecione a espécie do animal</item>

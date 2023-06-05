@@ -3,7 +3,9 @@ package com.example.pawfriend.fragments
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.provider.Settings
 import android.util.Base64
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -12,6 +14,7 @@ import android.view.View
 import android.view.View.GONE
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -20,6 +23,7 @@ import com.example.pawfriend.NetworkUtils.Service
 import com.example.pawfriend.NetworkUtils.isNetworkAvailable
 import com.example.pawfriend.apiJsons.ListPostsPets
 import com.example.pawfriend.apiJsons.User
+import com.example.pawfriend.databinding.CustomDialogBinding
 import com.example.pawfriend.databinding.FragmentProfileBinding
 import com.example.pawfriend.global.AppGlobals
 import retrofit2.Call
@@ -31,6 +35,7 @@ class ProfileFragments : Fragment() {
     private var _binding: FragmentProfileBinding? = null
     private val binding: FragmentProfileBinding get() = _binding!!
 
+    private lateinit var dialog: AlertDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,10 +63,26 @@ class ProfileFragments : Fragment() {
                 getString(R.string.verify_your_connection),
                 Toast.LENGTH_SHORT
             ).show()
-            val intent = Intent(requireContext(), Login::class.java)
+            binding.textViewInsteadOf.visibility = View.VISIBLE
+            binding.createPostInsteadOfButton.visibility = View.VISIBLE
+            binding.textViewInsteadOf.text = getString(R.string.connection_error)
+            binding.createPostInsteadOfButton.text = getString(R.string.dialog_connection_error_button)
+            binding.createPostInsteadOfButton.setOnClickListener {
+                val intent = Intent(Settings.ACTION_WIRELESS_SETTINGS)
+                startActivity(intent)
+            }
+            showNoConnectionDialog(
+                getString(R.string.dialog_connection_error_title),
+                getString(R.string.dialog_connection_error_message),
+                getString(R.string.dialog_connection_error_button),
+                resources.getDrawable(R.drawable.lost_connectio),
+                false
+            )
+
+            /*val intent = Intent(requireContext(), Login::class.java)
             intent.flags =
                 Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-            startActivity(intent)
+            startActivity(intent)*/
         }
 
         return binding.root
@@ -77,6 +98,44 @@ class ProfileFragments : Fragment() {
             }
             findNavController().navigate(R.id.action_menu_profile_to_viewPostFragment, bundle)
         }
+    }
+
+    private fun showNoConnectionDialog(
+        title: String,
+        message: String,
+        messageButton: String,
+        imageId: Drawable,
+        isServerError: Boolean
+    ) {
+        val build = AlertDialog.Builder(requireContext())
+
+        val view: CustomDialogBinding =
+            CustomDialogBinding.inflate(LayoutInflater.from(requireContext()))
+
+        view.closeDialog.setOnClickListener {
+            dialog.dismiss()
+        }
+        view.imageDialog.setImageDrawable(imageId)
+        view.titleDialog.text = title
+        view.messageDialog.text = message
+        view.buttonDialog.text = messageButton
+
+
+        if (isServerError) {
+            view.buttonDialog.setOnClickListener {
+                getUserInstance()
+                getAllUserPosts()
+            }
+        } else {
+            view.buttonDialog.setOnClickListener {
+                val intent = Intent(Settings.ACTION_WIRELESS_SETTINGS)
+                startActivity(intent)
+            }
+        }
+        build.setView(view.root)
+
+        dialog = build.create()
+        dialog.show()
     }
 
     private fun getUserInstance() {

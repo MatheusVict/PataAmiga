@@ -64,7 +64,6 @@
             android:layout_width="250dp"
             android:layout_height="30dp"
             android:layout_marginTop="20dp"
-            android:text="userName"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="25sp"
@@ -79,7 +78,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:textColor="@color/black"
-            android:text="Recife, Pernambuco"
             android:textAlignment="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/userProfilePicCard"
@@ -174,6 +172,7 @@
                 android:textColor="@color/black"
                 android:fontFamily="@font/bungee"
                 android:layout_height="wrap_content"
+                android:textAlignment="center"
                 android:text="Você ainda não possui nenhum post"
                 android:visibility="gone" />
             <Button
@@ -181,6 +180,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/rounded_button_profile"
+                android:fontFamily="@font/bungee"
+                android:textColor="@color/yellow"
                 android:text="Cria post"
                 android:visibility="gone" />
         </LinearLayout>
