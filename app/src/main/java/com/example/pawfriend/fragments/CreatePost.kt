@@ -17,17 +17,16 @@ import android.widget.RadioButton
 import android.widget.Spinner
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.example.pawfriend.EditProfileFragments
+import androidx.navigation.fragment.findNavController
 import com.example.pawfriend.Endpoint
 import com.example.pawfriend.Login
 import com.example.pawfriend.NetworkUtils.Service
 import com.example.pawfriend.NetworkUtils.isNetworkAvailable
 import com.example.pawfriend.R
-import com.example.pawfriend.apiJsons.CreatePostPets
+import com.example.pawfriend.apiJsons.PostPets
 import com.example.pawfriend.apiJsons.GetOnePost
 import com.example.pawfriend.databinding.FragmentCreatePostBinding
 import com.example.pawfriend.global.AppGlobals
-import com.google.android.material.chip.Chip
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -48,9 +47,7 @@ class CreatePost : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
 
-        }
     }
 
     override fun onCreateView(
@@ -64,19 +61,27 @@ class CreatePost : Fragment() {
         val idPost = arguments?.getString("idPost")
 
         if (isNetworkAvailable(requireContext())) {
-            idPost?.let {
+            idPost?.let {postId ->
                 binding.createPostButton.text = "atualizar"
-                getPostInstance(it.toLong())
+                getPostInstance(postId.toLong())
                 binding.createPostButton.setOnClickListener {
-
+                    submitForm(postId.toLong())
+                }
+            }?: run {
+                binding.createPostButton.setOnClickListener{
+                    submitForm()
                 }
             }
         } else {
             Toast.makeText(
                 requireContext(),
-                "Verifique sua conexão com a internet",
+                getString(R.string.verify_your_connection),
                 Toast.LENGTH_SHORT
             ).show()
+            val intent = Intent(requireContext(), Login::class.java)
+            intent.flags =
+                Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+            startActivity(intent)
 
         }
 
@@ -154,29 +159,13 @@ class CreatePost : Fragment() {
             openGallery(REQUEST_IMAGE_PICK)
         }
 
-        binding.createPostButton.setOnClickListener {
-            if (isNetworkAvailable(requireContext())) {
-                submitForm()
-            } else {
-                Toast.makeText(
-                    requireContext(),
-                    getString(R.string.verify_your_connection),
-                    Toast.LENGTH_SHORT
-                ).show()
-                val intent = Intent(requireContext(), Login::class.java)
-                intent.flags =
-                    Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-                startActivity(intent)
-            }
 
-
-        }
 
         return binding.root
 
     }
 
-    private fun submitForm() {
+    private fun submitForm(idPost: Long? = null) {
         binding.namePostInput.error = validPetName()
         binding.locationPostInput.error = validLocation()
         binding.yearAgePostInput.error = validYearOld()
@@ -195,7 +184,7 @@ class CreatePost : Fragment() {
                     binding.sexChoice.findViewById<RadioButton>(binding.sexChoice.checkedRadioButtonId).text.toString()
                 val selectedPort =
                     binding.portPostChoise.findViewById<RadioButton>(binding.portPostChoise.checkedRadioButtonId).text.toString()
-                val post = CreatePostPets(
+                val post = PostPets(
                     name = binding.namePostInput.text.toString(),
                     postPic = profileImageBase64.toString(),
                     race = selectedRace!!,
@@ -216,7 +205,11 @@ class CreatePost : Fragment() {
                 Log.i("APITESTE", "selecionado ${selectedSpecie.toString()}")
                 Log.i("APITESTE", "location ${binding.locationPostInput.text.toString()}")
                 if (isNetworkAvailable(requireContext())) {
-                    createPost(post)
+                    idPost?.let {
+                        updatePostInstance(it, post)
+                    }?: run {
+                        createPost(post)
+                    }
                 } else {
                     Toast.makeText(
                         requireContext(),
@@ -237,15 +230,15 @@ class CreatePost : Fragment() {
         ).show()
     }
 
-    private fun createPost(post: CreatePostPets) {
+    private fun createPost(post: PostPets) {
         val retrofitClient =
             Service.getRetrofitInstance(AppGlobals.apiUrl, context = activity?.applicationContext!!)
         val endpoint = retrofitClient.create(Endpoint::class.java)
 
-        endpoint.createPostPets(post).enqueue(object: Callback<CreatePostPets>{
+        endpoint.createPostPets(post).enqueue(object: Callback<PostPets>{
             override fun onResponse(
-                call: Call<CreatePostPets>,
-                response: Response<CreatePostPets>
+                call: Call<PostPets>,
+                response: Response<PostPets>
             ) {
                 if (response.isSuccessful) {
                     Log.i("APITESTE", "criado ${response.body()}")
@@ -254,7 +247,11 @@ class CreatePost : Fragment() {
                         "Post criado!!",
                         Toast.LENGTH_SHORT
                     ).show()
+                    val bundle = Bundle().apply {
+                        putString("idPost", response.body()?.id.toString())
+                    }
 
+                    findNavController().navigate(R.id.action_menu_create_post_to_viewPostFragment, bundle)
                 } else  if (response.code() == 409) {
                     Toast.makeText(
                         requireContext(),
@@ -266,7 +263,7 @@ class CreatePost : Fragment() {
 
             }
 
-            override fun onFailure(call: Call<CreatePostPets>, t: Throwable) {
+            override fun onFailure(call: Call<PostPets>, t: Throwable) {
                 Log.i("APITESTE", "erro $t")
             }
         })
@@ -353,13 +350,35 @@ class CreatePost : Fragment() {
                     post?.postPic.let {
                         if (it.toString().isNotEmpty()) {
                             binding.selectImageButton.setImageBitmap(decodeBase64ToBitMap(it))
+                            profileImageBase64 = it
                         }
                     }
                 }
             }
 
             override fun onFailure(call: Call<GetOnePost>, t: Throwable) {
-                TODO("Not yet implemented")
+
+            }
+        })
+    }
+
+    private fun updatePostInstance(idPost: Long, post: PostPets) {
+        val retrofitClient =
+            Service.getRetrofitInstance(AppGlobals.apiUrl, context = activity?.applicationContext!!)
+        val endpoint = retrofitClient.create(Endpoint::class.java)
+
+        endpoint.updatePostPetsForId(idPost, post).enqueue(object: Callback<PostPets> {
+            override fun onResponse(call: Call<PostPets>, response: Response<PostPets>) {
+                if (response.isSuccessful) {
+                    Log.i("APITESTE", "aqui o post ${response.body()}")
+                    Toast.makeText(requireContext(), "atualizado com sucesso", Toast.LENGTH_SHORT).show()
+                } else if(response.code() == 409) {
+                    Toast.makeText(requireContext(), "imagem muito grande selecione outra", Toast.LENGTH_SHORT).show()
+                } else  Toast.makeText(requireContext(), "Erro ao atualizar", Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onFailure(call: Call<PostPets>, t: Throwable) {
+                Toast.makeText(requireContext(), "Erro tente novamente mais tarde", Toast.LENGTH_SHORT).show()
             }
         })
     }

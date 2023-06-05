@@ -1,6 +1,9 @@
 package com.example.pawfriend.apiJsons
 
-data class CreatePostPets(
+data class PostPets(
+
+    val id: Long = 0,
+
     val name: String = "",
 
     val postPic: String = "",

@@ -20,7 +20,11 @@
         android:id="@+id/menu_create_post"
         android:name="com.example.pawfriend.fragments.CreatePost"
         android:label="fragment_create_post"
-        tools:layout="@layout/fragment_create_post" />
+        tools:layout="@layout/fragment_create_post" >
+        <action
+            android:id="@+id/action_menu_create_post_to_viewPostFragment"
+            app:destination="@id/viewPostFragment" />
+    </fragment>
     <fragment
         android:id="@+id/menu_profile"
         android:name="com.example.pawfriend.fragments.ProfileFragments"

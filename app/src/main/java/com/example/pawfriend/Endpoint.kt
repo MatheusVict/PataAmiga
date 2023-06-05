@@ -1,7 +1,6 @@
 package com.example.pawfriend
 
 import com.example.pawfriend.apiJsons.*
-import com.google.gson.JsonObject
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -29,10 +28,10 @@ interface Endpoint {
     fun getAllPostsFromUser(): Call<List<ListPostsPets>>
 
     @POST("/api/postsPets")
-    fun createPostPets(@Body postPets: CreatePostPets): Call<CreatePostPets>
+    fun createPostPets(@Body postPets: PostPets): Call<PostPets>
 
     @GET("/api/postsPets/{id}")
     fun getOnePostForId(@Path(value = "id") id: Long): Call<GetOnePost>
     @PUT("/api/postsPets/{id}")
-    fun updatePostPetsForId(@Path(value = "id") id: Long, @Body postPets: CreatePostPets): Call<CreatePostPets>
+    fun updatePostPetsForId(@Path(value = "id") id: Long, @Body postPets: PostPets): Call<PostPets>
 }
