@@ -3,6 +3,7 @@ package com.example.pawfriend
 import com.example.pawfriend.apiJsons.*
 import retrofit2.Call
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.PUT
@@ -34,4 +35,7 @@ interface Endpoint {
     fun getOnePostForId(@Path(value = "id") id: Long): Call<GetOnePost>
     @PUT("/api/postsPets/{id}")
     fun updatePostPetsForId(@Path(value = "id") id: Long, @Body postPets: PostPets): Call<PostPets>
+
+    @DELETE("/api/postsPets/{id}")
+    fun deletePostForId(@Path(value = "id") id: Long): Call<Void>
 }

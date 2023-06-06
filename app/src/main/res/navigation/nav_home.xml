@@ -57,5 +57,8 @@
         <action
             android:id="@+id/action_viewPostFragment_to_menu_create_post"
             app:destination="@id/menu_create_post" />
+        <action
+            android:id="@+id/action_viewPostFragment_to_menu_profile"
+            app:destination="@id/menu_profile" />
     </fragment>
 </navigation>

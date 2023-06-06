@@ -35,9 +35,10 @@
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:scaleType="fitXY"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView2"
-            tools:layout_editor_absoluteX="-16dp"
-            tools:src="@tools:sample/backgrounds/scenic" />
+            tools:src="@drawable/banner_placeholder" />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/userProfilePicCard"
@@ -55,7 +56,7 @@
                 android:id="@+id/userProfilePic"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:src="@drawable/ic_launcher_background" />
+                android:src="@drawable/no_user_pic_placeholder" />
 
         </androidx.cardview.widget.CardView>
 

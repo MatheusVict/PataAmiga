@@ -347,10 +347,13 @@ class CreatePost : Fragment() {
                     binding.aboutPostInput.setText(post.about)
                     Log.i("APITESTE", "location ${post?.petLocation} e specie ${post?.specie}")
 
-                    post?.postPic.let {
-                        if (it.toString().isNotEmpty()) {
-                            binding.selectImageButton.setImageBitmap(decodeBase64ToBitMap(it))
-                            profileImageBase64 = it
+                    post.postPic.let {base64code ->
+                        val bitmap = decodeBase64ToBitMap(base64code)
+                        if (bitmap != null) {
+                            binding.selectImageButton.setImageBitmap(bitmap)
+                            profileImageBase64 = base64code
+                        } else {
+                            binding.selectImageButton.setImageResource(R.drawable.no_pet_pic_placeholder)
                         }
                     }
                 }
@@ -383,10 +386,11 @@ class CreatePost : Fragment() {
         })
     }
 
-    private fun decodeBase64ToBitMap(base64Code: String?): Bitmap {
-        val imageBytes = Base64.decode(base64Code, Base64.DEFAULT)
-
-        return BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
+    private fun decodeBase64ToBitMap(base64Code: String): Bitmap? {
+        base64Code.let {
+            val imageBytes = Base64.decode(it, Base64.DEFAULT)
+            return BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
+        }
     }
 
     private fun bytesToBase64(imageBytes: ByteArray): String {

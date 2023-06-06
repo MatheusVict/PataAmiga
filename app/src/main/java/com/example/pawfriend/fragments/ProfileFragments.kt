@@ -159,14 +159,20 @@ class ProfileFragments : Fragment() {
 
                     binding.userName.text = user?.name
                     binding.userLocation.text = user?.location
-                    user?.banner.let {
-                        if (it.toString().isNotEmpty()) {
-                            binding.userBanner.setImageBitmap(decodeBase64ToBitMap(it))
+                    user?.banner.let {base64code ->
+                        val bitmap = decodeBase64ToBitMap(base64code.toString())
+                        if (bitmap != null) {
+                            binding.userBanner.setImageBitmap(bitmap)
+                        } else {
+                            binding.userBanner.setImageResource(R.drawable.banner_placeholder)
                         }
                     }
-                    user?.profilePic.let {
-                        if (it.toString().isNotEmpty()) {
-                            binding.userProfilePic.setImageBitmap(decodeBase64ToBitMap(it))
+                    user?.profilePic.let {base64code ->
+                        val bitmap = decodeBase64ToBitMap(base64code.toString())
+                        if (bitmap != null) {
+                            binding.userProfilePic.setImageBitmap(bitmap)
+                        } else {
+                            binding.userProfilePic.setImageResource(R.drawable.no_user_pic_placeholder)
                         }
                     }
 
@@ -235,10 +241,11 @@ class ProfileFragments : Fragment() {
         })
     }
 
-    private fun decodeBase64ToBitMap(base64Code: String?): Bitmap {
-        val imageBytes = Base64.decode(base64Code, Base64.DEFAULT)
-
-        return BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
+    private fun decodeBase64ToBitMap(base64Code: String): Bitmap? {
+        base64Code.let {
+            val imageBytes = android.util.Base64.decode(it, android.util.Base64.DEFAULT)
+            return BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
+        }
     }
 
 }

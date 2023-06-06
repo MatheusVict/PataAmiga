@@ -70,13 +70,13 @@ class EditProfileFragments : Fragment() {
 
         binding.removePicButton.setOnClickListener {
             profileImageBase64 = null
-            binding.userProfilePic.setImageResource(R.drawable.logo)
+            binding.userProfilePic.setImageResource(R.drawable.no_user_pic_placeholder)
             Toast.makeText(requireContext(), "Profile picture removed", Toast.LENGTH_SHORT).show()
         }
 
         binding.removeBannerButton.setOnClickListener {
             bannerImageBase64 = null
-            binding.userBannerPic.setImageResource(R.drawable.logo)
+            binding.userBannerPic.setImageResource(R.drawable.banner_placeholder)
             Toast.makeText(requireContext(), "Banner removed", Toast.LENGTH_SHORT).show()
         }
 
@@ -144,11 +144,13 @@ class EditProfileFragments : Fragment() {
         _binding = null
     }
 
-    private fun decodeBase64ToBitMap(base64Code: String?): Bitmap {
-        val imageBytes = android.util.Base64.decode(base64Code, android.util.Base64.DEFAULT)
-
-        return BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
+    private fun decodeBase64ToBitMap(base64Code: String): Bitmap? {
+        base64Code.let {
+            val imageBytes = android.util.Base64.decode(it, android.util.Base64.DEFAULT)
+            return BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
+        }
     }
+
 
 
     private fun getUserInstance() {
@@ -179,16 +181,22 @@ class EditProfileFragments : Fragment() {
                     binding.userWhatsappInput.setText(user?.whatsapp)
                     binding.userInstagramInput.setText(user?.instagram)
                     binding.userFacebookInput.setText(user?.facebook)
-                    user?.banner.let {
-                        if (it.toString().isNotEmpty()) {
-                            binding.userBannerPic.setImageBitmap(decodeBase64ToBitMap(it))
-                            bannerImageBase64 = it
+                    user?.banner.let {base64code ->
+                        val bitmap = decodeBase64ToBitMap(base64code.toString())
+                        if (bitmap != null) {
+                            binding.userBannerPic.setImageBitmap(bitmap)
+                            bannerImageBase64 = base64code
+                        } else {
+                            binding.userBannerPic.setImageResource(R.drawable.banner_placeholder)
                         }
                     }
-                    user?.profilePic.let {
-                        if (it.toString().isNotEmpty()) {
-                            binding.userProfilePic.setImageBitmap(decodeBase64ToBitMap(it))
-                            profileImageBase64 = it
+                    user?.profilePic.let {base64code ->
+                        val bitmap = decodeBase64ToBitMap(base64code.toString())
+                        if (bitmap != null) {
+                            binding.userProfilePic.setImageBitmap(bitmap)
+                            profileImageBase64 = base64code
+                        } else {
+                            binding.userProfilePic.setImageResource(R.drawable.no_user_pic_placeholder)
                         }
                     }
 

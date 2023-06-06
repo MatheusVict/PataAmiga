@@ -144,11 +144,14 @@ class HomeFragment : Fragment() {
                             intiRecyclerView(it)
                         }
                     }
-                } else Toast.makeText(
-                    requireContext(),
-                    "Houve um erro tente novamente mais tarde",
-                    Toast.LENGTH_SHORT
-                ).show()
+                } else {
+                    Log.i("APITESTE", "erro na api olha $response")
+                    Toast.makeText(
+                        requireContext(),
+                        "Houve um erro tente novamente mais tarde",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
             }
 
             override fun onFailure(call: Call<List<ListPostsPets>>, t: Throwable) {

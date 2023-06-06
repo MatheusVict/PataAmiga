@@ -1,9 +1,12 @@
 package com.example.pawfriend
 
-import android.app.AlertDialog
+
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.provider.Settings
 import android.util.Base64
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -11,11 +14,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.navigation.fragment.findNavController
 import com.example.pawfriend.NetworkUtils.Service
 import com.example.pawfriend.NetworkUtils.isNetworkAvailable
 import com.example.pawfriend.apiJsons.GetOnePost
 import com.example.pawfriend.apiJsons.User
+import com.example.pawfriend.databinding.AreYouSureDialogBinding
+import com.example.pawfriend.databinding.CustomDialogBinding
 import com.example.pawfriend.databinding.FragmentViewPostBinding
 import com.example.pawfriend.global.AppGlobals
 import retrofit2.Call
@@ -26,6 +32,9 @@ import retrofit2.Response
 class ViewPostFragment : Fragment() {
     private var _binding: FragmentViewPostBinding? = null
     private val binding: FragmentViewPostBinding get() = _binding!!
+
+    private lateinit var dialog: AlertDialog
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,6 +56,7 @@ class ViewPostFragment : Fragment() {
             binding.userNamePostView.visibility = View.GONE
             binding.buttonAdoppetButton.visibility = View.GONE
             binding.editPostViewButton.visibility = View.VISIBLE
+            binding.deletePostButton.visibility = View.VISIBLE
         }
 
         if (isNetworkAvailable(requireContext())) {
@@ -60,15 +70,94 @@ class ViewPostFragment : Fragment() {
                     findNavController().navigate(R.id.action_viewPostFragment_to_menu_create_post, bundle)
                 }
             }
+            binding.deletePostButton.setOnClickListener {
+                idPost?.let {
+                    areYouSureAlertDialog(
+                        "tem certeza que deseja excluir este post?",
+                        "SIM",
+                        "Não",
+                        it
+                    )
+                }
+
+            }
 
             binding.buttonAdoppetButton.setOnClickListener {
-               val alert = AlertDialog.Builder(requireContext())
-                alert.setTitle("Entre em contato")
-                alert.setMessage("aqui")
+
             }
         } else Toast.makeText(requireContext(), "sem Conexão", Toast.LENGTH_SHORT).show()
 
         return binding.root
+    }
+
+    private fun showNoConnectionDialog(
+        title: String,
+        message: String,
+        messageButton: String,
+        imageId: Drawable,
+        isServerError: Boolean,
+        idPost: Long
+    ) {
+        val build = AlertDialog.Builder(requireContext())
+
+        val view: CustomDialogBinding =
+            CustomDialogBinding.inflate(LayoutInflater.from(requireContext()))
+
+        view.closeDialog.setOnClickListener {
+            dialog.dismiss()
+        }
+        view.imageDialog.setImageDrawable(imageId)
+        view.titleDialog.text = title
+        view.messageDialog.text = message
+        view.buttonDialog.text = messageButton
+
+
+        if (isServerError) {
+            view.buttonDialog.setOnClickListener {
+                getPostInstance(idPost)
+            }
+        } else {
+            view.buttonDialog.setOnClickListener {
+                val intent = Intent(Settings.ACTION_WIRELESS_SETTINGS)
+                startActivity(intent)
+            }
+        }
+        build.setView(view.root)
+
+        dialog = build.create()
+        dialog.show()
+    }
+
+    private fun areYouSureAlertDialog(
+        title: String,
+        messageConfirmButton: String,
+        messageResfuseButton: String,
+        idPost: Long
+    ) {
+        val build = AlertDialog.Builder(requireContext())
+
+        val view: AreYouSureDialogBinding =
+            AreYouSureDialogBinding.inflate(LayoutInflater.from(requireContext()))
+
+
+
+        view.questionText.text = title
+        view.confirmButton.text = messageConfirmButton
+        view.refuseButton.text = messageResfuseButton
+
+
+        view.refuseButton.setOnClickListener {
+            dialog.dismiss()
+        }
+        view.confirmButton.setOnClickListener {
+            deletePost(idPost)
+            dialog.dismiss()
+        }
+
+        build.setView(view.root)
+
+        dialog = build.create()
+        dialog.show()
     }
 
     private fun getPostInstance(idPost: Long) {
@@ -121,14 +210,20 @@ class ViewPostFragment : Fragment() {
                     binding.aboutPostView.text = post?.about
                     binding.userNamePostView.text = post?.userName
 
-                    post?.postPic.let {
-                        if (it.toString().isNotEmpty()) {
-                            binding.postPetPic.setImageBitmap(decodeBase64ToBitMap(it))
+                    post?.postPic.let {base64code ->
+                        val bitmap = decodeBase64ToBitMap(base64code!!)
+                        if (bitmap != null) {
+                            binding.postPetPic.setImageBitmap(bitmap)
+                        } else {
+                            binding.postPetPic.setImageResource(R.drawable.no_pet_pic_placeholder)
                         }
                     }
-                    post?.userPic.let {
-                        if (it.toString().isNotEmpty()) {
-                            binding.userPostPic.setImageBitmap(decodeBase64ToBitMap(it))
+                    post?.userPic.let{base64code ->
+                        val bitmap = decodeBase64ToBitMap(base64code!!)
+                        if (bitmap != null) {
+                            binding.userPostPic.setImageBitmap(bitmap)
+                        } else {
+                            binding.userPostPic.setImageResource(R.drawable.no_user_pic_placeholder)
                         }
                     }
                 }
@@ -140,11 +235,34 @@ class ViewPostFragment : Fragment() {
         })
     }
 
-    private fun decodeBase64ToBitMap(base64Code: String?): Bitmap {
-        val imageBytes = Base64.decode(base64Code, Base64.DEFAULT)
-
-        return BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
+    private fun decodeBase64ToBitMap(base64Code: String): Bitmap? {
+        base64Code.let {
+            val imageBytes = Base64.decode(it, Base64.DEFAULT)
+            return BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
+        }
     }
 
+    private fun deletePost(idPost: Long) {
+        val retrofitClient =
+            Service.getRetrofitInstance(AppGlobals.apiUrl, context = activity?.applicationContext!!)
+        val endpoint = retrofitClient.create(Endpoint::class.java)
+
+        endpoint.deletePostForId(idPost).enqueue(object: Callback<Void>{
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                if (response.isSuccessful) {
+                    Toast.makeText(requireContext(), "post deletado com sucesso", Toast.LENGTH_SHORT).show()
+                    findNavController().navigate(R.id.action_viewPostFragment_to_menu_profile)
+                } else {
+                    Log.i("APITESTE", "erro da api $response")
+                    Toast.makeText(requireContext(), "erro na api", Toast.LENGTH_SHORT).show()
+
+                }
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                Log.i("APITESTE", "erro $t")
+            }
+        })
+    }
 
 }

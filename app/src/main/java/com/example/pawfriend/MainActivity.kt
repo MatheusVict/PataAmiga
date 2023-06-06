@@ -74,7 +74,7 @@ class MainActivity : AppCompatActivity() {
                 startActivity(intent)
                 finish()
             }
-        }, 7000)
+        }, 3000)
     }
 
     private fun login(user: UserLogin, callback: (Boolean) -> Unit) {

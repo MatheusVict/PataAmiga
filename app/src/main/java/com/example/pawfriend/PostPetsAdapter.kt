@@ -30,9 +30,15 @@ class PostPetsAdapter(
         holder.binding.postRace.text = postSelect.race
         holder.binding.postSex.text = postSelect.sex
         holder.binding.postSpecie.text = postSelect.specie
-        postSelect.postPic.let {
-           holder.binding.postPic.setImageBitmap(decodeBase64ToBitMap(it))
+        postSelect.postPic.let { base64Code ->
+            val bitmap = decodeBase64ToBitMap(base64Code)
+            if (bitmap != null) {
+                holder.binding.postPic.setImageBitmap(bitmap)
+            } else {
+                holder.binding.postPic.setImageResource(R.drawable.no_pet_pic_placeholder)
+            }
         }
+
 
         holder.itemView.setOnClickListener { idPostSelect(postSelect.id) }
     }
@@ -42,15 +48,13 @@ class PostPetsAdapter(
 
     class MyViewHolder(val binding: PostAdapterBinding) : RecyclerView.ViewHolder(binding.root)
 
-    private fun decodeBase64ToBitMap(base64Code: String): Bitmap {
-
-        val withoutSpaces = removeSpaces(base64Code)
-
+    private fun decodeBase64ToBitMap(base64Code: String): Bitmap? {
         base64Code.let {
             val imageBytes = Base64.decode(it, Base64.DEFAULT)
             return BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
         }
     }
+
 
     private fun removeSpaces(input: String): String {
         return if (input.contains("\\s".toRegex())) {
