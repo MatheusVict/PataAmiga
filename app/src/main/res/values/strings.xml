@@ -20,7 +20,8 @@
     <!--Toast-->
     <string name="email_already_exists">O email informado já está cadastrado</string>
     <string name="login_invalid">Credenciais invalidas</string>
-    <string name="connection_error">Houve um erro verifique sua conexão ou tente novamente mais tarde</string>
+    <string name="connection_error">Houve um erro verifique sua conexão</string>
+    <string name="api_error">Houve um erro tente novamente mais tard</string>
 
     <!--Dialogs-->
     <string name="dialog_connection_error_title">Acho que o gato pode ter derrubado\n o wifi</string>

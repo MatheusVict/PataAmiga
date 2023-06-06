@@ -85,7 +85,16 @@ class ViewPostFragment : Fragment() {
             binding.buttonAdoppetButton.setOnClickListener {
 
             }
-        } else Toast.makeText(requireContext(), "sem Conexão", Toast.LENGTH_SHORT).show()
+        } else {
+
+            showNoConnectionDialog(
+                getString(R.string.dialog_connection_error_title),
+                getString(R.string.dialog_connection_error_message),
+                getString(R.string.dialog_connection_error_button),
+                resources.getDrawable(R.drawable.lost_connectio),
+                idPost
+            )
+        }
 
         return binding.root
     }
@@ -95,8 +104,9 @@ class ViewPostFragment : Fragment() {
         message: String,
         messageButton: String,
         imageId: Drawable,
-        isServerError: Boolean,
-        idPost: Long
+        idPost: Long?,
+        isServerError: Boolean = false
+
     ) {
         val build = AlertDialog.Builder(requireContext())
 
@@ -113,9 +123,7 @@ class ViewPostFragment : Fragment() {
 
 
         if (isServerError) {
-            view.buttonDialog.setOnClickListener {
-                getPostInstance(idPost)
-            }
+            view.buttonDialog.visibility = View.GONE
         } else {
             view.buttonDialog.setOnClickListener {
                 val intent = Intent(Settings.ACTION_WIRELESS_SETTINGS)
@@ -253,14 +261,21 @@ class ViewPostFragment : Fragment() {
                     Toast.makeText(requireContext(), "post deletado com sucesso", Toast.LENGTH_SHORT).show()
                     findNavController().navigate(R.id.action_viewPostFragment_to_menu_profile)
                 } else {
-                    Log.i("APITESTE", "erro da api $response")
-                    Toast.makeText(requireContext(), "erro na api", Toast.LENGTH_SHORT).show()
-
+                    Toast.makeText(requireContext(), getString(R.string.api_error), Toast.LENGTH_SHORT).show()
+                    findNavController().navigate(R.id.action_viewPostFragment_to_menu_create_post)
+                    findNavController().popBackStack(R.id.viewPostFragment, true)
                 }
             }
 
             override fun onFailure(call: Call<Void>, t: Throwable) {
-                Log.i("APITESTE", "erro $t")
+                showNoConnectionDialog(
+                    getString(R.string.dialog_error_request_title),
+                    getString(R.string.dialog_error_request_message),
+                    getString(R.string.dialog_error_request_button),
+                    resources.getDrawable(R.drawable.lost_server),
+                    idPost,
+                    true
+                )
             }
         })
     }
