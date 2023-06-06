@@ -1,5 +1,6 @@
 package com.example.pawfriend.fragments
 
+import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -23,6 +24,7 @@ import com.example.pawfriend.NetworkUtils.Service
 import com.example.pawfriend.NetworkUtils.isNetworkAvailable
 import com.example.pawfriend.apiJsons.ListPostsPets
 import com.example.pawfriend.apiJsons.User
+import com.example.pawfriend.databinding.AreYouSureDialogBinding
 import com.example.pawfriend.databinding.CustomDialogBinding
 import com.example.pawfriend.databinding.FragmentProfileBinding
 import com.example.pawfriend.global.AppGlobals
@@ -56,6 +58,13 @@ class ProfileFragments : Fragment() {
             }
             binding.createPostInsteadOfButton.setOnClickListener {
                 findNavController().navigate(R.id.action_menu_profile_to_menu_create_post)
+            }
+            binding.logoutButton.setOnClickListener {
+                areYouSureAlertDialog(
+                    "Deseja fazer o logout?",
+                    "SIM",
+                    "NÂO"
+                )
             }
         } else {
             Toast.makeText(
@@ -132,6 +141,45 @@ class ProfileFragments : Fragment() {
                 startActivity(intent)
             }
         }
+        build.setView(view.root)
+
+        dialog = build.create()
+        dialog.show()
+    }
+
+    private fun areYouSureAlertDialog(
+        title: String,
+        messageConfirmButton: String,
+        messageResfuseButton: String,
+    ) {
+        val build = AlertDialog.Builder(requireContext())
+
+        val view: AreYouSureDialogBinding =
+            AreYouSureDialogBinding.inflate(LayoutInflater.from(requireContext()))
+
+
+
+        view.questionText.text = title
+        view.confirmButton.text = messageConfirmButton
+        view.refuseButton.text = messageResfuseButton
+
+
+        view.refuseButton.setOnClickListener {
+            dialog.dismiss()
+        }
+        view.confirmButton.setOnClickListener {
+            val sharedPreferences = requireContext().getSharedPreferences("login_credentials", Context.MODE_PRIVATE)
+            val editor = sharedPreferences.edit()
+            editor.putString("email", "")
+            editor.putString("password", "")
+            editor.apply()
+            val intent = Intent(requireContext(), RegisterOrLogin::class.java)
+            intent.flags =
+                Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+            startActivity(intent)
+            dialog.dismiss()
+        }
+
         build.setView(view.root)
 
         dialog = build.create()
