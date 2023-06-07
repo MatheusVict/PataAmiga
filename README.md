@@ -63,8 +63,6 @@
 
 <div align="center">
 <img height="500em" src="https://github.com/MatheusVict/PataAmiga/assets/110125979/f91adc4b-6a71-4e94-b7a8-960863bab1c5"/>
-<p>Filtro de animais:</p>
-<img height="400em" src="https://github.com/MatheusVict/PataAmiga/assets/110125979/2e38bb26-9a9f-42ee-b407-ce98b5410e5f"/>
 </div>
 
 <h2 align="center"> Tela do Perfil de Pet </h2>
@@ -463,7 +461,7 @@ Se o usuário escolher não fechar o aplicativo ficará aberto.
 ```
 
 <h3>update password</h3>
-<h4>Método responsável por atualizar a senha de um usuário no banco com base no token</h4>
+<h4>Método responsável por atualizar a senha de um usuário no banco com base no email</h4>
 
 ```patch```
 
@@ -724,7 +722,7 @@ Se o usuário escolher não fechar o aplicativo ficará aberto.
 ```
 
 <h3>deletePost</h3>
-<h4>Método responsável por apagar um post no banco</h4>
+<h4>Método responsável por apagar um post no banco(Você só pode deletar os seus posts)</h4>
 
 ```delete```
 

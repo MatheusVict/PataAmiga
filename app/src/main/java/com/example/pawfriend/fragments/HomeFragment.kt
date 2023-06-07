@@ -3,6 +3,8 @@ package com.example.pawfriend.fragments
 import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.provider.Settings
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -10,6 +12,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AlertDialog
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -32,6 +35,10 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding: FragmentHomeBinding get() = _binding!!
 
+    private var backButtonPressedOnce = false
+    private val BackButtonPressInrterval = 2000
+    private lateinit var onBackPressedCallBak: OnBackPressedCallback
+
     private lateinit var dialog: AlertDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,6 +51,24 @@ class HomeFragment : Fragment() {
     ): View? {
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
+
+        onBackPressedCallBak = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                if(backButtonPressedOnce) {
+                    isEnabled = false
+                    requireActivity().onBackPressed()
+                } else {
+                    backButtonPressedOnce = true
+                    Toast.makeText(requireContext(), getString(R.string.exit_confirm), Toast.LENGTH_SHORT).show()
+
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        backButtonPressedOnce = false
+                    }, BackButtonPressInrterval.toLong())
+                }
+            }
+        }
+
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, onBackPressedCallBak)
 
         if (isNetworkAvailable(requireContext())) {
             getAllPosts()
@@ -68,6 +93,11 @@ class HomeFragment : Fragment() {
 
         return binding.root
 
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        onBackPressedCallBak.remove()
     }
 
     private fun showNoConnectionDialog(
