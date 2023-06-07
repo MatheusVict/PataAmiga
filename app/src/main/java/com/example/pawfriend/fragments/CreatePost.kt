@@ -4,8 +4,10 @@ import android.app.Activity
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.provider.MediaStore
+import android.provider.Settings
 import android.util.Base64
 import android.util.Log
 import android.view.LayoutInflater
@@ -16,6 +18,7 @@ import android.widget.ArrayAdapter
 import android.widget.RadioButton
 import android.widget.Spinner
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.pawfriend.Endpoint
@@ -25,6 +28,7 @@ import com.example.pawfriend.NetworkUtils.isNetworkAvailable
 import com.example.pawfriend.R
 import com.example.pawfriend.apiJsons.PostPets
 import com.example.pawfriend.apiJsons.GetOnePost
+import com.example.pawfriend.databinding.CustomDialogBinding
 import com.example.pawfriend.databinding.FragmentCreatePostBinding
 import com.example.pawfriend.global.AppGlobals
 import retrofit2.Call
@@ -37,6 +41,7 @@ class CreatePost : Fragment() {
     private val binding: FragmentCreatePostBinding get() = _binding!!
 
     private lateinit var raceSpinner: Spinner
+    private lateinit var dialog: AlertDialog
 
     private var selectedRace: String? = null
     private var selectedSpecie: String? = null
@@ -62,7 +67,7 @@ class CreatePost : Fragment() {
 
         if (isNetworkAvailable(requireContext())) {
             idPost?.let {postId ->
-                binding.createPostButton.text = "atualizar"
+                binding.createPostButton.text = getString(R.string.update_post_button)
                 getPostInstance(postId.toLong())
                 binding.createPostButton.setOnClickListener {
                     submitForm(postId.toLong())
@@ -78,10 +83,13 @@ class CreatePost : Fragment() {
                 getString(R.string.verify_your_connection),
                 Toast.LENGTH_SHORT
             ).show()
-            val intent = Intent(requireContext(), Login::class.java)
-            intent.flags =
-                Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-            startActivity(intent)
+            showNoConnectionDialog(
+                getString(R.string.dialog_connection_error_title),
+                getString(R.string.dialog_connection_error_message),
+                getString(R.string.dialog_connection_error_button),
+                resources.getDrawable(R.drawable.lost_connectio),
+                false
+            )
 
         }
 
@@ -244,27 +252,39 @@ class CreatePost : Fragment() {
                     Log.i("APITESTE", "criado ${response.body()}")
                     Toast.makeText(
                         requireContext(),
-                        "Post criado!!",
+                        getString(R.string.create_post),
                         Toast.LENGTH_SHORT
                     ).show()
-                    val bundle = Bundle().apply {
-                        putString("idPost", response.body()?.id.toString())
-                    }
+                    response.body()?.id.let {
+                        val bundle = Bundle().apply {
+                            putString("idPost", it.toString())
+                        }
 
-                    findNavController().navigate(R.id.action_menu_create_post_to_viewPostFragment, bundle)
+                        findNavController().navigate(R.id.action_menu_create_post_to_viewPostFragment, bundle)
+                    }
                 } else  if (response.code() == 409) {
                     Toast.makeText(
                         requireContext(),
-                        "A imagem é muito grande selecione outra",
+                        getString(R.string.image_size_error),
                         Toast.LENGTH_SHORT
                     ).show()
                     Log.i("APITESTE", "erro na api $response")
+                }else if(response.code() == 401 || response.code() == 403) {
+                    Toast.makeText(requireContext(), getString(R.string.unauthorized_error), Toast.LENGTH_SHORT).show()
+                    val intent = Intent(requireContext(), Login::class.java)
+                    intent.flags =
+                        Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                    startActivity(intent)
                 }
 
             }
 
             override fun onFailure(call: Call<PostPets>, t: Throwable) {
-                Log.i("APITESTE", "erro $t")
+                Toast.makeText(
+                    requireContext(),
+                    getString(R.string.api_error),
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         })
     }
@@ -306,10 +326,6 @@ class CreatePost : Fragment() {
                     val getSpeciesArrays = resources.getStringArray(R.array.species_array)
                     val getSpecieIndex = getSpeciesArrays.indexOf(post?.specie)
                     binding.speciePostInput.setSelection(getSpecieIndex)
-
-                    /*val racesFiltereds = getFilteredRaces(post?.specie.toString())
-                    val getIndexofRace = racesFiltereds.indexOf(post?.race)
-                    binding.selectRaceInput.setSelection(getIndexofRace)*/
 
                     binding.locationPostInput.setText(post?.petLocation)
 
@@ -356,11 +372,23 @@ class CreatePost : Fragment() {
                             binding.selectImageButton.setImageResource(R.drawable.no_pet_pic_placeholder)
                         }
                     }
+                } else  if(response.code() == 401 || response.code() == 403) {
+                    Toast.makeText(requireContext(), getString(R.string.unauthorized_error), Toast.LENGTH_SHORT).show()
+                    val intent = Intent(requireContext(), Login::class.java)
+                    intent.flags =
+                        Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                    startActivity(intent)
                 }
             }
 
             override fun onFailure(call: Call<GetOnePost>, t: Throwable) {
-
+                showNoConnectionDialog(
+                    getString(R.string.dialog_error_request_title),
+                    getString(R.string.dialog_error_request_message),
+                    getString(R.string.server_error),
+                    resources.getDrawable(R.drawable.lost_server),
+                    true
+                )
             }
         })
     }
@@ -374,17 +402,80 @@ class CreatePost : Fragment() {
             override fun onResponse(call: Call<PostPets>, response: Response<PostPets>) {
                 if (response.isSuccessful) {
                     Log.i("APITESTE", "aqui o post ${response.body()}")
-                    Toast.makeText(requireContext(), "atualizado com sucesso", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), getString(R.string.update_post_success), Toast.LENGTH_SHORT).show()
+                    response.body()?.id.let {
+                        if (it != 0L) {
+                            val bundle = Bundle().apply {
+                                putString("idPost", it.toString())
+                            }
+
+                            findNavController().navigate(R.id.action_menu_create_post_to_viewPostFragment, bundle)
+                            findNavController().popBackStack(R.id.menu_create_post, true)
+                        }
+                    }
                 } else if(response.code() == 409) {
-                    Toast.makeText(requireContext(), "imagem muito grande selecione outra", Toast.LENGTH_SHORT).show()
-                } else  Toast.makeText(requireContext(), "Erro ao atualizar", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), getString(R.string.image_size_error), Toast.LENGTH_SHORT).show()
+                } else  if(response.code() == 401 || response.code() == 403) {
+                    Toast.makeText(requireContext(), getString(R.string.unauthorized_error), Toast.LENGTH_SHORT).show()
+                    val intent = Intent(requireContext(), Login::class.java)
+                    intent.flags =
+                        Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                    startActivity(intent)
+                }
             }
 
             override fun onFailure(call: Call<PostPets>, t: Throwable) {
-                Toast.makeText(requireContext(), "Erro tente novamente mais tarde", Toast.LENGTH_SHORT).show()
+                showNoConnectionDialog(
+                    getString(R.string.dialog_error_request_title),
+                    getString(R.string.dialog_error_request_message),
+                    getString(R.string.server_error),
+                    resources.getDrawable(R.drawable.lost_server),
+                    true
+                )
             }
         })
     }
+
+    private fun showNoConnectionDialog(
+        title: String,
+        message: String,
+        messageButton: String,
+        imageId: Drawable,
+        isServerError: Boolean
+    ) {
+        val build = AlertDialog.Builder(requireContext())
+
+        val view: CustomDialogBinding =
+            CustomDialogBinding.inflate(LayoutInflater.from(requireContext()))
+
+        view.closeDialog.setOnClickListener {
+            dialog.dismiss()
+        }
+        view.imageDialog.setImageDrawable(imageId)
+        view.titleDialog.text = title
+        view.messageDialog.text = message
+        view.buttonDialog.text = messageButton
+
+
+        if (isServerError) {
+            view.buttonDialog.setOnClickListener {
+                val intent = Intent(requireContext(), Login::class.java)
+                intent.flags =
+                    Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                startActivity(intent)
+            }
+        } else {
+            view.buttonDialog.setOnClickListener {
+                val intent = Intent(Settings.ACTION_WIRELESS_SETTINGS)
+                startActivity(intent)
+            }
+        }
+        build.setView(view.root)
+
+        dialog = build.create()
+        dialog.show()
+    }
+
 
     private fun decodeBase64ToBitMap(base64Code: String): Bitmap? {
         base64Code.let {
@@ -416,7 +507,7 @@ class CreatePost : Fragment() {
                     binding.selectImageButton.setImageURI(it)
                     profileImageBase64 = base64Image
                 } catch (e: IOException) {
-                    Toast.makeText(requireContext(), "Error loading image", Toast.LENGTH_SHORT)
+                    Toast.makeText(requireContext(), getString(R.string.image_error), Toast.LENGTH_SHORT)
                         .show()
                     e.printStackTrace()
                 }

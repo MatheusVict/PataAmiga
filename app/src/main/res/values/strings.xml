@@ -25,6 +25,11 @@
     <string name="exit_confirm">Pressione novamente para sair</string>
     <string name="change_password">Senha atualizada com sucesso</string>
     <string name="change_password_user_not_found">Usuário não encontrado</string>
+    <string name="create_post">Pet anunciado!</string>
+    <string name="image_size_error">Esta imagem é muito grande, selecione outra</string>
+    <string name="update_post_success">Atualizado com sucesso</string>
+    <string name="unauthorized_error">Tente logar novamente</string>
+    <string name="image_error">Erro ao carregar a imagem</string>
 
     <!--Dialogs-->
     <string name="dialog_connection_error_title">Acho que o gato pode ter derrubado\n o wifi</string>
@@ -58,6 +63,8 @@
     <string name="create_post_instead_of">Crie um post</string>
     <string name="create_post_button">PRONTO</string>
     <string name="change_password_button">MUDAR</string>
+    <string name="update_post_button">ATUALIZAR</string>
+    <string name="server_error">logar novamente</string>
 
     <!-- TextViews -->
     <string name="ask_account">JÁ POSSUI UMA CONTA?</string>
