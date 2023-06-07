@@ -5,6 +5,7 @@ import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
+import retrofit2.http.PATCH
 import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Path
@@ -38,4 +39,7 @@ interface Endpoint {
 
     @DELETE("/api/postsPets/{id}")
     fun deletePostForId(@Path(value = "id") id: Long): Call<Void>
+
+    @PATCH("/api/user/change_password")
+    fun changeUserPassword(@Body changeUserPassword: ChangeUserPassword): Call<Void>
 }

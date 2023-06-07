@@ -1,15 +1,18 @@
 package com.example.pawfriend
 
-import android.content.Context
 import android.content.Intent
 import android.graphics.Color
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.util.Patterns
 import android.widget.Toast
-import com.example.pawfriend.apiJsons.UserLogin
+import androidx.appcompat.app.AppCompatActivity
+import com.example.pawfriend.NetworkUtils.Service
+import com.example.pawfriend.apiJsons.ChangeUserPassword
 import com.example.pawfriend.databinding.ActivityChangePasswordBinding
+import com.example.pawfriend.global.AppGlobals
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class ChangePassword : AppCompatActivity() {
     private lateinit var binding: ActivityChangePasswordBinding
@@ -20,6 +23,9 @@ class ChangePassword : AppCompatActivity() {
 
         supportActionBar?.hide()
         window.statusBarColor = Color.parseColor("#0CBFDE")
+
+        emailFocusListener()
+        passwordFocusListener()
 
         val email: String? = intent.getStringExtra("userEmail")
 
@@ -40,13 +46,49 @@ class ChangePassword : AppCompatActivity() {
         val toastMessage: String = getString(R.string.toast_error_inputs)
 
         if (validEmail && validPassword) {
-
+            val user = ChangeUserPassword(
+                email = binding.userEmailInput.text.toString(),
+                newPassword = binding.userNewPassword.text.toString()
+            )
+            changeUserPassword(
+                user
+            )
 
         } else Toast.makeText(applicationContext, toastMessage, Toast.LENGTH_LONG).show()
     }
 
+    private fun changeUserPassword(newCredentials: ChangeUserPassword) {
+        val retrofitClient =
+            Service.getRetrofitInstance(AppGlobals.apiUrl, context = this)
+        val endpoint = retrofitClient.create(Endpoint::class.java)
+
+        endpoint.changeUserPassword(newCredentials).enqueue(object : Callback<Void> {
+            override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                if (response.isSuccessful) {
+                    Toast.makeText(applicationContext, getString(R.string.change_password), Toast.LENGTH_SHORT)
+                        .show()
+                    val intent = Intent(applicationContext, Login::class.java)
+                    startActivity(intent)
+                    finish()
+                } else Toast.makeText(
+                    applicationContext,
+                    getString(R.string.change_password_user_not_found),
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+
+            override fun onFailure(call: Call<Void>, t: Throwable) {
+                Toast.makeText(
+                    applicationContext,
+                    getString(R.string.api_error),
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        })
+    }
+
     private fun emailFocusListener() {
-        binding.userEmailInput.setOnFocusChangeListener {_, focused ->
+        binding.userEmailInput.setOnFocusChangeListener { _, focused ->
             if (!focused) {
                 binding.userEmailInput.error = validEmail()
             }
@@ -62,7 +104,7 @@ class ChangePassword : AppCompatActivity() {
     }
 
     private fun passwordFocusListener() {
-        binding.userNewPassword.setOnFocusChangeListener {_, focused ->
+        binding.userNewPassword.setOnFocusChangeListener { _, focused ->
             if (!focused) {
                 binding.userNewPassword.error = validPassword()
             }

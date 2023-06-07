@@ -23,6 +23,8 @@
     <string name="connection_error">Houve um erro verifique sua conexão</string>
     <string name="api_error">Houve um erro tente novamente mais tarde</string>
     <string name="exit_confirm">Pressione novamente para sair</string>
+    <string name="change_password">Senha atualizada com sucesso</string>
+    <string name="change_password_user_not_found">Usuário não encontrado</string>
 
     <!--Dialogs-->
     <string name="dialog_connection_error_title">Acho que o gato pode ter derrubado\n o wifi</string>
