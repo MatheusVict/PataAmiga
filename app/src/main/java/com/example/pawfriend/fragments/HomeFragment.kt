@@ -11,6 +11,7 @@ import android.text.TextWatcher
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
@@ -59,12 +60,16 @@ class HomeFragment : Fragment() {
 
         onBackPressedCallBak = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                if(backButtonPressedOnce) {
+                if (backButtonPressedOnce) {
                     isEnabled = false
                     requireActivity().onBackPressed()
                 } else {
                     backButtonPressedOnce = true
-                    Toast.makeText(requireContext(), getString(R.string.exit_confirm), Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        requireContext(),
+                        getString(R.string.exit_confirm),
+                        Toast.LENGTH_SHORT
+                    ).show()
 
                     Handler(Looper.getMainLooper()).postDelayed({
                         backButtonPressedOnce = false
@@ -73,7 +78,10 @@ class HomeFragment : Fragment() {
             }
         }
 
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, onBackPressedCallBak)
+        requireActivity().onBackPressedDispatcher.addCallback(
+            viewLifecycleOwner,
+            onBackPressedCallBak
+        )
 
         if (isNetworkAvailable(requireContext())) {
             getAllPosts()
@@ -81,7 +89,13 @@ class HomeFragment : Fragment() {
                 findNavController().navigate(R.id.action_menu_home_to_menu_create_post)
             }
             binding.searchPetsInputs.addTextChangedListener(object : TextWatcher {
-                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+                override fun beforeTextChanged(
+                    s: CharSequence?,
+                    start: Int,
+                    count: Int,
+                    after: Int
+                ) {
+                }
 
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                     filterPosts(s.toString())
@@ -89,6 +103,7 @@ class HomeFragment : Fragment() {
 
                 override fun afterTextChanged(s: Editable?) {}
             })
+
 
         } else {
             binding.postRecyclerView.visibility = View.GONE
@@ -106,9 +121,23 @@ class HomeFragment : Fragment() {
             )
         }
 
+        binding.searchPetsInputs.setOnTouchListener { _, event ->
+            val drawableRight = 2
+            if (event.action == MotionEvent.ACTION_UP) {
+                if (event.rawX >= (binding.searchPetsInputs.right - binding.searchPetsInputs.compoundDrawables[drawableRight].bounds.width())) {
+                    binding.searchPetsInputs.text.clear()
+                    return@setOnTouchListener true
+                }
+            }
+            return@setOnTouchListener false
+
+        }
+
         return binding.root
 
     }
+
+
 
     override fun onDestroy() {
         super.onDestroy()
