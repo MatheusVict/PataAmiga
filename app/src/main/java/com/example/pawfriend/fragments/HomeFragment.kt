@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.provider.Settings
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -38,6 +40,9 @@ class HomeFragment : Fragment() {
     private var backButtonPressedOnce = false
     private val BackButtonPressInrterval = 2000
     private lateinit var onBackPressedCallBak: OnBackPressedCallback
+    private lateinit var allPostsList: List<ListPostsPets>
+    private lateinit var filteredPostsList: List<ListPostsPets>
+
 
     private lateinit var dialog: AlertDialog
 
@@ -75,6 +80,16 @@ class HomeFragment : Fragment() {
             binding.createPostButton.setOnClickListener {
                 findNavController().navigate(R.id.action_menu_home_to_menu_create_post)
             }
+            binding.searchPetsInputs.addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                    filterPosts(s.toString())
+                }
+
+                override fun afterTextChanged(s: Editable?) {}
+            })
+
         } else {
             binding.postRecyclerView.visibility = View.GONE
             binding.createPostInsteadOfContainer.visibility = View.VISIBLE
@@ -148,6 +163,27 @@ class HomeFragment : Fragment() {
         }
     }
 
+    private fun filterPosts(query: String) {
+        filteredPostsList = if (query.isEmpty()) {
+            allPostsList
+        } else {
+            allPostsList.filter { post ->
+                post.specie.contains(query, ignoreCase = true)
+            }
+        }
+        updateRecyclerView()
+    }
+
+    private fun updateRecyclerView() {
+        binding.postRecyclerView.adapter = PostPetsAdapter(filteredPostsList) { id ->
+            val bundle = Bundle().apply {
+                putString("idPost", id.toString())
+            }
+            findNavController().navigate(R.id.action_menu_home_to_viewPostFragment, bundle)
+        }
+    }
+
+
     private fun getAllPosts() {
         val retrofitClient =
             Service.getRetrofitInstance(AppGlobals.apiUrl, context = activity?.applicationContext!!)
@@ -171,6 +207,8 @@ class HomeFragment : Fragment() {
                     response.body()?.let {
                         if (it.isNotEmpty()) {
                             Log.i("APITESTE", "post: ${response.body()}")
+                            allPostsList = it
+                            filteredPostsList = it
                             intiRecyclerView(it)
                         }
                     }

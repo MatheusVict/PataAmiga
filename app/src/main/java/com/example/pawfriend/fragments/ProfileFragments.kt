@@ -132,8 +132,10 @@ class ProfileFragments : Fragment() {
 
         if (isServerError) {
             view.buttonDialog.setOnClickListener {
-                getUserInstance()
-                getAllUserPosts()
+                val intent = Intent(requireContext(), Login::class.java)
+                intent.flags =
+                    Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                startActivity(intent)
             }
         } else {
             view.buttonDialog.setOnClickListener {
@@ -227,7 +229,7 @@ class ProfileFragments : Fragment() {
                 } else {
                     Toast.makeText(
                         requireContext(),
-                        "Erro inesperado tente logar novamente",
+                        getString(R.string.try_login),
                         Toast.LENGTH_SHORT
                     ).show()
                     val intent = Intent(requireContext(), Login::class.java)
@@ -237,15 +239,13 @@ class ProfileFragments : Fragment() {
             }
 
             override fun onFailure(call: Call<User>, t: Throwable) {
-                Log.i("APITESTE", "error: $t")
-                Toast.makeText(
-                    requireContext(),
-                    "Erro inesperado tente logar novamente",
-                    Toast.LENGTH_SHORT
-                ).show()
-                val intent = Intent(requireContext(), Login::class.java)
-                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-                startActivity(intent)
+                showNoConnectionDialog(
+                    getString(R.string.dialog_error_request_title),
+                    getString(R.string.dialog_error_request_message),
+                    getString(R.string.server_error),
+                    resources.getDrawable(R.drawable.lost_server),
+                    true
+                )
             }
         })
     }

@@ -30,6 +30,7 @@
     <string name="update_post_success">Atualizado com sucesso</string>
     <string name="unauthorized_error">Tente logar novamente</string>
     <string name="image_error">Erro ao carregar a imagem</string>
+    <string name="try_login">Houve um erro inesperado tente logar novamente</string>
 
     <!--Dialogs-->
     <string name="dialog_connection_error_title">Acho que o gato pode ter derrubado\n o wifi</string>
@@ -65,6 +66,8 @@
     <string name="change_password_button">MUDAR</string>
     <string name="update_post_button">ATUALIZAR</string>
     <string name="server_error">logar novamente</string>
+    <string name="confirm_button">Sim</string>
+    <string name="refuse_button">Não</string>
 
     <!-- TextViews -->
     <string name="ask_account">JÁ POSSUI UMA CONTA?</string>
@@ -83,6 +86,7 @@
     <string name="create_post_race_label">Raça</string>
     <string name="create_post_location_label">Localização</string>
     <string name="create_post_sex_label">Sexo</string>
+    <string name="are_you_sure_delete_this_post">Tem certeza que quer apagar esse post?</string>
 
 
     <!-- AltImages -->
@@ -136,7 +140,7 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="search_for_pet">Busque por um pet</string>
+    <string name="search_for_pet">Busque por uma especié</string>
     <string name="your_pets_button">SEUS PETS</string>
     <string name="create_post_age_label">Idade</string>
     <string name="create_post_port_label">Porte</string>

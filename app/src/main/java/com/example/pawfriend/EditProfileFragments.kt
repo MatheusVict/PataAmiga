@@ -4,20 +4,24 @@ import android.app.Activity
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.provider.Settings
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.navigation.fragment.findNavController
 import com.example.pawfriend.NetworkUtils.Service
 import com.example.pawfriend.NetworkUtils.isNetworkAvailable
 import com.example.pawfriend.apiJsons.User
 import com.example.pawfriend.apiJsons.UserUpdate
+import com.example.pawfriend.databinding.CustomDialogBinding
 import com.example.pawfriend.databinding.FragmentEditProfileFragmentsBinding
 import com.example.pawfriend.global.AppGlobals
 import retrofit2.Call
@@ -30,6 +34,8 @@ class EditProfileFragments : Fragment() {
 
     private var _binding: FragmentEditProfileFragmentsBinding? = null
     private val binding: FragmentEditProfileFragmentsBinding get() = _binding!!
+
+    private lateinit var dialog: AlertDialog
 
     companion object {
         private const val REQUEST_IMAGE_PICK = 1
@@ -48,8 +54,8 @@ class EditProfileFragments : Fragment() {
         if (isNetworkAvailable(requireContext())) {
             getUserInstance()
         } else {
-            Toast.makeText(requireContext(), "Sem conexão com a rede", Toast.LENGTH_SHORT).show()
-            val intent = Intent(requireContext(), Login::class.java)
+            Toast.makeText(requireContext(), getString(R.string.connection_error), Toast.LENGTH_SHORT).show()
+            val intent = Intent(requireContext(), Home::class.java)
             intent.flags =
                 Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
             startActivity(intent)
@@ -100,6 +106,7 @@ class EditProfileFragments : Fragment() {
         return binding.root
     }
 
+
     private fun openGallery(requestCode: Int) {
         val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
         startActivityForResult(intent, requestCode)
@@ -137,6 +144,46 @@ class EditProfileFragments : Fragment() {
     private fun bytesToBase64(imageBytes: ByteArray): String {
         val base64 = android.util.Base64.encodeToString(imageBytes, android.util.Base64.DEFAULT)
         return base64.replace("\n", "")
+    }
+
+    private fun showNoConnectionDialog(
+        title: String,
+        message: String,
+        messageButton: String,
+        imageId: Drawable,
+        isServerError: Boolean
+    ) {
+        val build = AlertDialog.Builder(requireContext())
+
+        val view: CustomDialogBinding =
+            CustomDialogBinding.inflate(LayoutInflater.from(requireContext()))
+
+        view.closeDialog.setOnClickListener {
+            dialog.dismiss()
+        }
+        view.imageDialog.setImageDrawable(imageId)
+        view.titleDialog.text = title
+        view.messageDialog.text = message
+        view.buttonDialog.text = messageButton
+
+
+        if (isServerError) {
+            view.buttonDialog.setOnClickListener {
+                val intent = Intent(requireContext(), Login::class.java)
+                intent.flags =
+                    Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                startActivity(intent)
+            }
+        } else {
+            view.buttonDialog.setOnClickListener {
+                val intent = Intent(Settings.ACTION_WIRELESS_SETTINGS)
+                startActivity(intent)
+            }
+        }
+        build.setView(view.root)
+
+        dialog = build.create()
+        dialog.show()
     }
 
     override fun onDestroyView() {
@@ -200,16 +247,20 @@ class EditProfileFragments : Fragment() {
                         }
                     }
 
-                } else {
+                } else if (response.code() == 401 || response.code() == 403){
                     Toast.makeText(
                         requireContext(),
-                        "Erro inesperado tente logar novamente",
+                        getString(R.string.try_login),
                         Toast.LENGTH_SHORT
                     ).show()
                     val intent = Intent(requireContext(), Login::class.java)
                     intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
                     startActivity(intent)
-                }
+                } else Toast.makeText(
+                    requireContext(),
+                    getString(R.string.api_error),
+                    Toast.LENGTH_SHORT
+                ).show()
             }
 
             override fun onFailure(call: Call<User>, t: Throwable) {

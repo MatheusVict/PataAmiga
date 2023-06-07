@@ -45,6 +45,7 @@
         android:layout_height="50dp"
         android:layout_marginStart="19dp"
         android:layout_marginTop="17dp"
+        android:textColor="@color/black"
         android:background="@drawable/edittext_bg"
         android:drawableStart="@drawable/search_icon"
         android:drawablePadding="5dp"

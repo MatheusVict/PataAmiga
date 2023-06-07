@@ -78,9 +78,9 @@ class ViewPostFragment : Fragment() {
             binding.deletePostButton.setOnClickListener {
                 idPost?.let {
                     areYouSureAlertDialog(
-                        "tem certeza que deseja excluir este post?",
-                        "SIM",
-                        "Não",
+                        getString(R.string.are_you_sure_delete_this_post),
+                        getString(R.string.confirm_button),
+                        getString(R.string.refuse_button),
                         it
                     )
                 }
@@ -96,8 +96,7 @@ class ViewPostFragment : Fragment() {
                 getString(R.string.dialog_connection_error_title),
                 getString(R.string.dialog_connection_error_message),
                 getString(R.string.dialog_connection_error_button),
-                resources.getDrawable(R.drawable.lost_connectio),
-                idPost
+                resources.getDrawable(R.drawable.lost_connectio)
             )
         }
 
@@ -109,7 +108,6 @@ class ViewPostFragment : Fragment() {
         message: String,
         messageButton: String,
         imageId: Drawable,
-        idPost: Long?,
         isServerError: Boolean = false
 
     ) {
@@ -128,7 +126,10 @@ class ViewPostFragment : Fragment() {
 
 
         if (isServerError) {
-            view.buttonDialog.visibility = View.GONE
+            val intent = Intent(requireContext(), Login::class.java)
+            intent.flags =
+                Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+            startActivity(intent)
         } else {
             view.buttonDialog.setOnClickListener {
                 val intent = Intent(Settings.ACTION_WIRELESS_SETTINGS)
@@ -317,7 +318,13 @@ class ViewPostFragment : Fragment() {
             }
 
             override fun onFailure(call: Call<GetOnePost>, t: Throwable) {
-                TODO("Not yet implemented")
+                showNoConnectionDialog(
+                    getString(R.string.dialog_error_request_title),
+                    getString(R.string.dialog_error_request_message),
+                    getString(R.string.server_error),
+                    resources.getDrawable(R.drawable.lost_server),
+                    true
+                )
             }
         })
     }
@@ -351,7 +358,13 @@ class ViewPostFragment : Fragment() {
             }
 
             override fun onFailure(call: Call<User>, t: Throwable) {
-                TODO("Not yet implemented")
+                showNoConnectionDialog(
+                    getString(R.string.dialog_error_request_title),
+                    getString(R.string.dialog_error_request_message),
+                    getString(R.string.server_error),
+                    resources.getDrawable(R.drawable.lost_server),
+                    true
+                )
             }
         })
     }
@@ -386,7 +399,6 @@ class ViewPostFragment : Fragment() {
                     getString(R.string.dialog_error_request_message),
                     getString(R.string.dialog_error_request_button),
                     resources.getDrawable(R.drawable.lost_server),
-                    idPost,
                     true
                 )
             }

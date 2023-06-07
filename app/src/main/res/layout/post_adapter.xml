@@ -27,27 +27,27 @@
         android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="138dp"
+        android:layout_marginBottom="55dp"
         android:text="Name"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="19sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/userProfilePicCard"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/userProfilePicCard"
         app:layout_constraintTop_toTopOf="@+id/userProfilePicCard" />
 
     <TextView
         android:id="@+id/postRace"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
         android:layout_marginBottom="15dp"
         android:text="postRace"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="@+id/userProfilePicCard"
-        app:layout_constraintStart_toEndOf="@+id/userProfilePicCard"
+        app:layout_constraintStart_toStartOf="@+id/postName"
         app:layout_constraintTop_toBottomOf="@+id/postName"
         app:layout_constraintVertical_bias="0.275" />
 
@@ -55,34 +55,29 @@
         android:id="@+id/postSpecie"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="150dp"
-        android:layout_marginBottom="15dp"
+        android:layout_marginEnd="30dp"
         android:text="specie"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="15sp"
-        app:layout_constraintBottom_toBottomOf="@+id/userProfilePicCard"
+        app:layout_constraintBottom_toBottomOf="@+id/postRace"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.344"
         app:layout_constraintStart_toEndOf="@+id/postRace"
-        app:layout_constraintTop_toBottomOf="@+id/postName"
-        app:layout_constraintVertical_bias="0.25" />
+        app:layout_constraintTop_toTopOf="@+id/postRace" />
 
     <TextView
         android:id="@+id/postSex"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:layout_marginEnd="180dp"
         android:layout_marginBottom="20dp"
         android:text="sex"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="@+id/userProfilePicCard"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.287"
-        app:layout_constraintStart_toEndOf="@+id/userProfilePicCard"
+        app:layout_constraintEnd_toEndOf="@+id/postRace"
+        app:layout_constraintStart_toStartOf="@+id/postRace"
         app:layout_constraintTop_toBottomOf="@+id/postRace" />
 
     <TextView
@@ -90,12 +85,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
-        android:layout_marginEnd="200dp"
         android:text="location"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="15sp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/postSpecie"
+        app:layout_constraintStart_toEndOf="@+id/appCompatImageButton"
         app:layout_constraintTop_toBottomOf="@+id/postSex" />
 
     <androidx.appcompat.widget.AppCompatImageButton
@@ -104,11 +99,12 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="13dp"
         android:background="@color/white"
+        android:backgroundTint="@android:color/transparent"
         android:src="@drawable/baseline_location_on_24"
         android:tint="@color/blue"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/postLocation"
-        app:layout_constraintStart_toEndOf="@+id/userProfilePicCard"
+        app:layout_constraintEnd_toEndOf="@+id/postSex"
+        app:layout_constraintStart_toStartOf="@+id/postSex"
         app:layout_constraintTop_toBottomOf="@+id/postSex" />
 
     <ImageView
