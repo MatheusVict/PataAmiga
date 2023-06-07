@@ -58,7 +58,6 @@ class MainActivity : AppCompatActivity() {
                                startActivity(intent)
 
                            } else {
-                               Toast.makeText(this, "Erro ao logar", Toast.LENGTH_SHORT).show()
                                val intent = Intent(this, RegisterOrLogin::class.java)
                                startActivity(intent)
                                finish()
