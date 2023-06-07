@@ -5,16 +5,29 @@ import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.util.Patterns
 import android.widget.Button
 import android.widget.EditText
 import android.widget.RadioButton
 import android.widget.TextView
 import android.widget.Toast
+import com.example.pawfriend.NetworkUtils.Service
+import com.example.pawfriend.apiJsons.UserLogin
 import com.example.pawfriend.databinding.ActivityLoginBinding
+import com.example.pawfriend.global.AppGlobals
+import com.google.gson.Gson
+import com.google.gson.JsonObject
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class Login : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
+    private var isUserValid: Boolean = false
+    private var UserToken: String = ""
+    private var toastLoginMessage: String = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
@@ -25,7 +38,16 @@ class Login : AppCompatActivity() {
         emailFocusListener()
         passwordFocusListener()
 
+
         binding.buttonLoginScreen.setOnClickListener { submitForm() }
+
+        binding.forgotPassword.setOnClickListener {
+            val intent = Intent(this, ChangePassword::class.java)
+            if (binding.emailInput.text.toString().isNotEmpty()) {
+                intent.putExtra("userEmail", binding.emailInput.text.toString())
+            }
+            startActivity(intent)
+        }
     }
 
     private fun submitForm() {
@@ -44,11 +66,64 @@ class Login : AppCompatActivity() {
                 editor.putString("password", binding.passwordInput.text.toString())
                 editor.apply()
             }
-            // TODO: Login API and validation
-            val intent = Intent(this, Home::class.java)
-            startActivity(intent)
+            val user = UserLogin(
+                email = binding.emailInput.text.toString(),
+                password = binding.passwordInput.text.toString()
+            )
+            Log.i("APITESTE", "email e senha ${binding.emailInput.text.toString()} e senha ${binding.emailInput.text.toString()}")
+            login(user){isUserValid ->
+                if (isUserValid) {
+                    val sharedPreferences = this.getSharedPreferences("login_credentials", Context.MODE_PRIVATE)
+                    val editor = sharedPreferences.edit()
+                    editor.putString("token", UserToken)
+                    editor.apply()
+                    val intent = Intent(this, Home::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                    startActivity(intent)
+                } else Toast.makeText(applicationContext, toastLoginMessage, Toast.LENGTH_LONG).show()
+            }
+
         } else Toast.makeText(applicationContext, toastMessage, Toast.LENGTH_LONG).show()
     }
+
+
+    private fun login(user: UserLogin, callback: (Boolean) -> Unit) {
+        val retrofitClient = Service.getRetrofitInstance(AppGlobals.apiUrl, context = this)
+        val endpoint = retrofitClient.create(Endpoint::class.java)
+
+        endpoint.login(user).enqueue(object : Callback<Any> {
+            override fun onResponse(call: Call<Any>, response: Response<Any>) {
+                if (response.isSuccessful) {
+                    isUserValid = true
+                    val gson = Gson()
+                    val json = gson.toJson(response.body())
+                    val jsonObject = gson.fromJson(json, JsonObject::class.java)
+                    val message = jsonObject.get("message").asString
+                    UserToken = message
+                    Log.i(
+                        "APITESTE",
+                        "response: ${response.body()}" +
+                                "and $message"
+                    )
+                    callback(isUserValid)
+
+                } else {
+                    isUserValid = false
+                    toastLoginMessage = getString(R.string.login_invalid)
+                    Log.i("APITESTE", "response com erro da api: ${response}")
+                    callback(false)
+                }
+            }
+
+            override fun onFailure(call: Call<Any>, t: Throwable) {
+                isUserValid = false
+                toastLoginMessage = getString(R.string.connection_error)
+                Log.i("APITESTE", "Erro: $t e call: ${call}")
+                callback(false)
+            }
+        })
+    }
+
 
     private fun emailFocusListener() {
         binding.emailInput.setOnFocusChangeListener {_, focused ->

@@ -12,6 +12,42 @@
     <string name="register_one_name_length_wrong">O nome precisa ter ao menos 3 letras</string>
     <string name="register_one_birth_wrong">Preencha a data corretamente</string>
     <string name="register_two_location_length">O endereço precisa ter pelo menos 5 caracteres</string>
+    <string name="create_post_name_small">O nome do pet precisa ter pelo menos 3 letras</string>
+    <string name="create_post_years_empty">Se a idade dele for menor que 1 ano coloque 0</string>
+    <string name="create_post_mouths_empty">Se não souber os meses coloque o aproximado</string>
+    <string name="create_post_radios_empty">Selecione todos os marcadores</string>
+
+    <!--Toast-->
+    <string name="email_already_exists">O email informado já está cadastrado</string>
+    <string name="login_invalid">Credenciais invalidas</string>
+    <string name="connection_error">Houve um erro verifique sua conexão</string>
+    <string name="api_error">Houve um erro tente novamente mais tarde</string>
+    <string name="exit_confirm">Pressione novamente para sair</string>
+    <string name="change_password">Senha atualizada com sucesso</string>
+    <string name="change_password_user_not_found">Usuário não encontrado</string>
+    <string name="create_post">Pet anunciado!</string>
+    <string name="image_size_error">Esta imagem é muito grande, selecione outra</string>
+    <string name="update_post_success">Atualizado com sucesso</string>
+    <string name="unauthorized_error">Tente logar novamente</string>
+    <string name="image_error">Erro ao carregar a imagem</string>
+    <string name="try_login">Houve um erro inesperado tente logar novamente</string>
+
+    <!--Dialogs-->
+    <string name="dialog_connection_error_title">Acho que o gato pode ter derrubado\n o wifi</string>
+    <string name="dialog_connection_error_message">Verifique se você está conectado a alguma rede.\n Clique no botão e veja suas conexões</string>
+    <string name="dialog_connection_error_button">Verifiquar conexão</string>
+    <string name="dialog_whatsapp_empty">Esse usuário não cadastrou o whatsapp</string>
+    <string name="dialog_instagram_empty">Esse usuário não cadastrou o instagram</string>
+    <string name="dialog_facebook_empty">Esse usuário não cadastrou o facebook</string>
+
+    <string name="dialog_error_request_title">Parece que o cachorro comeu\n o fio do servidor</string>
+    <string name="dialog_error_request_message">Houve um erro inesperado no servido, tente novamente</string>
+    <string name="dialog_error_request_button">Tentar Novamente</string>
+
+
+    <!--Success -->
+
+    <string name="user_created">Registrado com sucesso</string>
 
     <!-- Buttons text -->
     <string name="register">CADASTRE-SE</string>
@@ -22,11 +58,36 @@
     <string name="home_icon_title">Home</string>
     <string name="profile_icon_title">perfil</string>
     <string name="create_post_icon_title">Criar post</string>
+    <string name="change_photo">ALTERAR</string>
+    <string name="remove_photo">REMOVER</string>
+    <string name="save_changes">ATUALIZAR</string>
+    <string name="create_post_instead_of">Crie um post</string>
+    <string name="create_post_button">PRONTO</string>
+    <string name="change_password_button">MUDAR</string>
+    <string name="update_post_button">ATUALIZAR</string>
+    <string name="server_error">logar novamente</string>
+    <string name="confirm_button">Sim</string>
+    <string name="refuse_button">Não</string>
 
     <!-- TextViews -->
     <string name="ask_account">JÁ POSSUI UMA CONTA?</string>
     <string name="registerTwoTextView">Meios de contato com você</string>
     <string name="pets_list_title">pets para adoção</string>
+    <string name="edit_profile_title">EDITAR PERFIL</string>
+    <string name="your_pic_title">SUA FOTO</string>
+    <string name="your_banner_title">SEU BANNER</string>
+    <string name="your_name_text_View">Nome</string>
+    <string name="your_location_text_View">Localização</string>
+    <string name="none_post_home">Parece que não há nenhum post ainda.\n crie o seu</string>
+    <string name="create_post_input_name_label">Nome</string>
+    <string name="create_post_input_specie_label">Espécie</string>
+    <string name="create_post_title">cadastrar novo pet</string>
+    <string name="create_post_add_pic">Adicione uma foto do animal</string>
+    <string name="create_post_race_label">Raça</string>
+    <string name="create_post_location_label">Localização</string>
+    <string name="create_post_sex_label">Sexo</string>
+    <string name="are_you_sure_delete_this_post">Tem certeza que quer apagar esse post?</string>
+
 
     <!-- AltImages -->
     <string name="backGround">app background</string>
@@ -44,11 +105,83 @@
     <string name="register_one_password_confirm">Verifique a senha*</string>
     <string name="register_one_name_input">Seu nome completo*</string>
     <string name="register_one_birth_input">DD/MM/AAAA*</string>
+    <string name="edit_user_name">Edite o seu nome</string>
+    <string name="edit_user_location">Edite sua localização</string>
+    <string name="edit_user_phone">Edite seu telefone</string>
+    <string name="edit_user_whatsapp">Edite seu Whatsapp</string>
+    <string name="edit_user_instagram">Edite seu Instagram</string>
+    <string name="edit_user_facebook">Edite seu Facebook</string>
+    <string name="create_post_name_pet">Nome do animal</string>
+    <string name="create_post_location_pet">Informe a localizaço do animal</string>
+    <string name="create_post_female_radio">Fêmea</string>
+    <string name="create_post_male_radio">macho</string>
+    <string name="create_post_years">Anos</string>
+    <string name="create_post_mouths">Meses</string>
+    <string name="create_radio_port_small">Pequeno</string>
+    <string name="create_radio_port_medium">Médio</string>
+    <string name="create_radio_port_big">grande</string>
+    <string name="create_post_is_castrated">Castrado</string>
+    <string name="create_post_is_Vaccinated">Vacinado</string>
+    <string name="create_post_is_dewormed">Vermifungado</string>
+    <string name="create_post_is_pedigree">Pedigree</string>
+    <string name="create_post_is_especial_need">Cuidados especiais</string>
+    <string name="create_post_about">Fale um pouco mais sobre seu pet</string>
+    <string name="change_password_new_password">Nova senha*</string>
 
+
+    <!-- Toast -->
+    <string name="verify_your_connection">verifique sua Conexão com a internet</string>
     <!-- Assets -->
     <string name="app_name">Pata amiga</string>
 
+    <!--Connection throwable-->
+
+    <string name="without_connection">Parece que você não possui conexão com a internt</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="search_for_pet">Busque por um pet</string>
+    <string name="search_for_pet">Busque por uma especié</string>
+    <string name="your_pets_button">SEUS PETS</string>
+    <string name="create_post_age_label">Idade</string>
+    <string name="create_post_port_label">Porte</string>
+
+
+    <!--arrays-->
+    <string-array name="species_array">
+        <item>Selecione a espécie do animal</item>
+        <item>Gato</item>
+        <item>Cachorro</item>
+        <item>Coelho</item>
+    </string-array>
+    <string-array name="cats_races_array">
+        <item>vira-lata</item>
+        <item>Persa</item>
+        <item>Siamese</item>
+        <item>Maine Coon</item>
+        <item>Sphynx</item>
+        <item>Bengal</item>
+        <item>Ragdoll</item>
+    </string-array>
+
+    <string-array name="dog_races_array">
+        <item>vira-lata</item>
+        <item>Labrador</item>
+        <item>Bulldog</item>
+        <item>Golden Retriever</item>
+        <item>Pastor alemão</item>
+        <item>Beagle</item>
+        <item>Rotivalei</item>
+    </string-array>
+
+    <string-array name="bunny_races_array">
+        <item>vira-lata</item>
+        <item>Mini Rex</item>
+        <item>Lionhead</item>
+        <item>Holland</item>
+        <item>Holland</item>
+        <item>Flemish</item>
+        <item>Netherland</item>
+        <item>Angorá</item>
+
+    </string-array>
 </resources>
