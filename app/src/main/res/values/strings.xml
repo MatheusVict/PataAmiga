@@ -37,7 +37,6 @@
     <string name="dialog_error_request_button">Tentar Novamente</string>
 
 
-
     <!--Success -->
 
     <string name="user_created">Registrado com sucesso</string>
@@ -56,6 +55,7 @@
     <string name="save_changes">ATUALIZAR</string>
     <string name="create_post_instead_of">Crie um post</string>
     <string name="create_post_button">PRONTO</string>
+    <string name="change_password_button">MUDAR</string>
 
     <!-- TextViews -->
     <string name="ask_account">JÁ POSSUI UMA CONTA?</string>
@@ -113,6 +113,7 @@
     <string name="create_post_is_pedigree">Pedigree</string>
     <string name="create_post_is_especial_need">Cuidados especiais</string>
     <string name="create_post_about">Fale um pouco mais sobre seu pet</string>
+    <string name="change_password_new_password">Nova senha*</string>
 
 
     <!-- Toast -->

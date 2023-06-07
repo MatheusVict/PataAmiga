@@ -38,7 +38,16 @@ class Login : AppCompatActivity() {
         emailFocusListener()
         passwordFocusListener()
 
+
         binding.buttonLoginScreen.setOnClickListener { submitForm() }
+
+        binding.forgotPassword.setOnClickListener {
+            val intent = Intent(this, ChangePassword::class.java)
+            if (binding.emailInput.text.toString().isNotEmpty()) {
+                intent.putExtra("userEmail", binding.emailInput.text.toString())
+            }
+            startActivity(intent)
+        }
     }
 
     private fun submitForm() {
