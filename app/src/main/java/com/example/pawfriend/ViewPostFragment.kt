@@ -1,6 +1,9 @@
 package com.example.pawfriend
 
 
+import android.content.ClipData
+import android.content.Context
+import android.content.ClipboardManager
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -21,9 +24,11 @@ import com.example.pawfriend.NetworkUtils.isNetworkAvailable
 import com.example.pawfriend.apiJsons.GetOnePost
 import com.example.pawfriend.apiJsons.User
 import com.example.pawfriend.databinding.AreYouSureDialogBinding
+import com.example.pawfriend.databinding.ContactsAlertDialogBinding
 import com.example.pawfriend.databinding.CustomDialogBinding
 import com.example.pawfriend.databinding.FragmentViewPostBinding
 import com.example.pawfriend.global.AppGlobals
+import org.w3c.dom.Text
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -83,7 +88,7 @@ class ViewPostFragment : Fragment() {
             }
 
             binding.buttonAdoppetButton.setOnClickListener {
-
+                getUserId()
             }
         } else {
 
@@ -167,6 +172,80 @@ class ViewPostFragment : Fragment() {
         dialog = build.create()
         dialog.show()
     }
+    private fun contactCardDialog(
+        userEmail: String,
+        userPhone: String,
+        userWhatsapp: String,
+        userInstagram: String?,
+        userFaceBook: String?
+    ) {
+        val build = AlertDialog.Builder(requireContext())
+
+        val view: ContactsAlertDialogBinding =
+            ContactsAlertDialogBinding.inflate(LayoutInflater.from(requireContext()))
+
+        view.userEmailText.text = userEmail
+        view.userPhoneText.text = userPhone
+        view.userWhatsappText.text = userWhatsapp
+        view.userInstagramText.text = userInstagram
+        view.userFacebookText.text = userFaceBook
+
+        view.userEmailText.setOnClickListener {
+            val textToCopy = view.userEmailText.text.toString()
+
+            val clipboardManager = requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+            val clipData = ClipData.newPlainText("email", textToCopy)
+            clipboardManager.setPrimaryClip(clipData)
+
+            Toast.makeText(requireContext(), "copiado", Toast.LENGTH_SHORT).show()
+        }
+        view.userPhoneText.setOnClickListener {
+            val textToCopy = view.userPhoneText.text.toString()
+
+            val clipboardManager = requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+            val clipData = ClipData.newPlainText("phone", textToCopy)
+            clipboardManager.setPrimaryClip(clipData)
+
+            Toast.makeText(requireContext(), "copiado", Toast.LENGTH_SHORT).show()
+        }
+        view.userWhatsappText.setOnClickListener {
+            val textToCopy = view.userWhatsappText.text.toString()
+
+            val clipboardManager = requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+            val clipData = ClipData.newPlainText("phone", textToCopy)
+            clipboardManager.setPrimaryClip(clipData)
+
+            Toast.makeText(requireContext(), "copiado", Toast.LENGTH_SHORT).show()
+        }
+        view.userInstagramText.setOnClickListener {
+            val textToCopy = view.userInstagramText.text.toString()
+
+            val clipboardManager = requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+            val clipData = ClipData.newPlainText("phone", textToCopy)
+            clipboardManager.setPrimaryClip(clipData)
+
+            Toast.makeText(requireContext(), "copiado", Toast.LENGTH_SHORT).show()
+        }
+        view.userFacebookText.setOnClickListener {
+            val textToCopy = view.userFacebookText.text.toString()
+
+            val clipboardManager = requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+            val clipData = ClipData.newPlainText("phone", textToCopy)
+            clipboardManager.setPrimaryClip(clipData)
+
+            Toast.makeText(requireContext(), "copiado", Toast.LENGTH_SHORT).show()
+        }
+
+        view.closeButton.setOnClickListener {
+            dialog.dismiss()
+        }
+
+
+        build.setView(view.root)
+
+        dialog = build.create()
+        dialog.show()
+    }
 
     private fun getPostInstance(idPost: Long) {
         val retrofitClient =
@@ -238,6 +317,40 @@ class ViewPostFragment : Fragment() {
             }
 
             override fun onFailure(call: Call<GetOnePost>, t: Throwable) {
+                TODO("Not yet implemented")
+            }
+        })
+    }
+
+    private fun getUserId() {
+        val retrofitClient =
+            Service.getRetrofitInstance(AppGlobals.apiUrl, context = activity?.applicationContext!!)
+        val endpoint = retrofitClient.create(Endpoint::class.java)
+
+        endpoint.getUserProfile().enqueue(object: Callback<User> {
+            override fun onResponse(call: Call<User>, response: Response<User>) {
+                if (response.isSuccessful) {
+                    response.body()?.let {
+                        val user = User(
+                            email = it.email,
+                            phone = it.phone,
+                            whatsapp = it.whatsapp,
+                            instagram = it.instagram,
+                            facebook = it.facebook
+                        )
+                        contactCardDialog(
+                            user.email,
+                            user.phone,
+                            user?.whatsapp ?: getString(R.string.dialog_whatsapp_empty),
+                            user?.instagram ?: getString(R.string.dialog_instagram_empty),
+                            user?.facebook ?: getString(R.string.dialog_facebook_empty)
+                        )
+                    }
+
+                }
+            }
+
+            override fun onFailure(call: Call<User>, t: Throwable) {
                 TODO("Not yet implemented")
             }
         })

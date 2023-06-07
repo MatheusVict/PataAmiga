@@ -27,6 +27,9 @@
     <string name="dialog_connection_error_title">Acho que o gato pode ter derrubado\n o wifi</string>
     <string name="dialog_connection_error_message">Verifique se você está conectado a alguma rede.\n Clique no botão e veja suas conexões</string>
     <string name="dialog_connection_error_button">Verifiquar conexão</string>
+    <string name="dialog_whatsapp_empty">Esse usuário não cadastrou o whatsapp</string>
+    <string name="dialog_instagram_empty">Esse usuário não cadastrou o instagram</string>
+    <string name="dialog_facebook_empty">Esse usuário não cadastrou o facebook</string>
 
     <string name="dialog_error_request_title">Parece que o cachorro comeu\n o fio do servidor</string>
     <string name="dialog_error_request_message">Houve um erro inesperado no servido, tente novamente</string>
