@@ -49,6 +49,8 @@ class ProfileFragments : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
+        binding.postRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+        binding.postRecyclerView.setHasFixedSize(true)
         if (isNetworkAvailable(requireContext())) {
 
             getUserInstance()
@@ -98,8 +100,6 @@ class ProfileFragments : Fragment() {
     }
 
     private fun intiRecyclerView(postPetsList: List<ListPostsPets>) {
-        binding.postRecyclerView.layoutManager = LinearLayoutManager(requireContext())
-        binding.postRecyclerView.setHasFixedSize(true)
         binding.postRecyclerView.adapter = PostPetsAdapter(postPetsList) { id ->
             val bundle = Bundle().apply {
                 putString("idPost", id.toString())
@@ -274,7 +274,6 @@ class ProfileFragments : Fragment() {
                     }
                     response.body()?.let {
                         if (it.isNotEmpty()) {
-                            Log.i("APITESTE", "post: ${response.body()}")
                             intiRecyclerView(it)
                         }
                     }

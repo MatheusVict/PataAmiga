@@ -57,6 +57,8 @@ class HomeFragment : Fragment() {
     ): View? {
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        binding.postRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+        binding.postRecyclerView.setHasFixedSize(true)
 
         onBackPressedCallBak = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
@@ -182,8 +184,6 @@ class HomeFragment : Fragment() {
     }
 
     private fun intiRecyclerView(postPetsList: List<ListPostsPets>) {
-        binding.postRecyclerView.layoutManager = LinearLayoutManager(requireContext())
-        binding.postRecyclerView.setHasFixedSize(true)
         binding.postRecyclerView.adapter = PostPetsAdapter(postPetsList) { id ->
             val bundle = Bundle().apply {
                 putString("idPost", id.toString())
@@ -193,6 +193,9 @@ class HomeFragment : Fragment() {
     }
 
     private fun filterPosts(query: String) {
+        if (!::allPostsList.isInitialized) {
+            return
+        }
         filteredPostsList = if (query.isEmpty()) {
             allPostsList
         } else {
@@ -204,6 +207,8 @@ class HomeFragment : Fragment() {
     }
 
     private fun updateRecyclerView() {
+        binding.postRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+        binding.postRecyclerView.setHasFixedSize(true)
         binding.postRecyclerView.adapter = PostPetsAdapter(filteredPostsList) { id ->
             val bundle = Bundle().apply {
                 putString("idPost", id.toString())
@@ -211,6 +216,7 @@ class HomeFragment : Fragment() {
             findNavController().navigate(R.id.action_menu_home_to_viewPostFragment, bundle)
         }
     }
+
 
 
     private fun getAllPosts() {
