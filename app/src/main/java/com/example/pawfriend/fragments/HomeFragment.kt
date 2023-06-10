@@ -87,6 +87,7 @@ class HomeFragment : Fragment() {
 
         if (isNetworkAvailable(requireContext())) {
             getAllPosts()
+            initListener()
             binding.createPostButton.setOnClickListener {
                 findNavController().navigate(R.id.action_menu_home_to_menu_create_post)
             }
@@ -140,10 +141,13 @@ class HomeFragment : Fragment() {
     }
 
 
-
     override fun onDestroy() {
         super.onDestroy()
         onBackPressedCallBak.remove()
+    }
+
+    private fun initListener() {
+        binding.swipeRefreshLayout.setOnRefreshListener(this::getAllPosts)
     }
 
     private fun showNoConnectionDialog(
@@ -218,7 +222,6 @@ class HomeFragment : Fragment() {
     }
 
 
-
     private fun getAllPosts() {
         val retrofitClient =
             Service.getRetrofitInstance(AppGlobals.apiUrl, context = activity?.applicationContext!!)
@@ -244,6 +247,8 @@ class HomeFragment : Fragment() {
                             Log.i("APITESTE", "post: ${response.body()}")
                             allPostsList = it
                             filteredPostsList = it
+                            if (binding.swipeRefreshLayout.isRefreshing) binding.swipeRefreshLayout.isRefreshing =
+                                false
                             intiRecyclerView(it)
                         }
                     }
