@@ -287,7 +287,7 @@ class ViewPostFragment : Fragment() {
                             post?.userEmail ?: getString(R.string.dialog_whatsapp_empty),
                             post?.userPhone ?: getString(R.string.dialog_whatsapp_empty),
                             post?.userWhatsapp ?: getString(R.string.dialog_whatsapp_empty),
-                            post?.userWhatsapp ?: getString(R.string.dialog_instagram_empty),
+                            post?.userInstagram ?: getString(R.string.dialog_instagram_empty),
                             post?.userFacebook ?: getString(R.string.dialog_facebook_empty)
                         )
                     }

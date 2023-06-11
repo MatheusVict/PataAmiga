@@ -90,8 +90,8 @@ class EditProfileFragments : Fragment() {
             val user = UserUpdate(
                 name = binding.userNameInput.text.toString(),
                 location = binding.userLocation.text.toString(),
-                phone = binding.userPhoneInput.text.toString(),
-                whatsapp = binding.userWhatsappInput.text.toString(),
+                phone = binding.userPhoneInput.masked,
+                whatsapp = binding.userWhatsappInput.masked,
                 instagram = binding.userInstagramInput.text.toString(),
                 facebook = binding.userFacebookInput.text.toString(),
                 profilePic = profileImageBase64,
