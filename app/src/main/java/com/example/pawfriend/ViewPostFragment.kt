@@ -86,10 +86,6 @@ class ViewPostFragment : Fragment() {
                 }
 
             }
-
-            binding.buttonAdoppetButton.setOnClickListener {
-                getUserId()
-            }
         } else {
 
             showNoConnectionDialog(
@@ -278,8 +274,24 @@ class ViewPostFragment : Fragment() {
                             userPic = it.userPic,
                             userName = it.userName,
                             specie = it.specie,
+                            userWhatsapp = it.userWhatsapp,
+                            userEmail = it.userEmail,
+                            userFacebook = it.userFacebook,
+                            userInstagram = it.userInstagram,
+                            userPhone = it.userPhone
                         )
                     }
+
+                    binding.buttonAdoppetButton.setOnClickListener {
+                        contactCardDialog(
+                            post?.userEmail ?: getString(R.string.dialog_whatsapp_empty),
+                            post?.userPhone ?: getString(R.string.dialog_whatsapp_empty),
+                            post?.userWhatsapp ?: getString(R.string.dialog_whatsapp_empty),
+                            post?.userWhatsapp ?: getString(R.string.dialog_instagram_empty),
+                            post?.userFacebook ?: getString(R.string.dialog_facebook_empty)
+                        )
+                    }
+
                     Log.i("APITESTE", "location ${post?.petLocation} e specie ${post?.specie}")
 
                     binding.postPetName.text = post?.name
@@ -329,45 +341,6 @@ class ViewPostFragment : Fragment() {
         })
     }
 
-    private fun getUserId() {
-        val retrofitClient =
-            Service.getRetrofitInstance(AppGlobals.apiUrl, context = activity?.applicationContext!!)
-        val endpoint = retrofitClient.create(Endpoint::class.java)
-
-        endpoint.getUserProfile().enqueue(object: Callback<User> {
-            override fun onResponse(call: Call<User>, response: Response<User>) {
-                if (response.isSuccessful) {
-                    response.body()?.let {
-                        val user = User(
-                            email = it.email,
-                            phone = it.phone,
-                            whatsapp = it.whatsapp,
-                            instagram = it.instagram,
-                            facebook = it.facebook
-                        )
-                        contactCardDialog(
-                            user.email,
-                            user.phone,
-                            user?.whatsapp ?: getString(R.string.dialog_whatsapp_empty),
-                            user?.instagram ?: getString(R.string.dialog_instagram_empty),
-                            user?.facebook ?: getString(R.string.dialog_facebook_empty)
-                        )
-                    }
-
-                }
-            }
-
-            override fun onFailure(call: Call<User>, t: Throwable) {
-                showNoConnectionDialog(
-                    getString(R.string.dialog_error_request_title),
-                    getString(R.string.dialog_error_request_message),
-                    getString(R.string.server_error),
-                    resources.getDrawable(R.drawable.lost_server),
-                    true
-                )
-            }
-        })
-    }
 
     private fun decodeBase64ToBitMap(base64Code: String): Bitmap? {
         base64Code.let {

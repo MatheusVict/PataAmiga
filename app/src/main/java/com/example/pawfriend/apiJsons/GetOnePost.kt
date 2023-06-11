@@ -40,4 +40,14 @@ data class GetOnePost(
     val userPic: String?,
 
     val userName: String,
+
+    val userEmail: String = "",
+
+    val userPhone: String = "",
+
+    val userWhatsapp: String? = null,
+
+    val userInstagram: String? = null,
+
+    val userFacebook: String? = null,
 )
